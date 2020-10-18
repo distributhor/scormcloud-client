@@ -1,7 +1,10 @@
 .env
 src/test.ts
 
-dist
+dist/index.d.ts
+dist/index.d.ts.map
+dist/index.js.map
+
 archive
 
 node_modules
