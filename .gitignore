@@ -1,10 +1,8 @@
 .env
-src/test.ts
-
 dist
 archive
-
 node_modules
+
 package-lock.json
 yarn.lock
 .npm

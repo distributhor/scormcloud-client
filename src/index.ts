@@ -531,4 +531,15 @@ export class ScormClient {
       throw new ScormClientError(e);
     }
   }
+
+  invalidateAuth(): void {
+    this.auth = null;
+    this.appId = null;
+    this.secretKey = null;
+    this.scope = null;
+  }
+
+  invalidateAuthToken(): void {
+    this.auth = null;
+  }
 }
