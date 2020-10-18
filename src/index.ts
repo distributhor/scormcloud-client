@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import superagent, { Response } from "superagent";
 
 const BASE_PATH = "https://cloud.scorm.com/api/v2";
@@ -102,6 +103,16 @@ export interface CourseUploadResponse {
   importJobResult?: ImportJobResult;
 }
 
+export interface Options {
+  [key: string]: any;
+  // isRetry?: boolean;
+}
+
+export interface CourseUploadOptions extends Options {
+  waitForResult?: number;
+  mayCreateNewVersion?: boolean;
+}
+
 const TypeChecks = {
   containsErrorProperty: (x: any): x is ErrorProperty => {
     return x.error;
@@ -134,6 +145,12 @@ const StatusChecks = {
 };
 
 const Util = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  hasProperty<X extends {}, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> {
+    // eslint-disable-next-line no-prototype-builtins
+    return obj.hasOwnProperty(prop);
+  },
+
   sleep: (milliseconds: number) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   },
@@ -310,22 +327,22 @@ export class ScormClient {
     }
   }
 
-  async ping(isRetry = false): Promise<PingResponse> {
+  async ping(options: Options = {}): Promise<PingResponse> {
     await this.checkAuthentication();
 
     try {
       return (await superagent.get(`${BASE_PATH}/ping`).set("Authorization", this.authString())).body;
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.ping(true);
+        return this.ping(Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async getCourse(courseId: string, isRetry = false): Promise<Course> {
+  async getCourse(courseId: string, options: Options = {}): Promise<Course> {
     await this.checkAuthentication();
 
     try {
@@ -337,9 +354,9 @@ export class ScormClient {
           .query(`includeCourseMetadata=false`)
       ).body;
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.getCourse(courseId, true);
+        return this.getCourse(courseId, Object.assign({ isRetry: true }, options));
       }
 
       if (StatusChecks.notFound(e)) {
@@ -350,16 +367,16 @@ export class ScormClient {
     }
   }
 
-  async getCourses(isRetry = false): Promise<Course[]> {
+  async getCourses(options: Options = {}): Promise<Course[]> {
     await this.checkAuthentication();
 
     try {
       const response = await superagent.get(`${BASE_PATH}/courses`).set("Authorization", this.authString());
       return response.body.courses || [];
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.getCourses(true);
+        return this.getCourses(Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
@@ -369,19 +386,23 @@ export class ScormClient {
   async uploadCourse(
     courseId: string,
     filePath: string,
-    waitForResult = 0,
-    isRetry = false
+    options: CourseUploadOptions = {}
   ): Promise<CourseUploadResponse> {
     await this.checkAuthentication();
 
     try {
-      const response = await superagent
+      const request = superagent
         .post(`${BASE_PATH}/courses/importJobs/upload`)
         .set("Authorization", this.authString())
         .set("uploadedContentType", Util.scormUploadType(filePath))
         .query(`courseId=${courseId}`)
-        .query("mayCreateNewVersion=true")
         .attach("file", filePath);
+
+      if (options.mayCreateNewVersion) {
+        request.query("mayCreateNewVersion=true");
+      }
+
+      const response = await request;
 
       if (!response.body.result) {
         return {
@@ -389,49 +410,47 @@ export class ScormClient {
         };
       }
 
-      if (!waitForResult) {
+      if (!options.waitForResult) {
         return {
           courseId: response.body.result,
         };
       }
 
-      if (response.body.result && waitForResult) {
-        await Util.sleep(waitForResult);
+      await Util.sleep(options.waitForResult);
 
-        const importJobResult = await this.getCourseUploadStatus(response.body.result);
-        console.log(importJobResult);
-        return {
-          courseId: response.body.result,
-          importJobResult,
-        };
-      }
+      const importJobResult = await this.getCourseUploadStatus(response.body.result);
+
+      return {
+        courseId: response.body.result,
+        importJobResult,
+      };
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.uploadCourse(courseId, filePath, waitForResult, true);
+        return this.uploadCourse(courseId, filePath, Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async getCourseUploadStatus(jobId: string, isRetry = false): Promise<ImportJobResult> {
+  async getCourseUploadStatus(jobId: string, options: Options = {}): Promise<ImportJobResult> {
     await this.checkAuthentication();
 
     try {
       return (await superagent.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set("Authorization", this.authString()))
         .body;
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.getCourseUploadStatus(jobId, true);
+        return this.getCourseUploadStatus(jobId, Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async setCourseTitle(courseId: string, title: string, isRetry = false): Promise<SuccessIndicator> {
+  async setCourseTitle(courseId: string, title: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -448,16 +467,16 @@ export class ScormClient {
         success: StatusChecks.isSuccess(response),
       };
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.setCourseTitle(courseId, title, true);
+        return this.setCourseTitle(courseId, title, Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async deleteCourse(courseId: string, isRetry = false): Promise<SuccessIndicator> {
+  async deleteCourse(courseId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -473,16 +492,16 @@ export class ScormClient {
         success: StatusChecks.isSuccess(response),
       };
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.deleteCourse(courseId, true);
+        return this.deleteCourse(courseId, Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async getCourseVersions(courseId: string, isRetry = false): Promise<Course[]> {
+  async getCourseVersions(courseId: string, options: Options = {}): Promise<Course[]> {
     await this.checkAuthentication();
 
     try {
@@ -494,9 +513,9 @@ export class ScormClient {
 
       return response.body.courses || [];
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.getCourseVersions(courseId, true);
+        return this.getCourseVersions(courseId, Object.assign({ isRetry: true }, options));
       }
 
       if (StatusChecks.notFound(e)) {
@@ -507,7 +526,7 @@ export class ScormClient {
     }
   }
 
-  async deleteCourseVersion(courseId: string, versionId: number, isRetry = false): Promise<SuccessIndicator> {
+  async deleteCourseVersion(courseId: string, versionId: number, options: Options = {}): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -523,9 +542,9 @@ export class ScormClient {
         success: StatusChecks.isSuccess(response),
       };
     } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+      if (!options.isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.deleteCourseVersion(courseId, versionId, true);
+        return this.deleteCourseVersion(courseId, versionId, Object.assign({ isRetry: true }, options));
       }
 
       throw new ScormClientError(e);
