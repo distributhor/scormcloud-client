@@ -2,13 +2,19 @@ import superagent, { Response } from "superagent";
 
 const BASE_PATH = "https://cloud.scorm.com/api/v2";
 
+// const enum Auth {
+//   OAUTH = "OAUTH",
+//   APP_NORMAL = "APP_NORMAL",
+//   APP_MANAGEMENT = "APP_MANAGEMENT",
+// }
+
 export interface AuthToken {
   access_token: string;
   expires_in?: number;
   token_type?: string;
 }
 
-interface ErrorObject {
+export interface ErrorObject {
   message: string;
 }
 
@@ -35,7 +41,12 @@ export interface PingResponse {
   currentTime: string;
 }
 
-export interface ScormMetaData {
+export interface SuccessIndicator {
+  success: boolean;
+  message?: string;
+}
+
+export interface CourseMeta {
   title?: string;
   titleLanguage?: string;
   description?: string;
@@ -68,13 +79,8 @@ export interface Course {
   courseLearningStandard?: string;
   tags?: string[];
   dispatched?: boolean;
-  metadata?: ScormMetaData;
+  metadata?: CourseMeta;
   rootActivity?: CourseActivity;
-}
-
-export interface CourseList {
-  courses?: Course[];
-  more?: string;
 }
 
 export interface ImportResult {
@@ -247,18 +253,6 @@ export class ScormClient {
     this.timeout = timeout;
   }
 
-  private static get OAUTH(): string {
-    return "OAUTH";
-  }
-
-  private static get APP_NORMAL(): string {
-    return "APP_NORMAL";
-  }
-
-  private static get APP_MANAGEMENT(): string {
-    return "APP_MANAGEMENT";
-  }
-
   private static get DEFAULT_TIMEOUT(): number {
     return 36000;
   }
@@ -361,7 +355,7 @@ export class ScormClient {
 
     try {
       const response = await superagent.get(`${BASE_PATH}/courses`).set("Authorization", this.authString());
-      return response.body.courses ? response.body.courses : [];
+      return response.body.courses || [];
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
@@ -437,7 +431,7 @@ export class ScormClient {
     }
   }
 
-  async setCourseTitle(courseId: string, title: string, isRetry = false): Promise<any> {
+  async setCourseTitle(courseId: string, title: string, isRetry = false): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -446,11 +440,13 @@ export class ScormClient {
         .set("Authorization", this.authString())
         .send({ title: title });
 
-      if (!StatusChecks.isSuccess(response)) {
-        throw new ScormClientError(`Failed to set course title '${courseId}'`);
-      }
+      // if (!StatusChecks.isSuccess(response)) {
+      //   throw new ScormClientError(`Failed to set course title '${courseId}'`);
+      // }
 
-      return response.body;
+      return {
+        success: StatusChecks.isSuccess(response),
+      };
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
@@ -461,7 +457,7 @@ export class ScormClient {
     }
   }
 
-  async deleteCourse(courseId: string, isRetry = false): Promise<any> {
+  async deleteCourse(courseId: string, isRetry = false): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -469,11 +465,13 @@ export class ScormClient {
         .delete(`${BASE_PATH}/courses/${courseId}`)
         .set("Authorization", this.authString());
 
-      if (!StatusChecks.isSuccess(response)) {
-        throw new ScormClientError(`Failed to delete the course '${courseId}'`);
-      }
+      // if (!StatusChecks.isSuccess(response)) {
+      //   throw new ScormClientError(`Failed to delete the course '${courseId}'`);
+      // }
 
-      return response.body;
+      return {
+        success: StatusChecks.isSuccess(response),
+      };
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
@@ -484,17 +482,17 @@ export class ScormClient {
     }
   }
 
-  async getCourseVersions(courseId: string, isRetry = false): Promise<any> {
+  async getCourseVersions(courseId: string, isRetry = false): Promise<Course[]> {
     await this.checkAuthentication();
 
     try {
-      return (
-        await superagent
-          .get(`${BASE_PATH}/courses/${courseId}/versions`)
-          .set("Authorization", this.authString())
-          .query(`includeRegistrationCount=true`)
-          .query(`includeCourseMetadata=false`)
-      ).body;
+      const response = await superagent
+        .get(`${BASE_PATH}/courses/${courseId}/versions`)
+        .set("Authorization", this.authString())
+        .query(`includeRegistrationCount=true`)
+        .query(`includeCourseMetadata=false`);
+
+      return response.body.courses || [];
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
@@ -502,14 +500,14 @@ export class ScormClient {
       }
 
       if (StatusChecks.notFound(e)) {
-        return null; // course does not exist, but query was for course versions, return [] instead?
+        return null;
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async deleteCourseVersion(courseId: string, versionId: number, isRetry = false): Promise<any> {
+  async deleteCourseVersion(courseId: string, versionId: number, isRetry = false): Promise<SuccessIndicator> {
     await this.checkAuthentication();
 
     try {
@@ -517,11 +515,13 @@ export class ScormClient {
         .delete(`${BASE_PATH}/courses/${courseId}/versions/${versionId}`)
         .set("Authorization", this.authString());
 
-      if (!StatusChecks.isSuccess(response)) {
-        throw new ScormClientError(`Failed to delete the course version '${courseId} ${versionId}'`);
-      }
+      // if (!StatusChecks.isSuccess(response)) {
+      //   throw new ScormClientError(`Failed to delete the course version '${courseId} ${versionId}'`);
+      // }
 
-      return response.body;
+      return {
+        success: StatusChecks.isSuccess(response),
+      };
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
