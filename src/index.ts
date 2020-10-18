@@ -8,25 +8,25 @@ export interface AuthToken {
   token_type?: string;
 }
 
-export interface ErrorMessage {
+interface ErrorObject {
   message: string;
 }
 
-export interface ErrorProperty {
+interface ErrorProperty {
   error: string;
 }
 
-export interface HttpResponse extends Response {
+interface HttpResponse extends Response {
   body: any;
   status: number;
 }
 
-export interface HttpErrorResponse extends HttpResponse {
+interface HttpErrorResponse extends HttpResponse {
   body: ErrorProperty;
   error: any;
 }
 
-export interface HttpError {
+interface HttpError {
   response: HttpErrorResponse;
 }
 
@@ -35,13 +35,74 @@ export interface PingResponse {
   currentTime: string;
 }
 
-const TypeChecks = {
-  containsErrorMessage: (x: any): x is ErrorMessage => {
-    return x.message;
-  },
+export interface ScormMetaData {
+  title?: string;
+  titleLanguage?: string;
+  description?: string;
+  descriptionLanguage?: string;
+  duration?: string;
+  typicaltime?: string;
+  keywords?: string[];
+}
 
+export interface CourseActivity {
+  externalIdentifier?: string;
+  itemIdentifier?: string;
+  resourceIdentifier?: string;
+  activityType?: string;
+  href?: string;
+  scaledPassingScore?: string;
+  title?: string;
+  children?: CourseActivity[];
+}
+
+export interface Course {
+  id?: string;
+  title?: string;
+  xapiActivityId?: string;
+  created?: string; // Date
+  updated?: string; // Date
+  version?: number;
+  registrationCount?: number;
+  activityId?: string;
+  courseLearningStandard?: string;
+  tags?: string[];
+  dispatched?: boolean;
+  metadata?: ScormMetaData;
+  rootActivity?: CourseActivity;
+}
+
+export interface CourseList {
+  courses?: Course[];
+  more?: string;
+}
+
+export interface ImportResult {
+  webPathToCourse?: string;
+  parserWarnings?: string[];
+  courseLanguages?: string[];
+  course?: Course;
+}
+
+export interface ImportJobResult {
+  jobId?: string;
+  status?: string;
+  message?: string;
+  importResult?: ImportResult;
+}
+
+export interface CourseUploadResponse {
+  courseId?: string;
+  importJobResult?: ImportJobResult;
+}
+
+const TypeChecks = {
   containsErrorProperty: (x: any): x is ErrorProperty => {
     return x.error;
+  },
+
+  isErrorObject: (x: any): x is ErrorObject => {
+    return x.message;
   },
 
   isHttpError: (x: any): x is HttpError => {
@@ -93,67 +154,81 @@ const Util = {
 };
 
 export class ScormClientError extends Error {
+  code?: string;
   status: number;
+  cause: ErrorObject;
 
-  constructor(error: any, message?: string, status?: number) {
-    const e = ScormClientError.parse(error, message, status);
+  constructor(cause: any, message?: string, status?: number) {
+    const e = ScormClientError.parse(cause, message, status);
 
     super(e.message);
 
     this.name = "ScormClientError";
+
+    this.code = e.code;
     this.message = e.message;
     this.status = e.status;
+    this.cause = e.error;
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ScormClientError);
     }
   }
 
-  private static parseMessage(e: any, message?: string): string {
+  private static parseMessage(cause: any, message?: string): string {
     if (message) {
       return message;
     }
 
-    if (typeof e === "string") {
-      return e;
+    if (typeof cause === "string") {
+      return cause;
     }
 
-    if (TypeChecks.isHttpError(e)) {
-      return e.response.body.error;
+    if (TypeChecks.isHttpError(cause)) {
+      return cause.response.body.error;
     }
 
-    if (TypeChecks.containsErrorProperty(e)) {
-      return e.error;
+    if (TypeChecks.containsErrorProperty(cause)) {
+      return cause.error;
     }
 
-    if (TypeChecks.containsErrorMessage(e)) {
-      return e.message;
+    if (TypeChecks.isErrorObject(cause)) {
+      return cause.message;
     }
 
     return "Unknown Error";
   }
 
-  private static parseStatus(e: any, status?: number): number | undefined {
+  private static parseStatus(cause: any, status?: number): number | undefined {
     if (status) {
       return status;
     }
 
-    if (TypeChecks.isHttpError(e)) {
-      return e.response.status;
+    if (TypeChecks.isHttpError(cause)) {
+      return cause.response.status;
     }
 
     return undefined;
   }
 
-  private static parseError(e: any): ErrorMessage | undefined {
-    return TypeChecks.containsErrorMessage(e) ? e : undefined;
+  private static parseCode(cause: any): string | undefined {
+    if (cause.code) {
+      return cause.code;
+    }
+
+    return undefined;
   }
 
-  private static parse(e: any, message?: string, status?: number) {
+  private static parseErrorObject(cause: any): ErrorObject | undefined {
+    return TypeChecks.isErrorObject(cause) ? cause : undefined;
+  }
+
+  private static parse(cause: any, message?: string, status?: number) {
     return {
-      message: ScormClientError.parseMessage(e, message),
-      status: ScormClientError.parseStatus(e, status),
-      error: ScormClientError.parseError(e),
+      message: ScormClientError.parseMessage(cause, message),
+      status: ScormClientError.parseStatus(cause, status),
+      error: ScormClientError.parseErrorObject(cause),
+      code: ScormClientError.parseCode(cause),
     };
   }
 }
@@ -188,6 +263,30 @@ export class ScormClient {
     return 36000;
   }
 
+  private async checkAuthentication(): Promise<AuthToken> {
+    if (this.auth) {
+      return this.auth;
+    }
+
+    if (this.appId && this.secretKey && this.scope) {
+      return this.refreshAuthentication();
+    }
+
+    throw new ScormClientError("Not authenticated and no credentials are set", null, 401);
+  }
+
+  private async refreshAuthentication(): Promise<AuthToken> {
+    if (this.appId && this.secretKey && this.scope) {
+      return this.authenticate(this.appId, this.secretKey, this.scope);
+    }
+
+    throw new ScormClientError("Unable to refresh authentication token", null, 401);
+  }
+
+  private authString(): string {
+    return this.auth ? `Bearer ${this.auth.access_token}` : "Bearer";
+  }
+
   async authenticate(appId: string, secretKey: string, scope: string, timeout?: number): Promise<AuthToken> {
     this.auth = null;
     this.appId = appId;
@@ -203,13 +302,13 @@ export class ScormClient {
     }
 
     try {
-      const response = await superagent
-        .post(`${BASE_PATH}/oauth/authenticate/application/token`)
-        .auth(this.appId, this.secretKey)
-        .send(`scope=${this.scope}`)
-        .send(`expiration=${this.timeout}`);
-
-      this.auth = response.body;
+      this.auth = (
+        await superagent
+          .post(`${BASE_PATH}/oauth/authenticate/application/token`)
+          .auth(this.appId, this.secretKey)
+          .send(`scope=${this.scope}`)
+          .send(`expiration=${this.timeout}`)
+      ).body;
 
       return this.auth;
     } catch (e) {
@@ -217,32 +316,8 @@ export class ScormClient {
     }
   }
 
-  private async refreshAuthentication(): Promise<AuthToken> {
-    if (this.appId && this.secretKey && this.scope) {
-      return this.authenticate(this.appId, this.secretKey, this.scope);
-    }
-
-    throw new ScormClientError("Unable to refresh authentication token", null, 401);
-  }
-
-  private async checkIsAuthenticated(): Promise<AuthToken> {
-    if (this.auth) {
-      return this.auth;
-    }
-
-    if (this.appId && this.secretKey && this.scope) {
-      return this.refreshAuthentication();
-    }
-
-    throw new ScormClientError("Not authenticated and no credentials are set", null, 401);
-  }
-
-  private authString(): string {
-    return this.auth ? `Bearer ${this.auth.access_token}` : "Bearer";
-  }
-
   async ping(isRetry = false): Promise<PingResponse> {
-    await this.checkIsAuthenticated();
+    await this.checkAuthentication();
 
     try {
       return (await superagent.get(`${BASE_PATH}/ping`).set("Authorization", this.authString())).body;
@@ -256,23 +331,8 @@ export class ScormClient {
     }
   }
 
-  async getCourses(isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
-
-    try {
-      return (await superagent.get(`${BASE_PATH}/courses`).set("Authorization", this.authString())).body;
-    } catch (e) {
-      if (!isRetry && StatusChecks.isUnauthorized(e)) {
-        await this.refreshAuthentication();
-        return this.getCourses(true);
-      }
-
-      throw new ScormClientError(e);
-    }
-  }
-
-  async getCourse(courseId: string, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+  async getCourse(courseId: string, isRetry = false): Promise<Course> {
+    await this.checkAuthentication();
 
     try {
       return (
@@ -296,25 +356,16 @@ export class ScormClient {
     }
   }
 
-  async getCourseVersions(courseId: string, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+  async getCourses(isRetry = false): Promise<Course[]> {
+    await this.checkAuthentication();
 
     try {
-      return (
-        await superagent
-          .get(`${BASE_PATH}/courses/${courseId}/versions`)
-          .set("Authorization", this.authString())
-          .query(`includeRegistrationCount=true`)
-          .query(`includeCourseMetadata=false`)
-      ).body;
+      const response = await superagent.get(`${BASE_PATH}/courses`).set("Authorization", this.authString());
+      return response.body.courses ? response.body.courses : [];
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.getCourseVersions(courseId, true);
-      }
-
-      if (StatusChecks.notFound(e)) {
-        return null; // course does not exist, but query was for course versions, return [] instead?
+        return this.getCourses(true);
       }
 
       throw new ScormClientError(e);
@@ -324,10 +375,10 @@ export class ScormClient {
   async uploadCourse(
     courseId: string,
     filePath: string,
-    attemptToWaitForResult?: number,
+    waitForResult = 0,
     isRetry = false
-  ): Promise<any> {
-    await this.checkIsAuthenticated();
+  ): Promise<CourseUploadResponse> {
+    await this.checkAuthentication();
 
     try {
       const response = await superagent
@@ -338,24 +389,40 @@ export class ScormClient {
         .query("mayCreateNewVersion=true")
         .attach("file", filePath);
 
-      if (response.body.result && attemptToWaitForResult) {
-        await Util.sleep(attemptToWaitForResult);
-        response.body.importJob = await this.getCourseUploadStatus(response.body.result);
+      if (!response.body.result) {
+        return {
+          courseId: null,
+        };
       }
 
-      return response.body;
+      if (!waitForResult) {
+        return {
+          courseId: response.body.result,
+        };
+      }
+
+      if (response.body.result && waitForResult) {
+        await Util.sleep(waitForResult);
+
+        const importJobResult = await this.getCourseUploadStatus(response.body.result);
+        console.log(importJobResult);
+        return {
+          courseId: response.body.result,
+          importJobResult,
+        };
+      }
     } catch (e) {
       if (!isRetry && StatusChecks.isUnauthorized(e)) {
         await this.refreshAuthentication();
-        return this.uploadCourse(courseId, filePath, attemptToWaitForResult, true);
+        return this.uploadCourse(courseId, filePath, waitForResult, true);
       }
 
       throw new ScormClientError(e);
     }
   }
 
-  async getCourseUploadStatus(jobId: string, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+  async getCourseUploadStatus(jobId: string, isRetry = false): Promise<ImportJobResult> {
+    await this.checkAuthentication();
 
     try {
       return (await superagent.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set("Authorization", this.authString()))
@@ -371,7 +438,7 @@ export class ScormClient {
   }
 
   async setCourseTitle(courseId: string, title: string, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+    await this.checkAuthentication();
 
     try {
       const response = await superagent
@@ -395,7 +462,7 @@ export class ScormClient {
   }
 
   async deleteCourse(courseId: string, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+    await this.checkAuthentication();
 
     try {
       const response = await superagent
@@ -417,8 +484,33 @@ export class ScormClient {
     }
   }
 
+  async getCourseVersions(courseId: string, isRetry = false): Promise<any> {
+    await this.checkAuthentication();
+
+    try {
+      return (
+        await superagent
+          .get(`${BASE_PATH}/courses/${courseId}/versions`)
+          .set("Authorization", this.authString())
+          .query(`includeRegistrationCount=true`)
+          .query(`includeCourseMetadata=false`)
+      ).body;
+    } catch (e) {
+      if (!isRetry && StatusChecks.isUnauthorized(e)) {
+        await this.refreshAuthentication();
+        return this.getCourseVersions(courseId, true);
+      }
+
+      if (StatusChecks.notFound(e)) {
+        return null; // course does not exist, but query was for course versions, return [] instead?
+      }
+
+      throw new ScormClientError(e);
+    }
+  }
+
   async deleteCourseVersion(courseId: string, versionId: number, isRetry = false): Promise<any> {
-    await this.checkIsAuthenticated();
+    await this.checkAuthentication();
 
     try {
       const response = await superagent
