@@ -1,8 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as dotenv from "dotenv";
 import { ScormClient } from "../../";
 
-require("dotenv").config({ path: path.join(__dirname, ".env") });
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 const client = new ScormClient();
 
