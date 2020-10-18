@@ -11,6 +11,9 @@
     "integration:test": "jest -c test/integration.jest.config.js",
     "test": "jest -c test/unit.jest.config.js --passWithNoTests"
   },
+  "files": [
+    "/dist"
+  ],
   "dependencies": {
     "luxon": "^1.25.0",
     "superagent": "^6.1.0",
