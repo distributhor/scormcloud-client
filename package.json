@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts}'",
     "lint:format": "prettier --write '{src,test}/**/*.{js,ts,json}'",
     "integration:test": "jest -c test/integration.jest.config.js",
-    "test": "jest -c test/unit.jest.config.js --passWithNoTests"
+    "test": "jest -c jest.config.js --passWithNoTests"
   },
   "files": [
     "/dist"
