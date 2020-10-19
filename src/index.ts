@@ -100,6 +100,7 @@ export interface ImportJobResult {
 
 export interface CourseUploadResponse {
   courseId?: string;
+  importJobId?: string;
   importJobResult?: ImportJobResult;
 }
 
@@ -407,12 +408,15 @@ export class ScormClient {
       if (!response.body.result) {
         return {
           courseId: null,
+          importJobId: null,
         };
       }
 
       if (!options.waitForResult) {
         return {
-          courseId: response.body.result,
+          courseId: courseId,
+          importJobId: response.body.result,
+          importJobResult: null,
         };
       }
 
@@ -421,7 +425,8 @@ export class ScormClient {
       const importJobResult = await this.getCourseUploadStatus(response.body.result);
 
       return {
-        courseId: response.body.result,
+        courseId: courseId,
+        importJobId: response.body.result,
         importJobResult,
       };
     } catch (e) {
