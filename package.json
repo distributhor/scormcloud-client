@@ -1,19 +1,38 @@
 {
   "name": "scormcloud-client",
   "version": "0.0.5",
+  "description": "A Typescript and JS client for interfacing with the ScormCloud API",
+  "homepage": "https://github.com/distributhor/scormcloud-client",
   "license": "MIT",
+  "keywords": [
+    "scorm",
+    "scormcloud"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/distributhor/scormcloud-client.git"
+  },
+  "contributors": [
+    "WK <distributhor@fastmail.com>"
+  ],
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "/dist"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -b --clean && tsc -b",
-    "lint": "eslint '{src,test}/**/*.{js,ts}'",
-    "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts}'",
-    "lint:format": "prettier --write '{src,test}/**/*.{js,ts,json}'",
+    "lint": "yarn eslint:check",
+    "lint:check": "eslint '{src,test}/**/*.{js,ts,json}'",
+    "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts,json}'",
+    "lint:format": "yarn prettier:fix",
+    "prettier:fix": "prettier --ignore-path .prettierignore --write '{src,test}/**/*.{js,ts,json,md}'",
+    "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
     "integration:test": "jest -c test/jest.integration.config.js",
-    "test": "jest -c test/jest.unit.config.js --passWithNoTests"
+    "test": "jest -c test/jest.unit.config.js --passWithNoTests",
+    "prepack": "yarn build"
   },
-  "files": [
-    "/dist"
-  ],
   "dependencies": {
     "luxon": "^1.25.0",
     "superagent": "^6.1.0",
@@ -46,7 +65,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,md,ts,tsx,jsx,vue}": [
+    "*.{js,json,md,ts,tsx}": [
       "prettier --write",
       "git add"
     ]
