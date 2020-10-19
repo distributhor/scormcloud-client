@@ -18,7 +18,10 @@
   "files": [
     "LICENSE.md",
     "README.md",
-    "/dist"
+    "/dist/index.d.ts",
+    "/dist/index.d.ts.map",
+    "/dist/index.js",
+    "/dist/index.js.map"
   ],
   "main": "dist/index.js",
   "scripts": {
