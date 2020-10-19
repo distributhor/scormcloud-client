@@ -23,7 +23,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -b --clean && tsc -b",
-    "lint": "yarn eslint:check",
+    "lint": "yarn lint:check",
     "lint:check": "eslint '{src,test}/**/*.{js,ts,json}'",
     "lint:fix": "eslint --fix '{src,test}/**/*.{js,ts,json}'",
     "lint:format": "yarn prettier:fix",
