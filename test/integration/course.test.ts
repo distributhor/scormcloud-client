@@ -4,7 +4,13 @@ import { ScormClient } from "../../";
 
 dotenv.config({ path: path.join(__dirname, ".env") });
 
-const client = new ScormClient(
+// const client = new ScormClient(
+//   process.env.SCORMCLOUD_APP_ID,
+//   process.env.SCORMCLOUD_SECRET_KEY,
+//   process.env.SCORMCLOUD_SCOPE
+// );
+
+const client = ScormClient.getInstance(
   process.env.SCORMCLOUD_APP_ID,
   process.env.SCORMCLOUD_SECRET_KEY,
   process.env.SCORMCLOUD_SCOPE

@@ -258,11 +258,13 @@ export class ScormClientError extends Error {
 }
 
 export class ScormClient {
-  auth: AuthToken;
-  appId: string;
-  secretKey: string;
-  scope: string;
-  timeout: number;
+  private auth: AuthToken;
+  private appId: string;
+  private secretKey: string;
+  private scope: string;
+  private timeout: number;
+
+  private static instance: ScormClient;
 
   constructor(appId?: string, secretKey?: string, scope?: string, timeout?: number) {
     this.appId = appId;
@@ -273,6 +275,18 @@ export class ScormClient {
 
   private static get DEFAULT_TIMEOUT(): number {
     return 36000;
+  }
+
+  public static getInstance(appId?: string, secretKey?: string, scope?: string, timeout?: number): ScormClient {
+    if (appId && secretKey && scope) {
+      ScormClient.instance = new ScormClient(appId, secretKey, scope, timeout);
+    }
+
+    if (!ScormClient.instance) {
+      throw new ScormClientError("No instance found, and no credentials with which to authenticate");
+    }
+
+    return ScormClient.instance;
   }
 
   private async checkAuthentication(): Promise<AuthToken> {
