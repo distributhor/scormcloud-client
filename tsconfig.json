@@ -16,7 +16,6 @@
   "typedocOptions": {
     "mode": "modules",
     "name": "ScormCloud Client",
-    "readme": "README.md",
     "includeVersion": true,
     "excludePrivate": true,
     "stripInternal": true,
