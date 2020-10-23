@@ -1,4 +1,4 @@
-**[ScormCloud Client - v0.0.9](../README.md)**
+**[API Reference Docs](../README.md)**
 
 > [Globals](../README.md) / "types"
 

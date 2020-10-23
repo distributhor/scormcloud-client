@@ -1,4 +1,4 @@
-**[ScormCloud Client - v0.0.9](../README.md)**
+**[API Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["client"](../modules/_client_.md) / ScormClient
 
@@ -46,7 +46,7 @@ const client = ScormClient.getInstance();
 
 \+ **new ScormClient**(`appId?`: string, `secretKey?`: string, `scope?`: string, `timeout?`: number): [ScormClient](_client_.scormclient.md)
 
-_Defined in [src/client.ts:175](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L175)_
+_Defined in [src/client.ts:175](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L175)_
 
 #### Parameters:
 
@@ -65,7 +65,7 @@ _Defined in [src/client.ts:175](https://github.com/distributhor/scormcloud-clien
 
 ▸ **authenticate**(`appId`: string, `secretKey`: string, `scope`: string, `timeout?`: number): Promise\<[AuthToken](../interfaces/_types_.authtoken.md)>
 
-_Defined in [src/client.ts:231](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L231)_
+_Defined in [src/client.ts:231](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L231)_
 
 #### Parameters:
 
@@ -86,7 +86,7 @@ Returns an AuthToken if successfull
 
 ▸ **deleteCourse**(`courseId`: string, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-_Defined in [src/client.ts:413](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L413)_
+_Defined in [src/client.ts:413](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L413)_
 
 #### Parameters:
 
@@ -103,7 +103,7 @@ _Defined in [src/client.ts:413](https://github.com/distributhor/scormcloud-clien
 
 ▸ **deleteCourseVersion**(`courseId`: string, `versionId`: number, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-_Defined in [src/client.ts:463](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L463)_
+_Defined in [src/client.ts:463](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L463)_
 
 #### Parameters:
 
@@ -121,7 +121,7 @@ _Defined in [src/client.ts:463](https://github.com/distributhor/scormcloud-clien
 
 ▸ **getCourse**(`courseId`: string, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[Course](../interfaces/_types_.course.md)>
 
-_Defined in [src/client.ts:275](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L275)_
+_Defined in [src/client.ts:275](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L275)_
 
 #### Parameters:
 
@@ -138,7 +138,7 @@ _Defined in [src/client.ts:275](https://github.com/distributhor/scormcloud-clien
 
 ▸ **getCourseUploadStatus**(`jobId`: string, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[ImportJobResult](../interfaces/_types_.importjobresult.md)>
 
-_Defined in [src/client.ts:371](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L371)_
+_Defined in [src/client.ts:371](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L371)_
 
 #### Parameters:
 
@@ -155,7 +155,7 @@ _Defined in [src/client.ts:371](https://github.com/distributhor/scormcloud-clien
 
 ▸ **getCourseVersions**(`courseId`: string, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[Course](../interfaces/_types_.course.md)[]>
 
-_Defined in [src/client.ts:438](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L438)_
+_Defined in [src/client.ts:438](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L438)_
 
 #### Parameters:
 
@@ -172,7 +172,7 @@ _Defined in [src/client.ts:438](https://github.com/distributhor/scormcloud-clien
 
 ▸ **getCourses**(`options?`: [Options](../interfaces/_types_.options.md)): Promise\<[Course](../interfaces/_types_.course.md)[]>
 
-_Defined in [src/client.ts:300](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L300)_
+_Defined in [src/client.ts:300](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L300)_
 
 #### Parameters:
 
@@ -188,7 +188,7 @@ _Defined in [src/client.ts:300](https://github.com/distributhor/scormcloud-clien
 
 ▸ **ping**(`options?`: [Options](../interfaces/_types_.options.md)): Promise\<[PingResponse](../interfaces/_types_.pingresponse.md)>
 
-_Defined in [src/client.ts:260](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L260)_
+_Defined in [src/client.ts:260](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L260)_
 
 #### Parameters:
 
@@ -204,7 +204,7 @@ _Defined in [src/client.ts:260](https://github.com/distributhor/scormcloud-clien
 
 ▸ **setCourseTitle**(`courseId`: string, `title`: string, `options?`: [Options](../interfaces/_types_.options.md)): Promise\<[SuccessIndicator](../interfaces/_types_.successindicator.md)>
 
-_Defined in [src/client.ts:387](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L387)_
+_Defined in [src/client.ts:387](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L387)_
 
 #### Parameters:
 
@@ -222,7 +222,7 @@ _Defined in [src/client.ts:387](https://github.com/distributhor/scormcloud-clien
 
 ▸ **uploadCourse**(`courseId`: string, `filePath`: string, `options?`: [CourseUploadOptions](../interfaces/_types_.courseuploadoptions.md)): Promise\<[CourseUploadResponse](../interfaces/_types_.courseuploadresponse.md)>
 
-_Defined in [src/client.ts:316](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L316)_
+_Defined in [src/client.ts:316](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L316)_
 
 #### Parameters:
 
@@ -240,7 +240,7 @@ _Defined in [src/client.ts:316](https://github.com/distributhor/scormcloud-clien
 
 ▸ `Static`**getInstance**(`appId?`: string, `secretKey?`: string, `scope?`: string, `timeout?`: number): [ScormClient](_client_.scormclient.md)
 
-_Defined in [src/client.ts:188](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L188)_
+_Defined in [src/client.ts:188](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/client.ts#L188)_
 
 #### Parameters:
 

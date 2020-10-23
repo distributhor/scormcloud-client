@@ -1,4 +1,4 @@
-**[ScormCloud Client - v0.0.9](../README.md)**
+**[API Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / CourseUploadResponse
 
@@ -22,7 +22,7 @@
 
 • `Optional` **courseId**: string
 
-_Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L103)_
+_Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/types.ts#L103)_
 
 ---
 
@@ -30,7 +30,7 @@ _Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client
 
 • `Optional` **importJobId**: string
 
-_Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L104)_
+_Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/types.ts#L104)_
 
 ---
 
@@ -38,4 +38,4 @@ _Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client
 
 • `Optional` **importJobResult**: [ImportJobResult](_types_.importjobresult.md)
 
-_Defined in [src/types.ts:105](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L105)_
+_Defined in [src/types.ts:105](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/types.ts#L105)_

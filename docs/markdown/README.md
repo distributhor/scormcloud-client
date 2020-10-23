@@ -1,8 +1,8 @@
-**[ScormCloud Client - v0.0.9](README.md)**
+**[API Reference Docs](README.md)**
 
 > Globals
 
-# ScormCloud Client - v0.0.9
+# API Reference Docs
 
 ## Index
 

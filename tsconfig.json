@@ -15,8 +15,8 @@
   },
   "typedocOptions": {
     "mode": "modules",
-    "name": "ScormCloud Client",
-    "includeVersion": true,
+    "name": "API Reference Docs",
+    "includeVersion": false,
     "excludePrivate": true,
     "stripInternal": true,
     "disableSources": false,

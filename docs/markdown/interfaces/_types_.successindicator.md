@@ -1,4 +1,4 @@
-**[ScormCloud Client - v0.0.9](../README.md)**
+**[API Reference Docs](../README.md)**
 
 > [Globals](../README.md) / ["types"](../modules/_types_.md) / SuccessIndicator
 
@@ -21,7 +21,7 @@
 
 • `Optional` **message**: string
 
-_Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L48)_
+_Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/types.ts#L48)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/
 
 • **success**: boolean
 
-_Defined in [src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L47)_
+_Defined in [src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/c25d83b/src/types.ts#L47)_
