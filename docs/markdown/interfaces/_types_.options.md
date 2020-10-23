@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / ["types"](../modules/_types_.md) / Options
+> [Globals](../README.md) / ["types"](../modules/_types_.md) / Options
 
 # Interface: Options
 

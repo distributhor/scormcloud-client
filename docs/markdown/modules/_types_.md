@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / "types"
+> [Globals](../README.md) / "types"
 
 # Module: "types"
 

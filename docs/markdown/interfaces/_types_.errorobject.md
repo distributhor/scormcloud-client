@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / ["types"](../modules/_types_.md) / ErrorObject
+> [Globals](../README.md) / ["types"](../modules/_types_.md) / ErrorObject
 
 # Interface: ErrorObject
 
@@ -20,4 +20,4 @@
 
 • **message**: string
 
-_Defined in [src/types.ts:16](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L16)_
+_Defined in [src/types.ts:16](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L16)_

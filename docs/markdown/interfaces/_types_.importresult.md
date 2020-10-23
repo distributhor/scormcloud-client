@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / ["types"](../modules/_types_.md) / ImportResult
+> [Globals](../README.md) / ["types"](../modules/_types_.md) / ImportResult
 
 # Interface: ImportResult
 
@@ -23,7 +23,7 @@
 
 • `Optional` **course**: [Course](_types_.course.md)
 
-_Defined in [src/types.ts:92](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L92)_
+_Defined in [src/types.ts:92](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L92)_
 
 ---
 
@@ -31,7 +31,7 @@ _Defined in [src/types.ts:92](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **courseLanguages**: string[]
 
-_Defined in [src/types.ts:91](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L91)_
+_Defined in [src/types.ts:91](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L91)_
 
 ---
 
@@ -39,7 +39,7 @@ _Defined in [src/types.ts:91](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **parserWarnings**: string[]
 
-_Defined in [src/types.ts:90](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L90)_
+_Defined in [src/types.ts:90](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L90)_
 
 ---
 
@@ -47,4 +47,4 @@ _Defined in [src/types.ts:90](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **webPathToCourse**: string
 
-_Defined in [src/types.ts:89](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L89)_
+_Defined in [src/types.ts:89](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L89)_

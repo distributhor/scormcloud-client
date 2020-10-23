@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / ["types"](../modules/_types_.md) / Course
+> [Globals](../README.md) / ["types"](../modules/_types_.md) / Course
 
 # Interface: Course
 
@@ -32,7 +32,7 @@
 
 • `Optional` **activityId**: string
 
-_Defined in [src/types.ts:80](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L80)_
+_Defined in [src/types.ts:80](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L80)_
 
 ---
 
@@ -40,7 +40,7 @@ _Defined in [src/types.ts:80](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **courseLearningStandard**: string
 
-_Defined in [src/types.ts:81](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L81)_
+_Defined in [src/types.ts:81](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L81)_
 
 ---
 
@@ -48,7 +48,7 @@ _Defined in [src/types.ts:81](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **created**: string
 
-_Defined in [src/types.ts:76](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L76)_
+_Defined in [src/types.ts:76](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L76)_
 
 ---
 
@@ -56,7 +56,7 @@ _Defined in [src/types.ts:76](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **dispatched**: boolean
 
-_Defined in [src/types.ts:83](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L83)_
+_Defined in [src/types.ts:83](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L83)_
 
 ---
 
@@ -64,7 +64,7 @@ _Defined in [src/types.ts:83](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **id**: string
 
-_Defined in [src/types.ts:73](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L73)_
+_Defined in [src/types.ts:73](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L73)_
 
 ---
 
@@ -72,7 +72,7 @@ _Defined in [src/types.ts:73](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **metadata**: [CourseMeta](_types_.coursemeta.md)
 
-_Defined in [src/types.ts:84](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L84)_
+_Defined in [src/types.ts:84](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L84)_
 
 ---
 
@@ -80,7 +80,7 @@ _Defined in [src/types.ts:84](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **registrationCount**: number
 
-_Defined in [src/types.ts:79](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L79)_
+_Defined in [src/types.ts:79](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L79)_
 
 ---
 
@@ -88,7 +88,7 @@ _Defined in [src/types.ts:79](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **rootActivity**: [CourseActivity](_types_.courseactivity.md)
 
-_Defined in [src/types.ts:85](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L85)_
+_Defined in [src/types.ts:85](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L85)_
 
 ---
 
@@ -96,7 +96,7 @@ _Defined in [src/types.ts:85](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **tags**: string[]
 
-_Defined in [src/types.ts:82](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L82)_
+_Defined in [src/types.ts:82](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L82)_
 
 ---
 
@@ -104,7 +104,7 @@ _Defined in [src/types.ts:82](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **title**: string
 
-_Defined in [src/types.ts:74](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L74)_
+_Defined in [src/types.ts:74](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L74)_
 
 ---
 
@@ -112,7 +112,7 @@ _Defined in [src/types.ts:74](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **updated**: string
 
-_Defined in [src/types.ts:77](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L77)_
+_Defined in [src/types.ts:77](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L77)_
 
 ---
 
@@ -120,7 +120,7 @@ _Defined in [src/types.ts:77](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **version**: number
 
-_Defined in [src/types.ts:78](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L78)_
+_Defined in [src/types.ts:78](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L78)_
 
 ---
 
@@ -128,4 +128,4 @@ _Defined in [src/types.ts:78](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **xapiActivityId**: string
 
-_Defined in [src/types.ts:75](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L75)_
+_Defined in [src/types.ts:75](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/types.ts#L75)_

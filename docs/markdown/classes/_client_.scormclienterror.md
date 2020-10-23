@@ -1,6 +1,6 @@
 **[ScormCloud Client - v0.0.9](../README.md)**
 
-> [Globals](../globals.md) / ["client"](../modules/_client_.md) / ScormClientError
+> [Globals](../README.md) / ["client"](../modules/_client_.md) / ScormClientError
 
 # Class: ScormClientError
 
@@ -31,7 +31,7 @@
 
 \+ **new ScormClientError**(`cause`: any, `message?`: string, `httpStatus?`: number): [ScormClientError](_client_.scormclienterror.md)
 
-_Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/client.ts#L88)_
+_Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L88)_
 
 #### Parameters:
 
@@ -49,7 +49,7 @@ _Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client
 
 • **cause**: [ErrorObject](../interfaces/_types_.errorobject.md)
 
-_Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/client.ts#L88)_
+_Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L88)_
 
 ---
 
@@ -57,7 +57,7 @@ _Defined in [src/client.ts:88](https://github.com/distributhor/scormcloud-client
 
 • **httpStatus**: number
 
-_Defined in [src/client.ts:87](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/client.ts#L87)_
+_Defined in [src/client.ts:87](https://github.com/distributhor/scormcloud-client/blob/b730efd/src/client.ts#L87)_
 
 ---
 
