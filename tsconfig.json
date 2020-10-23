@@ -15,10 +15,8 @@
   },
   "typedocOptions": {
     "mode": "modules",
-    "out": "docs",
     "name": "ScormCloud Client",
     "readme": "README.md",
-    "theme": "./node_modules/typedoc-neo-theme/bin/default",
     "includeVersion": true,
     "excludePrivate": true,
     "stripInternal": true,

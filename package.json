@@ -38,7 +38,9 @@
     "prettier:check": "prettier --ignore-path .prettierignore --check '{src,test}/**/*.{js,ts,json,md}'",
     "integration:test": "jest -c test/jest.integration.config.js",
     "test": "jest -c test/jest.unit.config.js --passWithNoTests",
-    "doc": "typedoc --tsconfig ./tsconfig.json"
+    "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
+    "doc:markup": "typedoc --tsconfig ./tsconfig.json --out docs/markup --plugin typedoc-plugin-markdown",
+    "doc": "yarn doc:html && yarn doc:markup"
   },
   "dependencies": {
     "luxon": "^1.25.0",
@@ -64,6 +66,7 @@
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.2",
     "typedoc-neo-theme": "^1.0.10",
+    "typedoc-plugin-markdown": "^3.0.11",
     "typescript": "^4.0.3"
   },
   "husky": {

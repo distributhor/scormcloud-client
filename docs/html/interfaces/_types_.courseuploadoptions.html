@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ImportJobResult | ScormCloud Client - v0.0.9</title>
+	<title>CourseUploadOptions | ScormCloud Client - v0.0.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,7 +58,7 @@
 					<a href="../modules/_types_.html">types</a>
 				</li>
 				<li>
-					<a href="_types_.importjobresult.html">ImportJobResult</a>
+					<a href="_types_.courseuploadoptions.html">CourseUploadOptions</a>
 				</li>
 			</ul>
 		</div>
@@ -82,14 +82,23 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface ImportJobResult</h1>
+			<h1>Interface CourseUploadOptions</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ImportJobResult</span>
+						<a href="_types_.options.html" class="tsd-signature-type">Options</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">CourseUploadOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
+			</section>
+			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-module">
+				<h3 class="tsd-before-signature">Indexable</h3>
+				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<section class="tsd-panel tsd-index-panel">
@@ -97,10 +106,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.importjobresult.html#importresult" class="tsd-kind-icon">importResult</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.importjobresult.html#jobid" class="tsd-kind-icon">jobId</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.importjobresult.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.importjobresult.html#status" class="tsd-kind-icon">status</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseuploadoptions.html#maycreatenewversion" class="tsd-kind-icon">mayCreateNewVersion</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseuploadoptions.html#waitforresult" class="tsd-kind-icon">waitForResult</a></li>
 							</ul>
 						</section>
 					</div>
@@ -109,47 +116,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="importresult" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> import<wbr>Result</h3>
-					<div class="tsd-signature tsd-kind-icon">import<wbr>Result<span class="tsd-signature-symbol">:</span> <a href="_types_.importresult.html" class="tsd-signature-type">ImportResult</a></div>
+					<a name="maycreatenewversion" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> may<wbr>Create<wbr>New<wbr>Version</h3>
+					<div class="tsd-signature tsd-kind-icon">may<wbr>Create<wbr>New<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:99</li>
+							<li>Defined in src/types.ts:115</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="jobid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> job<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">job<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="waitforresult" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> wait<wbr>For<wbr>Result</h3>
+					<div class="tsd-signature tsd-kind-icon">wait<wbr>For<wbr>Result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:96</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="message" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/types.ts:98</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="status" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/types.ts:97</li>
+							<li>Defined in src/types.ts:114</li>
 						</ul>
 					</aside>
 				</section>
 			</section>
-			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/scormcloud-client&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/types.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;ScormCloud Client&quot;,&quot;includeVersion&quot;:true,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;README.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false}-->
+			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/scormcloud-client&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/types.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs/html&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;ScormCloud Client&quot;,&quot;includeVersion&quot;:true,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;README.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -166,36 +153,30 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.coursemeta.html" class="tsd-kind-icon">Course<wbr>Meta</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module root">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.courseuploadoptions.html" class="tsd-kind-icon">Course<wbr>Upload<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.courseuploadoptions.html#maycreatenewversion" class="tsd-kind-icon">may<wbr>Create<wbr>New<wbr>Version</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_types_.courseuploadoptions.html#waitforresult" class="tsd-kind-icon">wait<wbr>For<wbr>Result</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.courseuploadresponse.html" class="tsd-kind-icon">Course<wbr>Upload<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.errorobject.html" class="tsd-kind-icon">Error<wbr>Object</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module root">
+					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.importjobresult.html" class="tsd-kind-icon">Import<wbr>Job<wbr>Result</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.importjobresult.html#importresult" class="tsd-kind-icon">import<wbr>Result</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.importjobresult.html#jobid" class="tsd-kind-icon">job<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.importjobresult.html#message" class="tsd-kind-icon">message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.importjobresult.html#status" class="tsd-kind-icon">status</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.importresult.html" class="tsd-kind-icon">Import<wbr>Result</a>
 					</li>

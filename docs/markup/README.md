@@ -1,3 +1,7 @@
+**[ScormCloud Client - v0.0.9](README.md)**
+
+> [Globals](globals.md)
+
 # scormcloud-client
 
 A Typescript and JS client for interfacing with the ScormCloud API. http://www.scorm.com

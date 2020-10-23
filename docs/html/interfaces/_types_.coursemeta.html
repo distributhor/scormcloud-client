@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CourseActivity | ScormCloud Client - v0.0.9</title>
+	<title>CourseMeta | ScormCloud Client - v0.0.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,7 +58,7 @@
 					<a href="../modules/_types_.html">types</a>
 				</li>
 				<li>
-					<a href="_types_.courseactivity.html">CourseActivity</a>
+					<a href="_types_.coursemeta.html">CourseMeta</a>
 				</li>
 			</ul>
 		</div>
@@ -82,12 +82,12 @@
 			</nav>
 		</div>
 		<div class="col-7 offset-3 col-content">
-			<h1>Interface CourseActivity</h1>
+			<h1>Interface CourseMeta</h1>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CourseActivity</span>
+						<span class="target">CourseMeta</span>
 					</li>
 				</ul>
 			</section>
@@ -97,14 +97,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#activitytype" class="tsd-kind-icon">activityType</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#children" class="tsd-kind-icon">children</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#externalidentifier" class="tsd-kind-icon">externalIdentifier</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#href" class="tsd-kind-icon">href</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#itemidentifier" class="tsd-kind-icon">itemIdentifier</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#resourceidentifier" class="tsd-kind-icon">resourceIdentifier</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#scaledpassingscore" class="tsd-kind-icon">scaledPassingScore</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.courseactivity.html#title" class="tsd-kind-icon">title</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#description" class="tsd-kind-icon">description</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#descriptionlanguage" class="tsd-kind-icon">descriptionLanguage</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#duration" class="tsd-kind-icon">duration</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#keywords" class="tsd-kind-icon">keywords</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#title" class="tsd-kind-icon">title</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#titlelanguage" class="tsd-kind-icon">titleLanguage</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_types_.coursemeta.html#typicaltime" class="tsd-kind-icon">typicaltime</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,72 +112,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="activitytype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> activity<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">activity<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="description" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> description</h3>
+					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:65</li>
+							<li>Defined in src/types.ts:54</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="children" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> children</h3>
-					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="_types_.courseactivity.html" class="tsd-signature-type">CourseActivity</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="descriptionlanguage" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> description<wbr>Language</h3>
+					<div class="tsd-signature tsd-kind-icon">description<wbr>Language<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:69</li>
+							<li>Defined in src/types.ts:55</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="externalidentifier" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> external<wbr>Identifier</h3>
-					<div class="tsd-signature tsd-kind-icon">external<wbr>Identifier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="duration" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> duration</h3>
+					<div class="tsd-signature tsd-kind-icon">duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:62</li>
+							<li>Defined in src/types.ts:56</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="href" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> href</h3>
-					<div class="tsd-signature tsd-kind-icon">href<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="keywords" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> keywords</h3>
+					<div class="tsd-signature tsd-kind-icon">keywords<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:66</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="itemidentifier" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> item<wbr>Identifier</h3>
-					<div class="tsd-signature tsd-kind-icon">item<wbr>Identifier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/types.ts:63</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="resourceidentifier" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> resource<wbr>Identifier</h3>
-					<div class="tsd-signature tsd-kind-icon">resource<wbr>Identifier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/types.ts:64</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scaledpassingscore" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scaled<wbr>Passing<wbr>Score</h3>
-					<div class="tsd-signature tsd-kind-icon">scaled<wbr>Passing<wbr>Score<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in src/types.ts:67</li>
+							<li>Defined in src/types.ts:58</li>
 						</ul>
 					</aside>
 				</section>
@@ -188,12 +157,32 @@
 					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/types.ts:68</li>
+							<li>Defined in src/types.ts:52</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="titlelanguage" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> title<wbr>Language</h3>
+					<div class="tsd-signature tsd-kind-icon">title<wbr>Language<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:53</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="typicaltime" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> typicaltime</h3>
+					<div class="tsd-signature tsd-kind-icon">typicaltime<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/types.ts:57</li>
 						</ul>
 					</aside>
 				</section>
 			</section>
-			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/scormcloud-client&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/types.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;ScormCloud Client&quot;,&quot;includeVersion&quot;:true,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;README.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false}-->
+			<!--{&quot;options&quot;:&quot;/Volumes/HDX/project/distributhor/scormcloud-client&quot;,&quot;tsconfig&quot;:&quot;./tsconfig.json&quot;,&quot;inputFiles&quot;:[&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/client.ts&quot;,&quot;/Volumes/HDX/project/distributhor/scormcloud-client/src/types.ts&quot;],&quot;mode&quot;:1,&quot;includeDeclarations&quot;:false,&quot;entryPoint&quot;:&quot;&quot;,&quot;exclude&quot;:[],&quot;externalPattern&quot;:[],&quot;excludeExternals&quot;:false,&quot;excludeNotExported&quot;:false,&quot;excludeNotDocumented&quot;:false,&quot;excludePrivate&quot;:true,&quot;excludeProtected&quot;:false,&quot;ignoreCompilerErrors&quot;:false,&quot;disableSources&quot;:false,&quot;includes&quot;:&quot;&quot;,&quot;media&quot;:&quot;&quot;,&quot;out&quot;:&quot;docs/html&quot;,&quot;json&quot;:&quot;&quot;,&quot;theme&quot;:&quot;./node_modules/typedoc-neo-theme/bin/default&quot;,&quot;name&quot;:&quot;ScormCloud Client&quot;,&quot;includeVersion&quot;:true,&quot;excludeTags&quot;:[],&quot;readme&quot;:&quot;README.md&quot;,&quot;defaultCategory&quot;:&quot;Other&quot;,&quot;categoryOrder&quot;:[],&quot;categorizeByGroup&quot;:true,&quot;gitRevision&quot;:&quot;&quot;,&quot;gitRemote&quot;:&quot;origin&quot;,&quot;gaID&quot;:&quot;&quot;,&quot;gaSite&quot;:&quot;auto&quot;,&quot;hideGenerator&quot;:true,&quot;toc&quot;:[],&quot;disableOutputCheck&quot;:false,&quot;help&quot;:false,&quot;version&quot;:false,&quot;plugin&quot;:[&quot;typedoc-neo-theme&quot;],&quot;logger&quot;:&quot;console&quot;,&quot;listInvalidSymbolLinks&quot;:false}-->
 		</div>
 		<div class="col-2 col-menu secondary-menu">
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -204,42 +193,39 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.course.html" class="tsd-kind-icon">Course</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module root">
+						<a href="_types_.courseactivity.html" class="tsd-kind-icon">Course<wbr>Activity</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module root">
-						<a href="_types_.courseactivity.html" class="tsd-kind-icon">Course<wbr>Activity</a>
+						<a href="_types_.coursemeta.html" class="tsd-kind-icon">Course<wbr>Meta</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#activitytype" class="tsd-kind-icon">activity<wbr>Type</a>
+								<a href="_types_.coursemeta.html#description" class="tsd-kind-icon">description</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#children" class="tsd-kind-icon">children</a>
+								<a href="_types_.coursemeta.html#descriptionlanguage" class="tsd-kind-icon">description<wbr>Language</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#externalidentifier" class="tsd-kind-icon">external<wbr>Identifier</a>
+								<a href="_types_.coursemeta.html#duration" class="tsd-kind-icon">duration</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#href" class="tsd-kind-icon">href</a>
+								<a href="_types_.coursemeta.html#keywords" class="tsd-kind-icon">keywords</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#itemidentifier" class="tsd-kind-icon">item<wbr>Identifier</a>
+								<a href="_types_.coursemeta.html#title" class="tsd-kind-icon">title</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#resourceidentifier" class="tsd-kind-icon">resource<wbr>Identifier</a>
+								<a href="_types_.coursemeta.html#titlelanguage" class="tsd-kind-icon">title<wbr>Language</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#scaledpassingscore" class="tsd-kind-icon">scaled<wbr>Passing<wbr>Score</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_types_.courseactivity.html#title" class="tsd-kind-icon">title</a>
+								<a href="_types_.coursemeta.html#typicaltime" class="tsd-kind-icon">typicaltime</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module root">
-						<a href="_types_.coursemeta.html" class="tsd-kind-icon">Course<wbr>Meta</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module root">
 						<a href="_types_.courseuploadoptions.html" class="tsd-kind-icon">Course<wbr>Upload<wbr>Options</a>
 					</li>
