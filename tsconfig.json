@@ -13,6 +13,18 @@
     "declarationMap": true,
     "sourceMap": true
   },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs",
+    "name": "ScormCloud Client",
+    "readme": "README.md",
+    "theme": "./node_modules/typedoc-neo-theme/bin/default",
+    "includeVersion": true,
+    "excludePrivate": true,
+    "stripInternal": true,
+    "disableSources": false,
+    "hideGenerator": true
+  },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test"]
 }
