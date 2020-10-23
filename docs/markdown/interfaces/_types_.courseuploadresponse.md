@@ -22,7 +22,7 @@
 
 • `Optional` **courseId**: string
 
-_Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L103)_
+_Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L103)_
 
 ---
 
@@ -30,7 +30,7 @@ _Defined in [src/types.ts:103](https://github.com/distributhor/scormcloud-client
 
 • `Optional` **importJobId**: string
 
-_Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L104)_
+_Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L104)_
 
 ---
 
@@ -38,4 +38,4 @@ _Defined in [src/types.ts:104](https://github.com/distributhor/scormcloud-client
 
 • `Optional` **importJobResult**: [ImportJobResult](_types_.importjobresult.md)
 
-_Defined in [src/types.ts:105](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L105)_
+_Defined in [src/types.ts:105](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L105)_

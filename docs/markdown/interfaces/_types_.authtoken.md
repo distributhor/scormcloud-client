@@ -22,7 +22,7 @@
 
 • **access_token**: string
 
-_Defined in [src/types.ts:10](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L10)_
+_Defined in [src/types.ts:10](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L10)_
 
 ---
 
@@ -30,7 +30,7 @@ _Defined in [src/types.ts:10](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **expires_in**: number
 
-_Defined in [src/types.ts:11](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L11)_
+_Defined in [src/types.ts:11](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L11)_
 
 ---
 
@@ -38,4 +38,4 @@ _Defined in [src/types.ts:11](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **token_type**: string
 
-_Defined in [src/types.ts:12](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L12)_
+_Defined in [src/types.ts:12](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L12)_

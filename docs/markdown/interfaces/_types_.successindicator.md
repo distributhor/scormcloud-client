@@ -21,7 +21,7 @@
 
 • `Optional` **message**: string
 
-_Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L48)_
+_Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L48)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:48](https://github.com/distributhor/scormcloud-client/
 
 • **success**: boolean
 
-_Defined in [src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L47)_
+_Defined in [src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L47)_

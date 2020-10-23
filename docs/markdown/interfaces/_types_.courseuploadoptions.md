@@ -27,7 +27,7 @@
 
 • `Optional` **mayCreateNewVersion**: boolean
 
-_Defined in [src/types.ts:115](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L115)_
+_Defined in [src/types.ts:115](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L115)_
 
 ---
 
@@ -35,4 +35,4 @@ _Defined in [src/types.ts:115](https://github.com/distributhor/scormcloud-client
 
 • `Optional` **waitForResult**: number
 
-_Defined in [src/types.ts:114](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L114)_
+_Defined in [src/types.ts:114](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L114)_

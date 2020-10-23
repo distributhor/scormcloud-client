@@ -23,7 +23,7 @@
 
 • `Optional` **importResult**: [ImportResult](_types_.importresult.md)
 
-_Defined in [src/types.ts:99](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L99)_
+_Defined in [src/types.ts:99](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L99)_
 
 ---
 
@@ -31,7 +31,7 @@ _Defined in [src/types.ts:99](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **jobId**: string
 
-_Defined in [src/types.ts:96](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L96)_
+_Defined in [src/types.ts:96](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L96)_
 
 ---
 
@@ -39,7 +39,7 @@ _Defined in [src/types.ts:96](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **message**: string
 
-_Defined in [src/types.ts:98](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L98)_
+_Defined in [src/types.ts:98](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L98)_
 
 ---
 
@@ -47,4 +47,4 @@ _Defined in [src/types.ts:98](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **status**: string
 
-_Defined in [src/types.ts:97](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L97)_
+_Defined in [src/types.ts:97](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L97)_

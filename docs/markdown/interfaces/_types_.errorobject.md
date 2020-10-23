@@ -20,4 +20,4 @@
 
 • **message**: string
 
-_Defined in [src/types.ts:16](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L16)_
+_Defined in [src/types.ts:16](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L16)_

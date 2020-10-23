@@ -26,7 +26,7 @@
 
 • `Optional` **description**: string
 
-_Defined in [src/types.ts:54](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L54)_
+_Defined in [src/types.ts:54](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L54)_
 
 ---
 
@@ -34,7 +34,7 @@ _Defined in [src/types.ts:54](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **descriptionLanguage**: string
 
-_Defined in [src/types.ts:55](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L55)_
+_Defined in [src/types.ts:55](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L55)_
 
 ---
 
@@ -42,7 +42,7 @@ _Defined in [src/types.ts:55](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **duration**: string
 
-_Defined in [src/types.ts:56](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L56)_
+_Defined in [src/types.ts:56](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L56)_
 
 ---
 
@@ -50,7 +50,7 @@ _Defined in [src/types.ts:56](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **keywords**: string[]
 
-_Defined in [src/types.ts:58](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L58)_
+_Defined in [src/types.ts:58](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L58)_
 
 ---
 
@@ -58,7 +58,7 @@ _Defined in [src/types.ts:58](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **title**: string
 
-_Defined in [src/types.ts:52](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L52)_
+_Defined in [src/types.ts:52](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L52)_
 
 ---
 
@@ -66,7 +66,7 @@ _Defined in [src/types.ts:52](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **titleLanguage**: string
 
-_Defined in [src/types.ts:53](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L53)_
+_Defined in [src/types.ts:53](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L53)_
 
 ---
 
@@ -74,4 +74,4 @@ _Defined in [src/types.ts:53](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **typicaltime**: string
 
-_Defined in [src/types.ts:57](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L57)_
+_Defined in [src/types.ts:57](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L57)_

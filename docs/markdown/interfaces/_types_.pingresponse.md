@@ -21,7 +21,7 @@
 
 • **apiMessage**: string
 
-_Defined in [src/types.ts:42](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L42)_
+_Defined in [src/types.ts:42](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L42)_
 
 ---
 
@@ -29,4 +29,4 @@ _Defined in [src/types.ts:42](https://github.com/distributhor/scormcloud-client/
 
 • **currentTime**: string
 
-_Defined in [src/types.ts:43](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L43)_
+_Defined in [src/types.ts:43](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L43)_

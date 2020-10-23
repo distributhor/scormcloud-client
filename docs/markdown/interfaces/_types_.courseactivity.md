@@ -27,7 +27,7 @@
 
 • `Optional` **activityType**: string
 
-_Defined in [src/types.ts:65](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L65)_
+_Defined in [src/types.ts:65](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L65)_
 
 ---
 
@@ -35,7 +35,7 @@ _Defined in [src/types.ts:65](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **children**: [CourseActivity](_types_.courseactivity.md)[]
 
-_Defined in [src/types.ts:69](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L69)_
+_Defined in [src/types.ts:69](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L69)_
 
 ---
 
@@ -43,7 +43,7 @@ _Defined in [src/types.ts:69](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **externalIdentifier**: string
 
-_Defined in [src/types.ts:62](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L62)_
+_Defined in [src/types.ts:62](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L62)_
 
 ---
 
@@ -51,7 +51,7 @@ _Defined in [src/types.ts:62](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **href**: string
 
-_Defined in [src/types.ts:66](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L66)_
+_Defined in [src/types.ts:66](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L66)_
 
 ---
 
@@ -59,7 +59,7 @@ _Defined in [src/types.ts:66](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **itemIdentifier**: string
 
-_Defined in [src/types.ts:63](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L63)_
+_Defined in [src/types.ts:63](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L63)_
 
 ---
 
@@ -67,7 +67,7 @@ _Defined in [src/types.ts:63](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **resourceIdentifier**: string
 
-_Defined in [src/types.ts:64](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L64)_
+_Defined in [src/types.ts:64](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L64)_
 
 ---
 
@@ -75,7 +75,7 @@ _Defined in [src/types.ts:64](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **scaledPassingScore**: string
 
-_Defined in [src/types.ts:67](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L67)_
+_Defined in [src/types.ts:67](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L67)_
 
 ---
 
@@ -83,4 +83,4 @@ _Defined in [src/types.ts:67](https://github.com/distributhor/scormcloud-client/
 
 • `Optional` **title**: string
 
-_Defined in [src/types.ts:68](https://github.com/distributhor/scormcloud-client/blob/6454752/src/types.ts#L68)_
+_Defined in [src/types.ts:68](https://github.com/distributhor/scormcloud-client/blob/1246aed/src/types.ts#L68)_
