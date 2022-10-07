@@ -206,7 +206,7 @@ export class ScormClient {
       return this.refreshAuthentication();
     }
 
-    throw new ScormClientError("Not authenticated and no credentials are set", null, 401);
+    throw new ScormClientError("Not authenticated and no credentials are set", undefined, 401);
   }
 
   private async refreshAuthentication(): Promise<AuthToken> {
@@ -214,7 +214,7 @@ export class ScormClient {
       return this.authenticate(this.appId, this.secretKey, this.scope);
     }
 
-    throw new ScormClientError("Unable to refresh authentication token", null, 401);
+    throw new ScormClientError("Unable to refresh authentication token", undefined, 401);
   }
 
   private authString(): string {
@@ -229,7 +229,7 @@ export class ScormClient {
    * @returns Returns an AuthToken if successfull
    */
   async authenticate(appId: string, secretKey: string, scope: string, timeout?: number): Promise<AuthToken> {
-    this.auth = null;
+    this.auth = undefined;
     this.appId = appId;
     this.secretKey = secretKey;
     this.scope = scope;
@@ -290,7 +290,7 @@ export class ScormClient {
       }
 
       if (HttpStatus.notFound(e)) {
-        return null;
+        return undefined;
       }
 
       throw new ScormClientError(e);
@@ -336,8 +336,8 @@ export class ScormClient {
 
       if (!response.body.result) {
         return {
-          courseId: null,
-          importJobId: null,
+          courseId: undefined,
+          importJobId: undefined,
         };
       }
 
@@ -345,7 +345,7 @@ export class ScormClient {
         return {
           courseId: courseId,
           importJobId: response.body.result,
-          importJobResult: null,
+          importJobResult: undefined,
         };
       }
 
@@ -453,7 +453,7 @@ export class ScormClient {
       }
 
       if (HttpStatus.notFound(e)) {
-        return null;
+        return undefined;
       }
 
       throw new ScormClientError(e);
@@ -487,14 +487,14 @@ export class ScormClient {
 
   /** @ignore */
   invalidateAuth(): void {
-    this.auth = null;
-    this.appId = null;
-    this.secretKey = null;
-    this.scope = null;
+    this.auth = undefined;
+    this.appId = undefined;
+    this.secretKey = undefined;
+    this.scope = undefined;
   }
 
   /** @ignore */
   invalidateAuthToken(): void {
-    this.auth = null;
+    this.auth = undefined;
   }
 }
