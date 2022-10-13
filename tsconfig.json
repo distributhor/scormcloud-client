@@ -9,9 +9,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowJs": true,
+    "checkJs": false,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "strictNullChecks": true
   },
   "typedocOptions": {
     "mode": "modules",
@@ -22,6 +24,6 @@
     "disableSources": false,
     "hideGenerator": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "docs", "md"]
 }
