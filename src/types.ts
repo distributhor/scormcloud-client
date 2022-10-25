@@ -1,4 +1,8 @@
-import { Response } from 'superagent'
+import {
+  Response,
+  ResponseError,
+  HTTPError
+} from 'superagent'
 
 // const enum Auth {
 //   OAUTH = "OAUTH",
@@ -16,26 +20,26 @@ export interface ErrorObject {
   message: string
 }
 
-/** @internal */
 export interface ErrorProperty {
   error: string
 }
 
 /** @internal */
-interface HttpResponse extends Response {
+export interface HttpResponse extends Response {
   body: any
   status: number
 }
 
 /** @internal */
-interface HttpErrorResponse extends HttpResponse {
-  body: ErrorProperty
-  error: any
+export interface HttpError extends ResponseError {
+  status: number
+  response: HttpErrorResponse
 }
 
 /** @internal */
-export interface HttpError {
-  response: HttpErrorResponse
+interface HttpErrorResponse extends Response {
+  body: ErrorProperty
+  error: HTTPError
 }
 
 export interface PingResponse {
@@ -109,6 +113,18 @@ export interface Options {
   [key: string]: any
   // isRetry?: boolean;
 }
+
+// export class Opts extends Map<string, any> implements Options {
+//   constructor(obj?: Partial<Options>) {
+//     super()
+//     // Object.assign(this, obj)
+//     if (obj) {
+//       for (const k of Object.keys(obj)) {
+//         this.set(k, obj[k])
+//       }
+//     }
+//   }
+// }
 
 export interface CourseUploadOptions extends Options {
   waitForResult?: number

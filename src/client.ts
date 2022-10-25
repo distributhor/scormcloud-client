@@ -19,22 +19,6 @@ import {
 const BASE_PATH = 'https://cloud.scorm.com/api/v2'
 
 /** @internal */
-const TypeChecks = {
-  containsErrorProperty: (x: any): x is ErrorProperty => {
-    return x.error
-  },
-
-  isErrorObject: (x: any): x is ErrorObject => {
-    return x.message
-  },
-
-  isHttpError: (x: any): x is HttpError => {
-    // return x.response && x.response.body && x.response.body.error
-    return x.response?.body?.error
-  }
-}
-
-/** @internal */
 const HttpStatus = {
   isSuccess: (r: any): boolean => {
     return !!(r.status && (r.status === 200 || r.status === 204))
@@ -53,11 +37,50 @@ const HttpStatus = {
 }
 
 /** @internal */
-const Util = {
+export const TypeChecks = {
+  containsErrorProperty: (x: any): x is ErrorProperty => {
+    if (x.error) {
+      return true
+    }
+
+    return false
+  },
+
+  isErrorObject: (x: any): x is ErrorObject => {
+    if (x.message) {
+      return true
+    }
+
+    return false
+  },
+
+  isAuthToken: (x: any): x is AuthToken => {
+    if (x.access_token) {
+      return true
+    }
+
+    return false
+  },
+
+  isHttpError: (x: any): x is HttpError => {
+    if (x.response?.error) {
+      return true
+    }
+
+    return false
+  }
+}
+
+/** @internal */
+export const Util = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   hasProperty<X extends {}, Y extends PropertyKey>(obj: X, prop: Y): obj is X & Record<Y, unknown> {
     // eslint-disable-next-line no-prototype-builtins
     return obj.hasOwnProperty(prop)
+  },
+
+  getOption: (name: string, options?: Partial<Options>): any => {
+    return options?.[name]
   },
 
   sleep: (milliseconds: number): unknown => {
@@ -95,10 +118,10 @@ export class ScormClientError extends Error {
     super(e.message)
 
     this.name = 'ScormClientError'
-
     this.message = e.message
-    this.httpStatus = e.httpStatus
     this.cause = e.error
+
+    this.httpStatus = e.httpStatus
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, ScormClientError)
@@ -115,7 +138,11 @@ export class ScormClientError extends Error {
     }
 
     if (TypeChecks.isHttpError(cause)) {
-      return cause.response.body.error
+      if (cause.response.body.error) {
+        return cause.response.body.error
+      }
+
+      return cause.response.error.message
     }
 
     if (TypeChecks.containsErrorProperty(cause)) {
@@ -161,112 +188,135 @@ export class ScormClientError extends Error {
  * const client = new ScormClient();
  * ```
  *
- * or you can obtain a singleton instance
- *
- * ```typescript
- * const client = ScormClient.getInstance();
  * ```
  */
 export class ScormClient {
-  private auth: AuthToken | undefined
-  private appId: string | undefined
-  private secretKey: string | undefined
-  private scope: string | undefined
-  private timeout: number | undefined
+  private appId?: string
+  private secretKey?: string
 
-  private static instance: ScormClient
+  private readonly defaultScope?: string
+  private readonly defaultExpiration?: number
 
-  constructor(appId?: string, secretKey?: string, scope?: string, timeout?: number) {
+  private readonly authorisations = new Map<string, AuthToken>()
+
+  constructor(appId?: string, secretKey?: string, defaultScope?: string, defaultExpiration?: number) {
     this.appId = appId
     this.secretKey = secretKey
-    this.scope = scope
-    this.timeout = timeout
+    this.defaultScope = defaultScope
+    this.defaultExpiration = defaultExpiration
   }
 
   private static get DEFAULT_TIMEOUT(): number {
     return 36000
   }
 
-  public static getInstance(appId?: string, secretKey?: string, scope?: string, timeout?: number): ScormClient {
-    if (appId && secretKey && scope) {
-      ScormClient.instance = new ScormClient(appId, secretKey, scope, timeout)
+  private getTargetScope(scope?: string | Options): string | undefined {
+    if (!scope) {
+      return this.defaultScope
     }
 
-    if (!ScormClient.instance) {
-      throw new ScormClientError('No instance found, and no credentials with which to authenticate')
+    if (typeof scope === 'string') {
+      return scope
     }
 
-    return ScormClient.instance
+    if (scope?.scope) {
+      return scope.scope
+    }
+
+    return this.defaultScope
   }
 
-  private async checkAuthentication(): Promise<AuthToken | undefined> {
-    if (this.auth) {
-      return this.auth
+  private getAuthToken(scope?: string | Options): AuthToken | undefined {
+    const targetScope = this.getTargetScope(scope)
+    if (!targetScope) {
+      return undefined
     }
 
-    if (this.appId && this.secretKey && this.scope) {
-      return await this.refreshAuthentication()
-    }
-
-    throw new ScormClientError('Not authenticated and no credentials are set', undefined, 401)
+    return this.authorisations.has(targetScope)
+      ? this.authorisations.get(targetScope)
+      : undefined
   }
 
-  private async refreshAuthentication(): Promise<AuthToken | undefined> {
-    if (this.appId && this.secretKey && this.scope) {
-      return await this.authenticate(this.appId, this.secretKey, this.scope)
+  private getBearerString(scope?: string | Options): string {
+    const authToken = this.getAuthToken(scope)
+    return authToken
+      ? `Bearer ${authToken.access_token}`
+      : ''
+  }
+
+  private async authorise(scope?: string | Options): Promise<AuthToken | undefined> {
+    const authToken = this.getAuthToken(scope)
+    if (authToken) {
+      return authToken
+    }
+
+    if (this.appId && this.secretKey) {
+      return await this.refreshAuthentication(scope)
+    }
+
+    throw new ScormClientError('No authentication credentials are set', undefined, 401)
+  }
+
+  private async refreshAuthentication(scope?: string | Options): Promise<AuthToken | undefined> {
+    if (this.appId && this.secretKey) {
+      return await this.authenticate(this.getTargetScope(scope))
     }
 
     throw new ScormClientError('Unable to refresh authentication token', undefined, 401)
   }
 
-  private authString(): string {
-    return this.auth ? `Bearer ${this.auth.access_token}` : 'Bearer'
-  }
-
   /**
-   * @param appId  The ScormCloud application id
-   * @param secretKey  The ScormCloud secrent key
-   * @param scope  The ScormCloud permission scope
-   * @param timeout The amount of time, in second, after which the authentication token should expire
+   * @param authScope  The ScormCloud permission authScope
+   * @param timeout The amount of time, in seconds, after which the auth token should expire
    * @returns Returns an AuthToken if successfull
    */
-  async authenticate(appId: string, secretKey: string, scope: string, timeout?: number): Promise<AuthToken | undefined> {
-    this.auth = undefined
-    this.appId = appId
-    this.secretKey = secretKey
-    this.scope = scope
-
-    if (timeout) {
-      this.timeout = timeout
+  async authenticate(authScope?: string, timeout?: number): Promise<AuthToken> {
+    if (!this.appId) {
+      throw new ScormClientError('No APP ID defined')
     }
 
-    if (!this.timeout) {
-      this.timeout = ScormClient.DEFAULT_TIMEOUT
+    if (!this.secretKey) {
+      throw new ScormClientError('No SECRET KEY defined')
+    }
+
+    const scope = authScope ?? this.defaultScope
+    if (!scope) {
+      throw new ScormClientError('No AUTH SCOPE defined')
+    }
+
+    let expiry = timeout ?? this.defaultExpiration
+    if (!expiry) {
+      expiry = ScormClient.DEFAULT_TIMEOUT
     }
 
     try {
-      this.auth = (
-        await request
-          .post(`${BASE_PATH}/oauth/authenticate/application/token`).type('form')
-          .auth(this.appId, this.secretKey)
-          .send(`scope=${this.scope}`)
-          .send(`expiration=${this.timeout}`)
-      ).body
+      const response = await request
+        .post(`${BASE_PATH}/oauth/authenticate/application/token`).type('form')
+        .auth(this.appId, this.secretKey)
+        .send(`scope=${scope}`)
+        .send(`expiration=${expiry}`)
 
-      return this.auth
+      if (!TypeChecks.isAuthToken(response.body)) {
+        throw new ScormClientError('Invalid auth token received')
+      }
+
+      this.authorisations.set(scope, response.body)
+
+      return response.body
     } catch (e) {
+      // this.authToken = undefined ??
       throw new ScormClientError(e)
     }
   }
 
   async ping(options: Options = {}): Promise<PingResponse> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
-      return (await request.get(`${BASE_PATH}/ping`).set('Authorization', this.authString())).body
+      return (await request.get(`${BASE_PATH}/ping`).set('Authorization', this.getBearerString(options))).body
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.ping(Object.assign({ isRetry: true }, options))
       }
 
@@ -275,19 +325,19 @@ export class ScormClient {
   }
 
   async getCourse(courseId: string, options: Options = {}): Promise<Course | undefined> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       return (
         await request
           .get(`${BASE_PATH}/courses/${courseId}`)
-          .set('Authorization', this.authString())
+          .set('Authorization', this.getBearerString(options))
           .query('includeRegistrationCount=true')
           .query('includeCourseMetadata=false')
       ).body
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.getCourse(courseId, Object.assign({ isRetry: true }, options))
       }
 
@@ -300,14 +350,14 @@ export class ScormClient {
   }
 
   async getCourses(options: Options = {}): Promise<Course[]> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
-      const response = await request.get(`${BASE_PATH}/courses`).set('Authorization', this.authString())
+      const response = await request.get(`${BASE_PATH}/courses`).set('Authorization', this.getBearerString(options))
       return response.body.courses || []
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.getCourses(Object.assign({ isRetry: true }, options))
       }
 
@@ -320,7 +370,7 @@ export class ScormClient {
     filePath: string,
     options: CourseUploadOptions = {}
   ): Promise<CourseUploadResponse> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       const query: any = {
@@ -330,7 +380,7 @@ export class ScormClient {
 
       const response = await request
         .post(`${BASE_PATH}/courses/importJobs/upload`).type('form')
-        .set('Authorization', this.authString())
+        .set('Authorization', this.getBearerString(options))
         .set('uploadedContentType', Util.scormUploadType(filePath))
         .query(query)
         .attach('file', filePath)
@@ -353,7 +403,6 @@ export class ScormClient {
       await Util.sleep(options.waitForResult)
 
       const importJobResult = await this.getCourseUploadStatus(response.body.result)
-
       return {
         courseId,
         importJobId: response.body.result,
@@ -361,7 +410,7 @@ export class ScormClient {
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.uploadCourse(courseId, filePath, Object.assign({ isRetry: true }, options))
       }
 
@@ -370,14 +419,14 @@ export class ScormClient {
   }
 
   async getCourseUploadStatus(jobId: string, options: Options = {}): Promise<ImportJobResult> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
-      return (await request.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set('Authorization', this.authString()))
+      return (await request.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set('Authorization', this.getBearerString(options)))
         .body
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.getCourseUploadStatus(jobId, Object.assign({ isRetry: true }, options))
       }
 
@@ -386,12 +435,12 @@ export class ScormClient {
   }
 
   async setCourseTitle(courseId: string, title: string, options: Options = {}): Promise<SuccessIndicator> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       const response = await request
         .put(`${BASE_PATH}/courses/${courseId}/title`).type('form')
-        .set('Authorization', this.authString())
+        .set('Authorization', this.getBearerString(options))
         .send({ title })
 
       // if (!HttpStatus.isSuccess(response)) {
@@ -403,7 +452,7 @@ export class ScormClient {
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.setCourseTitle(courseId, title, Object.assign({ isRetry: true }, options))
       }
 
@@ -412,12 +461,12 @@ export class ScormClient {
   }
 
   async deleteCourse(courseId: string, options: Options = {}): Promise<SuccessIndicator> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       const response = await request
         .delete(`${BASE_PATH}/courses/${courseId}`)
-        .set('Authorization', this.authString())
+        .set('Authorization', this.getBearerString(options))
 
       // if (!HttpStatus.isSuccess(response)) {
       //   throw new ScormClientError(`Failed to delete the course '${courseId}'`);
@@ -428,7 +477,7 @@ export class ScormClient {
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.deleteCourse(courseId, Object.assign({ isRetry: true }, options))
       }
 
@@ -437,19 +486,19 @@ export class ScormClient {
   }
 
   async getCourseVersions(courseId: string, options: Options = {}): Promise<Course[] | undefined> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       const response = await request
         .get(`${BASE_PATH}/courses/${courseId}/versions`)
-        .set('Authorization', this.authString())
+        .set('Authorization', this.getBearerString(options))
         .query('includeRegistrationCount=true')
         .query('includeCourseMetadata=false')
 
       return response.body.courses || []
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.getCourseVersions(courseId, Object.assign({ isRetry: true }, options))
       }
 
@@ -462,12 +511,12 @@ export class ScormClient {
   }
 
   async deleteCourseVersion(courseId: string, versionId: number, options: Options = {}): Promise<SuccessIndicator> {
-    await this.checkAuthentication()
+    await this.authorise(options)
 
     try {
       const response = await request
         .delete(`${BASE_PATH}/courses/${courseId}/versions/${versionId}`)
-        .set('Authorization', this.authString())
+        .set('Authorization', this.getBearerString(options))
 
       // if (!HttpStatus.isSuccess(response)) {
       //   throw new ScormClientError(`Failed to delete the course version '${courseId} ${versionId}'`);
@@ -478,7 +527,7 @@ export class ScormClient {
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication()
+        await this.refreshAuthentication(options)
         return await this.deleteCourseVersion(courseId, versionId, Object.assign({ isRetry: true }, options))
       }
 
@@ -488,14 +537,12 @@ export class ScormClient {
 
   /** @ignore */
   invalidateAuth(): void {
-    this.auth = undefined
     this.appId = undefined
     this.secretKey = undefined
-    this.scope = undefined
   }
 
   /** @ignore */
   invalidateAuthToken(): void {
-    this.auth = undefined
+    // this.authToken = undefined
   }
 }
