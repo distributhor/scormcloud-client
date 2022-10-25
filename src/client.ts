@@ -3,16 +3,19 @@
 import request from 'superagent'
 import {
   AuthToken,
-  Course,
-  CourseUploadOptions,
-  CourseUploadResponse,
+  HttpError,
   ErrorObject,
   ErrorProperty,
-  HttpError,
-  ImportJobResult,
   Options,
+  Course,
+  Learner,
+  Registration,
   PingResponse,
-  SuccessIndicator
+  ImportJobResult,
+  SuccessIndicator,
+  CourseUploadOptions,
+  CourseUploadResponse,
+  CreateRegistrationOptions
 } from './types'
 
 /** @internal */
@@ -191,8 +194,8 @@ export class ScormClientError extends Error {
  * ```
  */
 export class ScormClient {
-  private appId?: string
-  private secretKey?: string
+  private readonly appId?: string
+  private readonly secretKey?: string
 
   private readonly defaultScope?: string
   private readonly defaultExpiration?: number
@@ -443,12 +446,11 @@ export class ScormClient {
         .set('Authorization', this.getBearerString(options))
         .send({ title })
 
-      // if (!HttpStatus.isSuccess(response)) {
-      //   throw new ScormClientError(`Failed to set course title '${courseId}'`);
-      // }
+      const success = HttpStatus.isSuccess(response)
 
       return {
-        success: HttpStatus.isSuccess(response)
+        success,
+        message: success ? '' : `Failed to set course title '${courseId}'`
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
@@ -468,12 +470,11 @@ export class ScormClient {
         .delete(`${BASE_PATH}/courses/${courseId}`)
         .set('Authorization', this.getBearerString(options))
 
-      // if (!HttpStatus.isSuccess(response)) {
-      //   throw new ScormClientError(`Failed to delete the course '${courseId}'`);
-      // }
+      const success = HttpStatus.isSuccess(response)
 
       return {
-        success: HttpStatus.isSuccess(response)
+        success,
+        message: success ? '' : `Failed to delete course '${courseId}'`
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
@@ -518,12 +519,11 @@ export class ScormClient {
         .delete(`${BASE_PATH}/courses/${courseId}/versions/${versionId}`)
         .set('Authorization', this.getBearerString(options))
 
-      // if (!HttpStatus.isSuccess(response)) {
-      //   throw new ScormClientError(`Failed to delete the course version '${courseId} ${versionId}'`);
-      // }
+      const success = HttpStatus.isSuccess(response)
 
       return {
-        success: HttpStatus.isSuccess(response)
+        success,
+        message: success ? '' : `Failed to delete course version '${courseId}:${versionId}'`
       }
     } catch (e) {
       if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
@@ -535,14 +535,150 @@ export class ScormClient {
     }
   }
 
-  /** @ignore */
-  invalidateAuth(): void {
-    this.appId = undefined
-    this.secretKey = undefined
+  async getRegistrationsForCourse(courseId: string, options: Options = {}): Promise<Registration[]> {
+    return await this.getRegistrations(Object.assign({ courseId }, options))
   }
 
-  /** @ignore */
-  invalidateAuthToken(): void {
-    // this.authToken = undefined
+  async getRegistrationsForLearner(learnerId: string, options: Options = {}): Promise<Registration[]> {
+    return await this.getRegistrations(Object.assign({ learnerId }, options))
   }
+
+  async getRegistrations(options: Options = {}): Promise<Registration[]> {
+    await this.authorise(options)
+
+    try {
+      const query: any = {
+        courseId: options.courseId ?? undefined,
+        learnerId: options.learnerId ?? undefined,
+        since: options.since ?? undefined,
+        until: options.until ?? undefined,
+        datetimeFilter: options.datetimeFilter ?? undefined
+      }
+
+      const response = await request
+        .get(`${BASE_PATH}/registrations`)
+        .set('Authorization', this.getBearerString(options))
+        .query(query)
+
+      return response.body.registrations || []
+    } catch (e) {
+      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
+        await this.refreshAuthentication(options)
+        return await this.getRegistrations(Object.assign({ isRetry: true }, options))
+      }
+
+      throw new ScormClientError(e)
+    }
+  }
+
+  async createRegistration(
+    learner: Learner,
+    courseId: string,
+    registrationId: string,
+    options: CreateRegistrationOptions = {}
+  ): Promise<SuccessIndicator> {
+    await this.authorise(options)
+
+    try {
+      const query: any = {
+        courseVersion: options.courseVersion ?? undefined
+      }
+
+      const registration = {
+        courseId,
+        registrationId,
+        learner
+      }
+
+      const response = await request
+        .post(`${BASE_PATH}/registrations`)
+        .set('Authorization', this.getBearerString(options))
+        .query(query)
+        .send(registration)
+
+      const success = HttpStatus.isSuccess(response)
+
+      return {
+        success,
+        message: success ? '' : `Failed to create registration '${registrationId}'`
+      }
+    } catch (e) {
+      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
+        await this.refreshAuthentication(options)
+        return await this.createRegistration(learner, courseId, registrationId, Object.assign({ isRetry: true }, options))
+      }
+
+      throw new ScormClientError(e)
+    }
+  }
+
+  async registrationExists(registrationId: string, options: Options = {}): Promise<Boolean> {
+    await this.authorise(options)
+
+    try {
+      const response = await request
+        .head(`${BASE_PATH}/registrations/${registrationId}`)
+        .set('Authorization', this.getBearerString(options))
+
+      if (HttpStatus.isSuccess(response)) {
+        return true
+      }
+
+      if (HttpStatus.notFound(response)) {
+        return false
+      }
+
+      throw new ScormClientError(`Bad request: ${response.status}`)
+    } catch (e) {
+      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
+        await this.refreshAuthentication(options)
+        return await this.registrationExists(registrationId, Object.assign({ isRetry: true }, options))
+      }
+
+      if (HttpStatus.isSuccess(e)) {
+        return true
+      }
+
+      if (HttpStatus.notFound(e)) {
+        return false
+      }
+
+      throw new ScormClientError(e)
+    }
+  }
+
+  async deleteRegistration(registrationId: string, options: Options = {}): Promise<SuccessIndicator> {
+    await this.authorise(options)
+
+    try {
+      const response = await request
+        .delete(`${BASE_PATH}/registrations/${registrationId}`)
+        .set('Authorization', this.getBearerString(options))
+
+      const success = HttpStatus.isSuccess(response)
+
+      return {
+        success,
+        message: success ? '' : `Failed to delete registration '${registrationId}'`
+      }
+    } catch (e) {
+      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
+        await this.refreshAuthentication(options)
+        return await this.deleteRegistration(registrationId, Object.assign({ isRetry: true }, options))
+      }
+
+      throw new ScormClientError(e)
+    }
+  }
+
+  // /** @ignore */
+  // invalidateAuth(): void {
+  //   this.appId = undefined
+  //   this.secretKey = undefined
+  // }
+
+  // /** @ignore */
+  // invalidateAuthToken(): void {
+  //   // this.authToken = undefined
+  // }
 }

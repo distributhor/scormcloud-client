@@ -89,6 +89,17 @@ export interface Course {
   rootActivity?: CourseActivity
 }
 
+export interface Registration {
+  id: string
+  totalSecondsTracked?: number
+  firstAccessDate?: string
+  lastAccessDate?: string
+  completedDate?: string
+  createdDate?: string
+  course?: Course
+  learner?: Learner
+}
+
 export interface ImportResult {
   webPathToCourse?: string
   parserWarnings?: string[]
@@ -107,6 +118,13 @@ export interface CourseUploadResponse {
   courseId?: string
   importJobId?: string
   importJobResult?: ImportJobResult
+}
+
+export interface Learner {
+  id: string
+  firstName?: string
+  lastName?: string
+  email?: string
 }
 
 export interface Options {
@@ -129,4 +147,8 @@ export interface Options {
 export interface CourseUploadOptions extends Options {
   waitForResult?: number
   mayCreateNewVersion?: boolean
+}
+
+export interface CreateRegistrationOptions extends Options {
+  courseVersion?: number
 }

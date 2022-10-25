@@ -36,7 +36,7 @@
     "lint:fix": "eslint --fix --ignore-path .eslintignore .",
     "lint:staged": "lint-staged",
     "test": "jest -c test/unit/jest.config.js --passWithNoTests",
-    "integration:test": "jest -c test/integration/jest.config.js",
+    "integration:test": "jest --runInBand -c test/integration/jest.config.js",
     "doc:html": "typedoc --tsconfig ./tsconfig.json --out docs/html --plugin typedoc-neo-theme --theme ./node_modules/typedoc-neo-theme/bin/default",
     "doc:markdown": "typedoc --tsconfig ./tsconfig.json --out docs/markdown --readme none --plugin typedoc-plugin-markdown",
     "doc": "yarn doc:html && yarn doc:markdown",
