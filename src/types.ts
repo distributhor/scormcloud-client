@@ -4,23 +4,11 @@ import {
   HTTPError
 } from 'superagent'
 
-// const enum Auth {
-//   OAUTH = "OAUTH",
-//   APP_NORMAL = "APP_NORMAL",
-//   APP_MANAGEMENT = "APP_MANAGEMENT",
-// }
-
-export interface AuthToken {
-  access_token: string
-  expires_in?: number
-  token_type?: string
-  expires_at?: number
-}
-
 export interface ErrorObject {
   message: string
 }
 
+/** @internal */
 export interface ErrorProperty {
   error: string
 }
@@ -46,6 +34,13 @@ interface HttpErrorResponse extends Response {
 export interface PingResponse {
   apiMessage: string
   currentTime: string
+}
+
+export interface AuthToken {
+  access_token: string
+  expires_in?: number
+  token_type?: string
+  expires_at?: number
 }
 
 export interface SuccessIndicator {
@@ -141,7 +136,6 @@ export interface Learner {
 
 export interface Options {
   [key: string]: any
-  // isRetry?: boolean;
 }
 
 // export class Opts extends Map<string, any> implements Options {
