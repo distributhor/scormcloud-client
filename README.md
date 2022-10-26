@@ -1,5 +1,5 @@
 
-### Description
+## Description
 
 A Typescript and Javascript client for interfacing with the [Scorm Cloud API](https://rusticisoftware.com/products/scorm-cloud/)
 
@@ -11,7 +11,7 @@ The reference documentation for this client [is available here](https://distribu
 
 <br/>
 
-### Coverage
+## Coverage
 
 The following indicates which of the endpoints in the [official API](https://cloud.scorm.com/docs/v2/reference/swagger/) is currently covered by functionality of this client.
 
