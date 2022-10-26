@@ -17,9 +17,142 @@
   <h3>Description</h3>
 </a>
 <p>A Typescript and Javascript client for interfacing with the <a href="https://rusticisoftware.com/products/scorm-cloud/">Scorm Cloud API</a></p>
-<p>The API documentation for this client <a href="https://distributhor.github.io/scormcloud-client/index.html">is available here</a></p>
+<p>The reference documentation for this client <a href="https://distributhor.github.io/scormcloud-client/index.html">is available here</a></p>
 <p><em>Note: This is currently in early stages of development and not ready for production use yet</em></p>
-<p><strong>Current status:</strong> At the moment the endpoints covered in the official <a href="https://cloud.scorm.com/docs/v2/tutorials/course_registration_launch/">&quot;Getting Started&quot;</a> tutorial have been implemented, although not with all the optional settings that are available. The TS typings have also not been fully expanded yet. Having said that, the actions taken in the tutorial can already implemented with this client in it&#39;s current state (as shown by the integration tests) - it is functional, just very limited in the scope of which endpoints and optional settings have been implemented, out of all those available. To know what the current state of implementation is, please always refer to the <a href="https://distributhor.github.io/scormcloud-client/index.html">API documentation</a>, which will always reflect the latest state.</p>
+<p><strong>Current status:</strong> At the moment the endpoints covered in the official <a href="https://cloud.scorm.com/docs/v2/tutorials/course_registration_launch/">&quot;Getting Started&quot;</a> tutorial have been implemented, although not with all the optional settings that are available. The TS typings have also not been fully expanded yet. Having said that, the actions taken in the tutorial can already implemented with this client in it&#39;s current state (as shown by the integration tests) - it is functional, just very limited in the scope of which endpoints and optional settings have been implemented, out of all those available. To know what the current state of implementation is, please always refer to the <a href="https://distributhor.github.io/scormcloud-client/index.html">client reference documentation</a>, which will always reflect the latest state.</p>
+<br/>
+
+
+<a href="#coverage" id="coverage" style="color: inherit; text-decoration: none;">
+  <h3>Coverage</h3>
+</a>
+<p>The following indicates which of the endpoints in the <a href="https://cloud.scorm.com/docs/v2/reference/swagger/">official API</a> is currently covered by functionality of this client.</p>
+
+<a href="#authentication-service" id="authentication-service" style="color: inherit; text-decoration: none;">
+  <h4>Authentication Service</h4>
+</a>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> GetAppToken</li>
+</ul>
+
+<a href="#ping-service" id="ping-service" style="color: inherit; text-decoration: none;">
+  <h4>Ping Service</h4>
+</a>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> PingAppId</li>
+</ul>
+
+<a href="#course-service" id="course-service" style="color: inherit; text-decoration: none;">
+  <h4>Course Service</h4>
+</a>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> GetCourses</li>
+<li><input checked="" disabled="" type="checkbox"> CreateUploadAndImportCourseJob</li>
+<li><input disabled="" type="checkbox"> CreateNoUploadAndImportCourseJob</li>
+<li><input disabled="" type="checkbox"> CreateFetchAndImportCourseJob</li>
+<li><input checked="" disabled="" type="checkbox"> GetImportJobStatus</li>
+<li><input checked="" disabled="" type="checkbox"> GetCourse</li>
+<li><input checked="" disabled="" type="checkbox"> DeleteCourse</li>
+<li><input checked="" disabled="" type="checkbox"> SetCourseTitle</li>
+<li><input checked="" disabled="" type="checkbox"> BuildCoursePreviewLaunchLink</li>
+<li><input disabled="" type="checkbox"> GetCourseZip</li>
+<li><input disabled="" type="checkbox"> UploadCourseAssetFile</li>
+<li><input disabled="" type="checkbox"> ImportCourseAssetFile</li>
+<li><input disabled="" type="checkbox"> GetCourseAsset</li>
+<li><input disabled="" type="checkbox"> DeleteCourseAsset</li>
+<li><input disabled="" type="checkbox"> GetCourseFileList</li>
+<li><input disabled="" type="checkbox"> GetCourseConfiguration</li>
+<li><input disabled="" type="checkbox"> SetCourseConfiguration</li>
+<li><input disabled="" type="checkbox"> DeleteCourseConfigurationSetting</li>
+<li><input disabled="" type="checkbox"> PutCourseTagsBatch</li>
+<li><input disabled="" type="checkbox"> PutCourseTags</li>
+<li><input disabled="" type="checkbox"> GetCourseTags</li>
+<li><input disabled="" type="checkbox"> DeleteCourseTags</li>
+<li><input disabled="" type="checkbox"> GetCourseStatements</li>
+<li><input disabled="" type="checkbox"> GetCourseVersions</li>
+<li><input disabled="" type="checkbox"> GetCourseVersionInfo</li>
+<li><input disabled="" type="checkbox"> DeleteCourseVersion</li>
+<li><input disabled="" type="checkbox"> BuildCoursePreviewLaunchLinkWithVersion</li>
+<li><input disabled="" type="checkbox"> GetVersionedCourseZip</li>
+<li><input disabled="" type="checkbox"> GetCourseVersionAsset</li>
+<li><input disabled="" type="checkbox"> ImportCourseVersionAssetFile</li>
+<li><input disabled="" type="checkbox"> DeleteCourseVersionAsset</li>
+<li><input disabled="" type="checkbox"> UploadCourseVersionAssetFile</li>
+<li><input disabled="" type="checkbox"> GetCourseVersionFileList</li>
+<li><input disabled="" type="checkbox"> GetCourseVersionConfiguration</li>
+<li><input disabled="" type="checkbox"> SetCourseVersionConfiguration</li>
+<li><input disabled="" type="checkbox"> DeleteCourseVersionConfigurationSetting</li>
+<li><input disabled="" type="checkbox"> GetCourseVersionStatements</li>
+</ul>
+
+<a href="#learner-service" id="learner-service" style="color: inherit; text-decoration: none;">
+  <h4>Learner Service</h4>
+</a>
+<ul>
+<li><input disabled="" type="checkbox"> UpdateLearnerInfo</li>
+<li><input disabled="" type="checkbox"> DeleteAllLearnerData</li>
+<li><input disabled="" type="checkbox"> PutLearnerTagsBatch</li>
+<li><input disabled="" type="checkbox"> PutLearnerTags</li>
+<li><input disabled="" type="checkbox"> GetLearnerTags</li>
+<li><input disabled="" type="checkbox"> DeleteLearnerTags</li>
+</ul>
+
+<a href="#registration-service" id="registration-service" style="color: inherit; text-decoration: none;">
+  <h4>Registration Service</h4>
+</a>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> GetRegistrations</li>
+<li><input checked="" disabled="" type="checkbox"> CreateRegistration</li>
+<li><input checked="" disabled="" type="checkbox"> GetRegistration</li>
+<li><input checked="" disabled="" type="checkbox"> GetRegistrationProgress</li>
+<li><input checked="" disabled="" type="checkbox"> DeleteRegistration</li>
+<li><input disabled="" type="checkbox"> GetRegistrationConfiguration</li>
+<li><input disabled="" type="checkbox"> SetRegistrationConfiguration</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationConfigurationSetting</li>
+<li><input disabled="" type="checkbox"> BuildRegistrationLaunchLink</li>
+<li><input disabled="" type="checkbox"> GetRegistrationLaunchHistory</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationProgress</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationGlobalData</li>
+<li><input disabled="" type="checkbox"> PutRegistrationTagsBatch</li>
+<li><input disabled="" type="checkbox"> PutRegistrationTags</li>
+<li><input disabled="" type="checkbox"> GetRegistrationTags</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationTags</li>
+<li><input disabled="" type="checkbox"> GetRegistrationStatements</li>
+<li><input disabled="" type="checkbox"> TestRegistrationPostback</li>
+<li><input disabled="" type="checkbox"> GetRegistrationInstances</li>
+<li><input disabled="" type="checkbox"> CreateNewRegistrationInstance</li>
+<li><input disabled="" type="checkbox"> GetRegistrationInstanceProgress</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationInstance</li>
+<li><input disabled="" type="checkbox"> GetRegistrationInstanceConfiguration</li>
+<li><input disabled="" type="checkbox"> SetRegistrationInstanceConfiguration</li>
+<li><input disabled="" type="checkbox"> DeleteRegistrationInstanceConfigurationSetting</li>
+<li><input disabled="" type="checkbox"> GetRegistrationInstanceLaunchHistory</li>
+<li><input disabled="" type="checkbox"> GetRegistrationInstanceStatements</li>
+</ul>
+
+<a href="#reporting-service" id="reporting-service" style="color: inherit; text-decoration: none;">
+  <h4>Reporting Service</h4>
+</a>
+<ul>
+<li><input disabled="" type="checkbox"> GetAccountInfo</li>
+<li><input disabled="" type="checkbox"> GetReportageAuthToken</li>
+<li><input disabled="" type="checkbox"> GetReportageLink</li>
+</ul>
+
+<a href="#application-management-service" id="application-management-service" style="color: inherit; text-decoration: none;">
+  <h4>Application Management Service</h4>
+</a>
+<p>Not currently in scope</p>
+
+<a href="#dispatch-service" id="dispatch-service" style="color: inherit; text-decoration: none;">
+  <h4>Dispatch Service</h4>
+</a>
+<p>Not currently in scope</p>
+
+<a href="#invitations-service" id="invitations-service" style="color: inherit; text-decoration: none;">
+  <h4>Invitations Service</h4>
+</a>
+<p>Not currently in scope</p>
 </div></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
