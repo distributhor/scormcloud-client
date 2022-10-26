@@ -1,4 +1,4 @@
-[scormcloud-client](../README.md) / types
+[SCORM Cloud Client - v0.0.10](../README.md) / types
 
 # Module: types
 
@@ -16,8 +16,6 @@
 - [CreateRegistrationOptions](../interfaces/types.CreateRegistrationOptions.md)
 - [ErrorObject](../interfaces/types.ErrorObject.md)
 - [ErrorProperty](../interfaces/types.ErrorProperty.md)
-- [HttpError](../interfaces/types.HttpError.md)
-- [HttpResponse](../interfaces/types.HttpResponse.md)
 - [ImportJobResult](../interfaces/types.ImportJobResult.md)
 - [ImportResult](../interfaces/types.ImportResult.md)
 - [LaunchLink](../interfaces/types.LaunchLink.md)

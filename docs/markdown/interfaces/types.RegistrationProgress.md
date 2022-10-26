@@ -1,4 +1,4 @@
-[scormcloud-client](../README.md) / [types](../modules/types.md) / RegistrationProgress
+[SCORM Cloud Client - v0.0.10](../README.md) / [types](../modules/types.md) / RegistrationProgress
 
 # Interface: RegistrationProgress
 

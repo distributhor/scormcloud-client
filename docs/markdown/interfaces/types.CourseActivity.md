@@ -1,4 +1,4 @@
-[scormcloud-client](../README.md) / [types](../modules/types.md) / CourseActivity
+[SCORM Cloud Client - v0.0.10](../README.md) / [types](../modules/types.md) / CourseActivity
 
 # Interface: CourseActivity
 

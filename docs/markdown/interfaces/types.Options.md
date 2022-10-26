@@ -1,4 +1,4 @@
-[scormcloud-client](../README.md) / [types](../modules/types.md) / Options
+[SCORM Cloud Client - v0.0.10](../README.md) / [types](../modules/types.md) / Options
 
 # Interface: Options
 

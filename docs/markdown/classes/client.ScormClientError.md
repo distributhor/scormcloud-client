@@ -1,4 +1,4 @@
-[scormcloud-client](../README.md) / [client](../modules/client.md) / ScormClientError
+[SCORM Cloud Client - v0.0.10](../README.md) / [client](../modules/client.md) / ScormClientError
 
 # Class: ScormClientError
 

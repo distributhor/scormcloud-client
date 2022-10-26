@@ -1,6 +1,6 @@
-scormcloud-client
+SCORM Cloud Client - v0.0.10
 
-# scormcloud-client
+# SCORM Cloud Client - v0.0.10
 
 ## Table of contents
 
