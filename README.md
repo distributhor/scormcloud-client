@@ -1,4 +1,4 @@
-### Introduction
+### Description
 
 A Typescript and JS client for interfacing with the ScormCloud API. http://www.scorm.com
 
