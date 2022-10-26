@@ -8,5 +8,5 @@
     "excludeProtected": true,
     "githubPages": true,
     "entryPoints": ["./src/client.ts", "./src/types.ts"],
-    "titleLink": "index.html"
+    "titleLink": "https://distributhor.github.io/scormcloud-client/index.html"
 }
