@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L47)
+[src/types.ts:47](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L47)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L48)
+[src/types.ts:48](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L48)

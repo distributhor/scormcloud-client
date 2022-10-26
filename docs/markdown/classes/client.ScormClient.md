@@ -72,7 +72,7 @@ const client = new ScormClient();
 
 #### Defined in
 
-[src/client.ts:210](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L210)
+[src/client.ts:210](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L210)
 
 ## Properties
 
@@ -82,7 +82,7 @@ const client = new ScormClient();
 
 #### Defined in
 
-[src/client.ts:202](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L202)
+[src/client.ts:202](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L202)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:208](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L208)
+[src/client.ts:208](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L208)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:206](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L206)
+[src/client.ts:206](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L206)
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:205](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L205)
+[src/client.ts:205](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L205)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:203](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L203)
+[src/client.ts:203](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L203)
 
 ## Accessors
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:217](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L217)
+[src/client.ts:217](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L217)
 
 ## Methods
 
@@ -159,7 +159,7 @@ Returns an AuthToken if successfull
 
 #### Defined in
 
-[src/client.ts:282](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L282)
+[src/client.ts:282](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L282)
 
 ___
 
@@ -179,7 +179,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:255](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L255)
+[src/client.ts:255](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L255)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:627](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L627)
+[src/client.ts:627](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L627)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:542](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L542)
+[src/client.ts:542](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L542)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:453](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L453)
+[src/client.ts:453](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L453)
 
 ___
 
@@ -267,7 +267,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:492](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L492)
+[src/client.ts:492](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L492)
 
 ___
 
@@ -288,7 +288,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:608](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L608)
+[src/client.ts:608](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L608)
 
 ___
 
@@ -308,7 +308,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:237](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L237)
+[src/client.ts:237](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L237)
 
 ___
 
@@ -328,7 +328,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:248](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L248)
+[src/client.ts:248](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L248)
 
 ___
 
@@ -349,7 +349,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:335](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L335)
+[src/client.ts:335](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L335)
 
 ___
 
@@ -370,7 +370,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:419](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L419)
+[src/client.ts:419](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L419)
 
 ___
 
@@ -391,7 +391,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:472](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L472)
+[src/client.ts:472](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L472)
 
 ___
 
@@ -411,7 +411,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:359](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L359)
+[src/client.ts:359](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L359)
 
 ___
 
@@ -432,7 +432,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:650](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L650)
+[src/client.ts:650](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L650)
 
 ___
 
@@ -452,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:519](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L519)
+[src/client.ts:519](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L519)
 
 ___
 
@@ -473,7 +473,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:511](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L511)
+[src/client.ts:511](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L511)
 
 ___
 
@@ -494,7 +494,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:515](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L515)
+[src/client.ts:515](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L515)
 
 ___
 
@@ -514,7 +514,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:221](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L221)
+[src/client.ts:221](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L221)
 
 ___
 
@@ -534,7 +534,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:325](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L325)
+[src/client.ts:325](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L325)
 
 ___
 
@@ -555,7 +555,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:578](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L578)
+[src/client.ts:578](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L578)
 
 ___
 
@@ -577,7 +577,7 @@ ___
 
 #### Defined in
 
-[src/client.ts:433](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L433)
+[src/client.ts:433](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L433)
 
 ___
 
@@ -599,4 +599,4 @@ ___
 
 #### Defined in
 
-[src/client.ts:370](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/client.ts#L370)
+[src/client.ts:370](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/client.ts#L370)

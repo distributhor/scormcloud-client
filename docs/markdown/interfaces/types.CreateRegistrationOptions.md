@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[src/types.ts:165](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L165)
+[src/types.ts:165](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L165)

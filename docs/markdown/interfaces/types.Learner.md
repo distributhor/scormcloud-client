@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/types.ts:139](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L139)
+[src/types.ts:139](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L139)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:137](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L137)
+[src/types.ts:137](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L137)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/types.ts:136](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L136)
+[src/types.ts:136](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L136)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[src/types.ts:138](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L138)
+[src/types.ts:138](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L138)

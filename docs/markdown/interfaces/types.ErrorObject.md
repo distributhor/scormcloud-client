@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[src/types.ts:21](https://github.com/distributhor/scormcloud-client/blob/49508a5/src/types.ts#L21)
+[src/types.ts:21](https://github.com/distributhor/scormcloud-client/blob/e172d5e/src/types.ts#L21)
