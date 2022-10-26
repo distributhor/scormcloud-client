@@ -1,12 +1,10 @@
-**[API Reference Docs](README.md)**
+scormcloud-client
 
-> Globals
+# scormcloud-client
 
-# API Reference Docs
-
-## Index
+## Table of contents
 
 ### Modules
 
-- ["client"](modules/_client_.md)
-- ["types"](modules/_types_.md)
+- [client](modules/client.md)
+- [types](modules/types.md)

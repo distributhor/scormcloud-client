@@ -15,15 +15,6 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "typedocOptions": {
-    "mode": "modules",
-    "name": "API Reference Docs",
-    "includeVersion": false,
-    "excludePrivate": true,
-    "stripInternal": true,
-    "disableSources": false,
-    "hideGenerator": true
-  },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "docs", "md"]
 }

@@ -1,0 +1,6 @@
+{
+    "name": "SCORM Cloud Client",
+    "includeVersion": true,
+    "categorizeByGroup": true,
+    "excludeInternal": true
+}
