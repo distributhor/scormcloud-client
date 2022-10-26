@@ -37,9 +37,7 @@
     "lint:staged": "lint-staged",
     "test": "jest -c test/unit/jest.config.js --passWithNoTests",
     "integration:test": "jest --runInBand -c test/integration/jest.config.js",
-    "docs:html": "typedoc --plugin none --out docs src/client.ts src/types.ts",
-    "docs:markdown": "typedoc --plugin typedoc-plugin-markdown --out markdown --readme none src/client.ts src/types.ts",
-    "docs": "yarn docs:html && yarn docs:markdown",
+    "docs": "typedoc --plugin none --out docs",
     "prepare": "husky install"
   },
   "dependencies": {

@@ -1,6 +1,12 @@
 {
+    "out": "docs",
     "name": "SCORM Cloud Client",
-    "includeVersion": true,
+    "includeVersion": false,
     "categorizeByGroup": true,
-    "excludeInternal": true
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "githubPages": true,
+    "entryPoints": ["./src/client.ts", "./src/types.ts"],
+    "titleLink": "https://distributhor.github.io/scormcloud-client/index.html"
 }
