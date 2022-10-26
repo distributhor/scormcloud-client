@@ -336,12 +336,16 @@ export class ScormClient {
     await this.authorise(options)
 
     try {
+      const query: any = {
+        includeRegistrationCount: options.includeRegistrationCount ?? true,
+        includeCourseMetadata: options.includeCourseMetadata ?? false
+      }
+
       return (
         await request
           .get(`${BASE_PATH}/courses/${courseId}`)
           .set('Authorization', this.getBearerString(options))
-          .query('includeRegistrationCount=true')
-          .query('includeCourseMetadata=false')
+          .query(query)
       ).body
     } catch (e) {
       if (HttpStatus.notFound(e)) {
@@ -371,7 +375,7 @@ export class ScormClient {
     await this.authorise(options)
 
     try {
-      const query: any = {
+      const query = {
         courseId,
         mayCreateNewVersion: options.mayCreateNewVersion ?? false
       }
@@ -416,8 +420,11 @@ export class ScormClient {
     await this.authorise(options)
 
     try {
-      return (await request.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set('Authorization', this.getBearerString(options)))
-        .body
+      return (
+        await request
+          .get(`${BASE_PATH}/courses/importJobs/${jobId}`)
+          .set('Authorization', this.getBearerString(options))
+      ).body
     } catch (e) {
       throw new ScormClientError(e)
     }
@@ -541,7 +548,7 @@ export class ScormClient {
     await this.authorise(options)
 
     try {
-      const query: any = {
+      const query = {
         courseVersion: options.courseVersion ?? undefined
       }
 
@@ -625,16 +632,16 @@ export class ScormClient {
     await this.authorise(options)
 
     try {
-      const launchLinkRequest = {
+      const query = {
         redirectOnExitUrl
       }
 
-      const response = await request
-        .post(`${BASE_PATH}/registrations/${registrationId}/launchLink`)
-        .set('Authorization', this.getBearerString(options))
-        .send(launchLinkRequest)
-
-      return response.body
+      return (
+        await request
+          .post(`${BASE_PATH}/registrations/${registrationId}/launchLink`)
+          .set('Authorization', this.getBearerString(options))
+          .send(query)
+      ).body
     } catch (e) {
       throw new ScormClientError(e)
     }
@@ -650,12 +657,12 @@ export class ScormClient {
         includeRuntime: options.includeRuntime ?? false
       }
 
-      const response = await request
-        .get(`${BASE_PATH}/registrations/${registrationId}`)
-        .set('Authorization', this.getBearerString(options))
-        .query(query)
-
-      return response.body
+      return (
+        await request
+          .get(`${BASE_PATH}/registrations/${registrationId}`)
+          .set('Authorization', this.getBearerString(options))
+          .query(query)
+      ).body
     } catch (e) {
       throw new ScormClientError(e)
     }
