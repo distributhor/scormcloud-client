@@ -3,11 +3,17 @@
 
 A Typescript and Javascript client for interfacing with the [Scorm Cloud API](https://rusticisoftware.com/products/scorm-cloud/)
 
-The reference documentation for this client [is available here](https://distributhor.github.io/scormcloud-client/index.html)
-
 *Note: This is currently in early stages of development and not ready for production use yet*
 
-**Current status:** At the moment the endpoints covered in the official ["Getting Started"](https://cloud.scorm.com/docs/v2/tutorials/course_registration_launch/) tutorial have been implemented, although not with all the optional settings that are available. The TS typings have also not been fully expanded yet. Having said that, the actions taken in the tutorial can already implemented with this client in it's current state (as shown by the integration tests) - it is functional, just very limited in the scope of which endpoints and optional settings have been implemented, out of all those available. To know what the current state of implementation is, please always refer to the [client reference documentation](https://distributhor.github.io/scormcloud-client/index.html), which will always reflect the latest state.
+*Current status:* At the moment the endpoints covered in the official ["Getting Started"](https://cloud.scorm.com/docs/v2/tutorials/course_registration_launch/) tutorial have been implemented, although not with all the optional settings that are available. The TS typings have also not been fully expanded yet. Having said that, the actions taken in the tutorial can already implemented with this client in it's current state (as shown by the integration tests) - it is functional, just very limited in the scope of which endpoints and optional settings have been implemented, out of all those available. 
+
+*To know the current state of implementation*, please refer to the [reference documentation for this client](https://distributhor.github.io/scormcloud-client/index.html), which will always reflect the latest state. The [coverage](#coverage) section below will also be kept up to date, in order to give a bird's eye view.
+
+<br/>
+
+## Documentation
+
+[The API reference documentation for the client](https://distributhor.github.io/scormcloud-client/index.html)
 
 <br/>
 
@@ -65,16 +71,6 @@ The following indicates which of the endpoints in the [official API](https://clo
 - [ ] GetCourseVersionStatements
 
 
-#### Learner Service
-
-- [ ] UpdateLearnerInfo
-- [ ] DeleteAllLearnerData
-- [ ] PutLearnerTagsBatch
-- [ ] PutLearnerTags
-- [ ] GetLearnerTags
-- [ ] DeleteLearnerTags
-
-
 #### Registration Service
 
 - [x] GetRegistrations
@@ -106,23 +102,19 @@ The following indicates which of the endpoints in the [official API](https://clo
 - [ ] GetRegistrationInstanceStatements
 
 
-#### Reporting Service
+#### Learner Service
 
-- [ ] GetAccountInfo
-- [ ] GetReportageAuthToken
-- [ ] GetReportageLink
-
-
-#### Application Management Service
-
-Not currently in scope
+- [ ] UpdateLearnerInfo
+- [ ] DeleteAllLearnerData
+- [ ] PutLearnerTagsBatch
+- [ ] PutLearnerTags
+- [ ] GetLearnerTags
+- [ ] DeleteLearnerTags
 
 
-#### Dispatch Service
+#### Not currently in scope
 
-Not currently in scope
-
-
-#### Invitations Service
-
-Not currently in scope
+- Reporting Service
+- Application Management Service
+- Dispatch Service
+- Invitations Service
