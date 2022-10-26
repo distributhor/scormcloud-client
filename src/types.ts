@@ -14,6 +14,7 @@ export interface AuthToken {
   access_token: string
   expires_in?: number
   token_type?: string
+  expires_at?: number
 }
 
 export interface ErrorObject {
@@ -100,6 +101,13 @@ export interface Registration {
   learner?: Learner
 }
 
+export interface RegistrationProgress {
+  id: string
+  course: Course
+  learner: Learner
+  totalSecondsTracked: number
+}
+
 export interface ImportResult {
   webPathToCourse?: string
   parserWarnings?: string[]
@@ -112,6 +120,10 @@ export interface ImportJobResult {
   status?: string
   message?: string
   importResult?: ImportResult
+}
+
+export interface LaunchLink {
+  launchLink: string
 }
 
 export interface CourseUploadResponse {
@@ -151,4 +163,14 @@ export interface CourseUploadOptions extends Options {
 
 export interface CreateRegistrationOptions extends Options {
   courseVersion?: number
+}
+
+export interface CreateLaunchLinkOptions extends Options {
+  expiry?: number
+}
+
+export interface RegistrationProgressOptions extends Options {
+  includeChildResults?: boolean
+  includeInteractionsAndObjectives?: boolean
+  includeRuntime?: boolean
 }

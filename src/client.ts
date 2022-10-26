@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-prototype-builtins */
+import { DateTime } from 'luxon'
 import request from 'superagent'
 import {
   AuthToken,
@@ -9,13 +10,17 @@ import {
   Options,
   Course,
   Learner,
+  LaunchLink,
   Registration,
   PingResponse,
   ImportJobResult,
   SuccessIndicator,
   CourseUploadOptions,
   CourseUploadResponse,
-  CreateRegistrationOptions
+  RegistrationProgress,
+  CreateLaunchLinkOptions,
+  CreateRegistrationOptions,
+  RegistrationProgressOptions
 } from './types'
 
 /** @internal */
@@ -249,23 +254,24 @@ export class ScormClient {
 
   private async authorise(scope?: string | Options): Promise<AuthToken | undefined> {
     const authToken = this.getAuthToken(scope)
-    if (authToken) {
-      return authToken
+
+    if (!authToken) {
+      if (this.appId && this.secretKey) {
+        return await this.authenticate(this.getTargetScope(scope))
+      }
+
+      throw new ScormClientError('No authentication credentials are set', undefined, 401)
     }
 
-    if (this.appId && this.secretKey) {
-      return await this.refreshAuthentication(scope)
+    if (authToken.expires_at && DateTime.now().valueOf() > authToken.expires_at) {
+      if (this.appId && this.secretKey) {
+        return await this.authenticate(this.getTargetScope(scope))
+      }
+
+      throw new ScormClientError('Unable to refresh authentication token', undefined, 401)
     }
 
-    throw new ScormClientError('No authentication credentials are set', undefined, 401)
-  }
-
-  private async refreshAuthentication(scope?: string | Options): Promise<AuthToken | undefined> {
-    if (this.appId && this.secretKey) {
-      return await this.authenticate(this.getTargetScope(scope))
-    }
-
-    throw new ScormClientError('Unable to refresh authentication token', undefined, 401)
+    return authToken
   }
 
   /**
@@ -303,7 +309,11 @@ export class ScormClient {
         throw new ScormClientError('Invalid auth token received')
       }
 
-      this.authorisations.set(scope, response.body)
+      const token = response.body
+
+      token.expires_at = DateTime.now().plus({ seconds: expiry - 60 }).valueOf()
+
+      this.authorisations.set(scope, token)
 
       return response.body
     } catch (e) {
@@ -318,11 +328,6 @@ export class ScormClient {
     try {
       return (await request.get(`${BASE_PATH}/ping`).set('Authorization', this.getBearerString(options))).body
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.ping(Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -339,11 +344,6 @@ export class ScormClient {
           .query('includeCourseMetadata=false')
       ).body
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.getCourse(courseId, Object.assign({ isRetry: true }, options))
-      }
-
       if (HttpStatus.notFound(e)) {
         return undefined
       }
@@ -359,11 +359,6 @@ export class ScormClient {
       const response = await request.get(`${BASE_PATH}/courses`).set('Authorization', this.getBearerString(options))
       return response.body.courses || []
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.getCourses(Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -406,17 +401,13 @@ export class ScormClient {
       await Util.sleep(options.waitForResult)
 
       const importJobResult = await this.getCourseUploadStatus(response.body.result)
+
       return {
         courseId,
         importJobId: response.body.result,
         importJobResult
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.uploadCourse(courseId, filePath, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -428,11 +419,6 @@ export class ScormClient {
       return (await request.get(`${BASE_PATH}/courses/importJobs/${jobId}`).set('Authorization', this.getBearerString(options)))
         .body
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.getCourseUploadStatus(jobId, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -453,11 +439,6 @@ export class ScormClient {
         message: success ? '' : `Failed to set course title '${courseId}'`
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.setCourseTitle(courseId, title, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -477,11 +458,6 @@ export class ScormClient {
         message: success ? '' : `Failed to delete course '${courseId}'`
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.deleteCourse(courseId, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -498,11 +474,6 @@ export class ScormClient {
 
       return response.body.courses || []
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.getCourseVersions(courseId, Object.assign({ isRetry: true }, options))
-      }
-
       if (HttpStatus.notFound(e)) {
         return undefined
       }
@@ -526,11 +497,6 @@ export class ScormClient {
         message: success ? '' : `Failed to delete course version '${courseId}:${versionId}'`
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.deleteCourseVersion(courseId, versionId, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -562,11 +528,6 @@ export class ScormClient {
 
       return response.body.registrations || []
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.getRegistrations(Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -603,11 +564,6 @@ export class ScormClient {
         message: success ? '' : `Failed to create registration '${registrationId}'`
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.createRegistration(learner, courseId, registrationId, Object.assign({ isRetry: true }, options))
-      }
-
       throw new ScormClientError(e)
     }
   }
@@ -630,11 +586,6 @@ export class ScormClient {
 
       throw new ScormClientError(`Bad request: ${response.status}`)
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.registrationExists(registrationId, Object.assign({ isRetry: true }, options))
-      }
-
       if (HttpStatus.isSuccess(e)) {
         return true
       }
@@ -662,11 +613,50 @@ export class ScormClient {
         message: success ? '' : `Failed to delete registration '${registrationId}'`
       }
     } catch (e) {
-      if (!options.isRetry && HttpStatus.isUnauthorized(e)) {
-        await this.refreshAuthentication(options)
-        return await this.deleteRegistration(registrationId, Object.assign({ isRetry: true }, options))
+      throw new ScormClientError(e)
+    }
+  }
+
+  async createLaunchLink(
+    registrationId: string,
+    redirectOnExitUrl: string,
+    options: CreateLaunchLinkOptions = {}
+  ): Promise<LaunchLink> {
+    await this.authorise(options)
+
+    try {
+      const launchLinkRequest = {
+        redirectOnExitUrl
       }
 
+      const response = await request
+        .post(`${BASE_PATH}/registrations/${registrationId}/launchLink`)
+        .set('Authorization', this.getBearerString(options))
+        .send(launchLinkRequest)
+
+      return response.body
+    } catch (e) {
+      throw new ScormClientError(e)
+    }
+  }
+
+  async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<RegistrationProgress> {
+    await this.authorise(options)
+
+    try {
+      const query: any = {
+        includeChildResults: options.includeChildResults ?? false,
+        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? false,
+        includeRuntime: options.includeRuntime ?? false
+      }
+
+      const response = await request
+        .get(`${BASE_PATH}/registrations/${registrationId}`)
+        .set('Authorization', this.getBearerString(options))
+        .query(query)
+
+      return response.body
+    } catch (e) {
       throw new ScormClientError(e)
     }
   }
