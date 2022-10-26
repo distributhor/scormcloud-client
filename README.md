@@ -1,7 +1,7 @@
 
 ## Description
 
-A Typescript and Javascript client for interfacing with the [Scorm Cloud API](https://rusticisoftware.com/products/scorm-cloud/)
+A Typescript and Javascript client for interfacing with the official [Scorm Cloud API](https://rusticisoftware.com/products/scorm-cloud/)
 
 *Note: This is currently in early stages of development and not ready for production use yet*
 
