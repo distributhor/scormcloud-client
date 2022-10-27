@@ -120,6 +120,7 @@ export class ScormClientError extends Error {
   public httpStatus: number | undefined
   public cause: ErrorObject | undefined
 
+  /** @internal */
   constructor(cause: any, message?: string, httpStatus?: number) {
     const e = ScormClientError.parse(cause, message, httpStatus)
 
@@ -190,13 +191,27 @@ export class ScormClientError extends Error {
 }
 
 /**
- * The class can be used via it's constructor
+ * Usage ...
  *
  * ```typescript
- * const client = new ScormClient();
+ * const client = new ScormClient(appId, secretKey, "read")
+ *
+ * // will fetch a course using a token with the default scope, in this case 'read'
+ * const course: Course = await client.getCourse(courseId)
+ *
+ * // will delete a course using a token with 'write' scope
+ * const result: SuccessIndicator = await client.deleteCourse(courseId, { scope: 'write' })
  * ```
  *
- * ```
+ * You will notice that no call has been made to the `authenticate()` method before starting to use the client.
+ * When a method is invoked and no valid auth token for the given scope can be found, then the client will attempt
+ * to authenticate and fetch a token for that scope. As such, tokens are explicitly associated with a specific scope,
+ * and the client will internally manage a set of tokens and their associated scopes.
+ *
+ * Any future calls for a given scope will use the token associated with it. If no scope is specified (in the
+ * `options` for a method), then the default scope (assigned at client instantiation) will be assumed. You are able
+ * to manually `authenticate()` different scopes, which is simply asking the client to fetch and store a token for
+ * a scope, such that it is immediately available in method calls later.
  */
 export class ScormClient {
   private readonly appId?: string
@@ -207,7 +222,7 @@ export class ScormClient {
 
   private readonly authorisations = new Map<string, AuthToken>()
 
-  constructor(appId?: string, secretKey?: string, defaultScope?: string, defaultExpiration?: number) {
+  constructor(appId: string, secretKey: string, defaultScope: string, defaultExpiration?: number) {
     this.appId = appId
     this.secretKey = secretKey
     this.defaultScope = defaultScope

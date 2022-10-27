@@ -11,9 +11,9 @@ const LEARNER_ID = 'LEARNER123'
 const REGISTRATION_ID = 'REGXYZ'
 
 const client = new ScormClient(
-  process.env.SCORMCLOUD_APP_ID,
-  process.env.SCORMCLOUD_SECRET_KEY,
-  process.env.SCORMCLOUD_SCOPE
+  process.env.SCORMCLOUD_APP_ID ?? '',
+  process.env.SCORMCLOUD_SECRET_KEY ?? '',
+  process.env.SCORMCLOUD_SCOPE ?? 'read'
 )
 
 describe('Scorm Cloud Integration Tests', () => {
