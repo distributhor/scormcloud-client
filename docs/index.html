@@ -27,7 +27,9 @@
 <a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
   <h2>Usage</h2>
 </a>
-<p>...</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">ScormClient</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;scorm-client&#39;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">ScormClient</span><span class="hl-1">(</span><span class="hl-2">appId</span><span class="hl-1">, </span><span class="hl-2">secretKey</span><span class="hl-1">, </span><span class="hl-3">&quot;read&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// will fetch a course using a token with the default scope, in this case &#39;read&#39;</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">course</span><span class="hl-1">: </span><span class="hl-8">Course</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-6">getCourse</span><span class="hl-1">(</span><span class="hl-2">courseId</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// will delete a course using a token with &#39;write&#39; scope</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">result</span><span class="hl-1">: </span><span class="hl-8">SuccessIndicator</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-6">deleteCourse</span><span class="hl-1">(</span><span class="hl-2">courseId</span><span class="hl-1">, { </span><span class="hl-2">scope:</span><span class="hl-1"> </span><span class="hl-3">&#39;write&#39;</span><span class="hl-1"> })</span>
+</code></pre>
+<p>For more details, see the reference documentation below</p>
 <br/>
 
 

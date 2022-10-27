@@ -16,8 +16,19 @@ An technical overview of the API and it's related services can be found at : [AP
 
 ## Usage
 
-...
+ ```ts
+ import { ScormClient } from 'scorm-client'
+ 
+ const client = new ScormClient(appId, secretKey, "read")
+ 
+ // will fetch a course using a token with the default scope, in this case 'read'
+ const course: Course = await client.getCourse(courseId)
+ 
+ // will delete a course using a token with 'write' scope
+ const result: SuccessIndicator = await client.deleteCourse(courseId, { scope: 'write' })
+ ```
 
+For more details, see the reference documentation below
 
 <br/>
 
