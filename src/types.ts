@@ -136,6 +136,7 @@ export interface Learner {
 
 export interface Options {
   [key: string]: any
+  scope?: string
 }
 
 // export class Opts extends Map<string, any> implements Options {

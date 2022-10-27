@@ -191,9 +191,12 @@ export class ScormClientError extends Error {
 }
 
 /**
- * Usage ...
  *
- * ```typescript
+ * Usage example:
+ *
+ * ```ts
+ * import { ScormClient } from 'scorm-client'
+ *
  * const client = new ScormClient(appId, secretKey, "read")
  *
  * // will fetch a course using a token with the default scope, in this case 'read'
@@ -212,25 +215,33 @@ export class ScormClientError extends Error {
  * `options` for a method), then the default scope (assigned at client instantiation) will be assumed. You are able
  * to manually `authenticate()` different scopes, which is simply asking the client to fetch and store a token for
  * a scope, such that it is immediately available in method calls later.
+ *
+ * Note: the scope can also be a list of space separated scopes, e.g. "write:course read:registration". In such a
+ * case the token will be associated with all the specified scopes.
  */
 export class ScormClient {
-  private readonly appId?: string
-  private readonly secretKey?: string
+  private readonly appId: string
+  private readonly secretKey: string
 
-  private readonly defaultScope?: string
-  private readonly defaultExpiration?: number
+  private readonly defaultScope: string
+  private readonly defaultExpiry: number
 
   private readonly authorisations = new Map<string, AuthToken>()
 
-  constructor(appId: string, secretKey: string, defaultScope: string, defaultExpiration?: number) {
+  /**
+   * @param appId A SCORM Cloud application ID
+   * @param secretKey The secret key for the given application ID
+   * @param defaultScope An auth scope or space separated list of scopes, e.g. "write:course read:registration".
+   * This will be the default scope used if a method on the client is invoked without specifying an explicit
+   * scope in the method's {@link types.Options}
+   * @param defaultExpiry The amount of time, in seconds, after which auth tokens should expire. If unspecified,
+   * it will default to 3600 (1 hour)
+   */
+  constructor(appId: string, secretKey: string, defaultScope: string, defaultExpiry: number = 3600) {
     this.appId = appId
     this.secretKey = secretKey
     this.defaultScope = defaultScope
-    this.defaultExpiration = defaultExpiration
-  }
-
-  private static get DEFAULT_TIMEOUT(): number {
-    return 36000
+    this.defaultExpiry = defaultExpiry
   }
 
   private getTargetScope(scope?: string | Options): string | undefined {
@@ -272,15 +283,25 @@ export class ScormClient {
 
     if (!authToken) {
       if (this.appId && this.secretKey) {
-        return await this.authenticate(this.getTargetScope(scope))
+        const targetScope = this.getTargetScope(scope)
+        if (targetScope) {
+          return await this.authenticate(targetScope)
+        }
+
+        throw new ScormClientError('Unspecified scope', undefined, 401)
       }
 
-      throw new ScormClientError('No authentication credentials are set', undefined, 401)
+      throw new ScormClientError('No authentication credentials found', undefined, 401)
     }
 
     if (authToken.expires_at && DateTime.now().valueOf() > authToken.expires_at) {
       if (this.appId && this.secretKey) {
-        return await this.authenticate(this.getTargetScope(scope))
+        const targetScope = this.getTargetScope(scope)
+        if (targetScope) {
+          return await this.authenticate(targetScope)
+        }
+
+        throw new ScormClientError('Unspecified scope', undefined, 401)
       }
 
       throw new ScormClientError('Unable to refresh authentication token', undefined, 401)
@@ -290,11 +311,13 @@ export class ScormClient {
   }
 
   /**
-   * @param authScope  The ScormCloud permission authScope
-   * @param timeout The amount of time, in seconds, after which the auth token should expire
-   * @returns Returns an AuthToken if successfull
+   * Attempt to authenticate and store an auth token, associated with a given scope
+   *
+   * @param scope An auth scope or space separated list of scopes
+   * @param expiry The amount of time, in seconds, after which the auth token should expire. If unspecified,
+   * it will use the default value provided in the constructor.
    */
-  async authenticate(authScope?: string, timeout?: number): Promise<AuthToken> {
+  async authenticate(scope: string, expiry?: number): Promise<AuthToken> {
     if (!this.appId) {
       throw new ScormClientError('No APP ID defined')
     }
@@ -303,22 +326,14 @@ export class ScormClient {
       throw new ScormClientError('No SECRET KEY defined')
     }
 
-    const scope = authScope ?? this.defaultScope
-    if (!scope) {
-      throw new ScormClientError('No AUTH SCOPE defined')
-    }
-
-    let expiry = timeout ?? this.defaultExpiration
-    if (!expiry) {
-      expiry = ScormClient.DEFAULT_TIMEOUT
-    }
+    const ttl = expiry ?? this.defaultExpiry
 
     try {
       const response = await request
         .post(`${BASE_PATH}/oauth/authenticate/application/token`).type('form')
         .auth(this.appId, this.secretKey)
         .send(`scope=${scope}`)
-        .send(`expiration=${expiry}`)
+        .send(`expiration=${ttl}`)
 
       if (!TypeChecks.isAuthToken(response.body)) {
         throw new ScormClientError('Invalid auth token received')
@@ -326,7 +341,7 @@ export class ScormClient {
 
       const token = response.body
 
-      token.expires_at = DateTime.now().plus({ seconds: expiry - 60 }).valueOf()
+      token.expires_at = DateTime.now().plus({ seconds: ttl - 60 }).valueOf()
 
       this.authorisations.set(scope, token)
 
