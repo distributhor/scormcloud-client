@@ -81,9 +81,9 @@ The following list indicates which of these endpoints are currently covered by f
 - [ ] GetCourseTags
 - [ ] DeleteCourseTags
 - [ ] GetCourseStatements
-- [ ] GetCourseVersions
+- [x] GetCourseVersions
 - [ ] GetCourseVersionInfo
-- [ ] DeleteCourseVersion
+- [x] DeleteCourseVersion
 - [ ] BuildCoursePreviewLaunchLinkWithVersion
 - [ ] GetVersionedCourseZip
 - [ ] GetCourseVersionAsset

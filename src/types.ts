@@ -121,7 +121,7 @@ export interface LaunchLink {
   launchLink: string
 }
 
-export interface CourseUploadResponse {
+export interface CourseImportResponse {
   courseId?: string
   importJobId?: string
   importJobResult?: ImportJobResult
@@ -152,7 +152,7 @@ export interface Options {
 //   }
 // }
 
-export interface CourseUploadOptions extends Options {
+export interface CourseImportOptions extends Options {
   waitForResult?: number
   mayCreateNewVersion?: boolean
 }

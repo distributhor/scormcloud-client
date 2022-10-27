@@ -65,7 +65,7 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(course1).toBeUndefined()
 
     // should upload a course
-    const r1 = await client.uploadCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`), {
+    const r1 = await client.importCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`), {
       waitForResult: 5000
     })
 
@@ -84,14 +84,14 @@ describe('Scorm Cloud Integration Tests', () => {
 
     // should fail to upload a duplicate course
     try {
-      await client.uploadCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`))
+      await client.importCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`))
     } catch (e) {
       expect(e.httpStatus).toEqual(409)
       expect(e.message.startsWith(`Course [${COURSE_ID}] already exists`)).toBeTruthy()
     }
 
     // should upload the course again if version increment is allowed
-    const r2 = await client.uploadCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`), {
+    const r2 = await client.importCourse(COURSE_ID, path.join(__dirname, `../fixtures/${COURSE_FIXTURE}`), {
       mayCreateNewVersion: true,
       waitForResult: 7000
     })

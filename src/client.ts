@@ -15,8 +15,8 @@ import {
   PingResponse,
   ImportJobResult,
   SuccessIndicator,
-  CourseUploadOptions,
-  CourseUploadResponse,
+  CourseImportOptions,
+  CourseImportResponse,
   RegistrationProgress,
   LaunchLinkOptions,
   RegistrationOptions,
@@ -352,6 +352,13 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Get back a message indicating that the API is working
+   *
+   * [API Method - PingAppId](https://cloud.scorm.com/docs/v2/reference/swagger/#/ping/PingAppId)
+   *
+   * @param options Options
+   */
   async ping(options: Options = {}): Promise<PingResponse> {
     await this.authorise(options)
 
@@ -362,6 +369,14 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Returns detailed information about the course.
+   *
+   * [API Method - GetCourse](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourse)
+   *
+   * @param courseId The course ID
+   * @param options Options
+   */
   async getCourse(courseId: string, options: Options = {}): Promise<Course | undefined> {
     await this.authorise(options)
 
@@ -386,6 +401,18 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Returns a list of courses. Can be filtered to provide a subset of results.
+   *
+   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+   * results to be collected, a more token provided with the response which can be passed to get the next page
+   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+   * resources will continue to respect the filters passed in by the original request.
+
+   * [API Method - GetCourses](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourses)
+   *
+   * @param options Options
+   */
   async getCourses(options: Options = {}): Promise<Course[]> {
     await this.authorise(options)
 
@@ -397,11 +424,21 @@ export class ScormClient {
     }
   }
 
-  async uploadCourse(
+  /**
+   * Creates a course from a package uploaded from your file system. The package will be sent as part of the request
+   * and will be stored in SCORM Cloud. An import job ID will be returned, which can be used with {@link getCourseImportStatus}
+   * to view the status of the import. Courses represent the learning material a learner will progress through.
+   * Note: The import job ID is only valid for one week after the course import finishes.
+   *
+   * [API Method - CreateUploadAndImportCourseJob](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/CreateUploadAndImportCourseJob)
+   *
+   * @param options Options
+   */
+  async importCourse(
     courseId: string,
     filePath: string,
-    options: CourseUploadOptions = {}
-  ): Promise<CourseUploadResponse> {
+    options: CourseImportOptions = {}
+  ): Promise<CourseImportResponse> {
     await this.authorise(options)
 
     try {
@@ -434,7 +471,7 @@ export class ScormClient {
 
       await Util.sleep(options.waitForResult)
 
-      const importJobResult = await this.getCourseUploadStatus(response.body.result)
+      const importJobResult = await this.getCourseImportStatus(response.body.result)
 
       return {
         courseId,
@@ -446,7 +483,16 @@ export class ScormClient {
     }
   }
 
-  async getCourseUploadStatus(jobId: string, options: Options = {}): Promise<ImportJobResult> {
+  /**
+   * Check the status of a course import. This can be called incrementally to check the progress of a call to any
+   * of the import options. Note: The import job ID is only valid for one week after the course import finishes.
+   *
+   * [API Method - GetImportJobStatus](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetImportJobStatus)
+   *
+   * @param jobId The import job ID
+   * @param options Options
+   */
+  async getCourseImportStatus(jobId: string, options: Options = {}): Promise<ImportJobResult> {
     await this.authorise(options)
 
     try {
@@ -460,6 +506,15 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Updates the title of the course.
+   *
+   * [API Method - SetCourseTitle](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/SetCourseTitle)
+   *
+   * @param courseId The course ID
+   * @param courseId Title
+   * @param options Options
+   */
   async setCourseTitle(courseId: string, title: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
@@ -480,6 +535,18 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Deletes the specified course. When a course is deleted, so is everything connected to the course. This includes:
+   * - Registrations
+   * - Invitations
+   * - Dispatches
+   * - Debug Logs
+   *
+   * [API Method - DeleteCourse](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/DeleteCourse)
+   *
+   * @param courseId The course ID
+   * @param options Options
+   */
   async deleteCourse(courseId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
@@ -499,6 +566,15 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Returns information about all versions of the course. This can be useful to see information such as registration
+   * counts and modification times across the versions of a course.
+   *
+   * [API Method - GetCourseVersions](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourseVersions)
+   *
+   * @param jobId The import job ID
+   * @param options Options
+   */
   async getCourseVersions(courseId: string, options: Options = {}): Promise<Course[] | undefined> {
     await this.authorise(options)
 
@@ -519,6 +595,21 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Deletes the specified version of the course. If deleting the last remaining version of the course,
+   * the course itself will be deleted and no longer accessible. When a course is deleted, so is everything
+   * connected to the course. This includes:
+   * - Registrations
+   * - Invitations
+   * - Dispatches
+   * - Debug Logs
+   *
+   * [API Method - DeleteCourseVersion](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/DeleteCourseVersion)
+   *
+   * @param courseId The course ID
+   * @param versionId The version number
+   * @param options Options
+   */
   async deleteCourseVersion(courseId: string, versionId: number, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
@@ -538,14 +629,52 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Returns a list of registrations for the given course. Can be filtered to provide a subset of results.
+   *
+   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+   * results to be collected, a more token provided with the response which can be passed to get the next page
+   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+   * resources will continue to respect the filters passed in by the original request.
+   *
+   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+   *
+   * @param courseId The course ID for which to return registrations
+   * @param options The options with which a registration can be requested
+   */
   async getRegistrationsForCourse(courseId: string, options: Options = {}): Promise<Registration[]> {
     return await this.getRegistrations(Object.assign({ courseId }, options))
   }
 
+  /**
+   * Returns a list of registrations for the given learner. Can be filtered to provide a subset of results.
+   *
+   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+   * results to be collected, a more token provided with the response which can be passed to get the next page
+   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+   * resources will continue to respect the filters passed in by the original request.
+   *
+   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+   *
+   * @param learnerId The learner ID for which to return registrations
+   * @param options The options with which a registration can be requested
+   */
   async getRegistrationsForLearner(learnerId: string, options: Options = {}): Promise<Registration[]> {
     return await this.getRegistrations(Object.assign({ learnerId }, options))
   }
 
+  /**
+   * Returns a list of registrations. Can be filtered to provide a subset of results.
+   *
+   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+   * results to be collected, a more token provided with the response which can be passed to get the next page
+   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+   * resources will continue to respect the filters passed in by the original request.
+   *
+   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+   *
+   * @param options The options with which a registration can be requested
+   */
   async getRegistrations(options: Options = {}): Promise<Registration[]> {
     await this.authorise(options)
 
@@ -620,6 +749,15 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Checks that the registration exists within SCORM Cloud. No registration data will be returned for this call.
+   * If you are looking for information about the registration, try using {@link getRegistrationProgress} instead.
+   *
+   * [API Method - GetRegistration](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistration)
+   *
+   * @param registrationId An ID for which registration to check
+   * @param options Options
+   */
   async registrationExists(registrationId: string, options: Options = {}): Promise<Boolean> {
     await this.authorise(options)
 
@@ -650,6 +788,14 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Deletes the specified registration. This will also delete all instances of the registration.
+   *
+   * [API Method - DeleteRegistration](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/DeleteRegistration)
+   *
+   * @param registrationId The registration ID
+   * @param options Options
+   */
   async deleteRegistration(registrationId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
@@ -703,6 +849,14 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Returns detailed information about the registration. This includes completion status, time taken, score,
+   * and pass/fail status.
+   *
+   * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
+   *
+   * @param registrationId The registration ID for which to return progress
+   */
   async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<RegistrationProgress> {
     await this.authorise(options)
 
