@@ -34,7 +34,7 @@ For more details, see the reference documentation below
 
 ## Documentation
 
-[The API reference documentation for this client](https://distributhor.github.io/scormcloud-client/index.html)
+[The API reference documentation for this client](https://distributhor.github.io/scormcloud-client/classes/client.ScormClient.html)
 
 
 <br/>
