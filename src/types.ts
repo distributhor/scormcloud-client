@@ -136,6 +136,7 @@ export interface Learner {
 
 export interface Options {
   [key: string]: any
+  /** The auth scope to use for the given method invocation */
   scope?: string
 }
 
@@ -156,11 +157,15 @@ export interface CourseUploadOptions extends Options {
   mayCreateNewVersion?: boolean
 }
 
-export interface CreateRegistrationOptions extends Options {
+export interface RegistrationOptions extends Options {
+  /**
+   * To create a registration against a specific version of a course. Unless you have a reason for using this,
+   * you probably do not need to.
+   */
   courseVersion?: number
 }
 
-export interface CreateLaunchLinkOptions extends Options {
+export interface LaunchLinkOptions extends Options {
   expiry?: number
 }
 

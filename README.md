@@ -55,7 +55,7 @@ The following list indicates which of these endpoints are currently covered by f
 - [x] GetCourse
 - [x] DeleteCourse
 - [x] SetCourseTitle
-- [x] BuildCoursePreviewLaunchLink
+- [ ] BuildCoursePreviewLaunchLink
 - [ ] GetCourseZip
 - [ ] UploadCourseAssetFile
 - [ ] ImportCourseAssetFile
@@ -96,7 +96,7 @@ The following list indicates which of these endpoints are currently covered by f
 - [ ] GetRegistrationConfiguration
 - [ ] SetRegistrationConfiguration
 - [ ] DeleteRegistrationConfigurationSetting
-- [ ] BuildRegistrationLaunchLink
+- [x] BuildRegistrationLaunchLink
 - [ ] GetRegistrationLaunchHistory
 - [ ] DeleteRegistrationProgress
 - [ ] DeleteRegistrationGlobalData

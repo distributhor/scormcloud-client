@@ -18,8 +18,8 @@ import {
   CourseUploadOptions,
   CourseUploadResponse,
   RegistrationProgress,
-  CreateLaunchLinkOptions,
-  CreateRegistrationOptions,
+  LaunchLinkOptions,
+  RegistrationOptions,
   RegistrationProgressOptions
 } from './types'
 
@@ -569,11 +569,26 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Creates a new registration. Registrations are the billable unit in SCORM Cloud, and represents the link between
+   * a learner and a course. A registration will contain a few pieces of information such as learner identifiers,
+   * the id of the course being registered for, and several other optional fields.
+   *
+   * A registration must be tied to a specific course at creation time. When the registration is "launched"
+   * (see {@link createLaunchLink}), the course specified at creation time will be launched.
+   *
+   * [API Method - CreateRegistration](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/CreateRegistration)
+   *
+   * @param registrationId An ID for this registration
+   * @param courseId The course ID for which the learner should be registered
+   * @param learner The details of the learner, at minimum a learner ID should be specified
+   * @param options The options with which a registration can be requested
+   */
   async createRegistration(
-    learner: Learner,
-    courseId: string,
     registrationId: string,
-    options: CreateRegistrationOptions = {}
+    courseId: string,
+    learner: Learner,
+    options: RegistrationOptions = {}
   ): Promise<SuccessIndicator> {
     await this.authorise(options)
 
@@ -654,10 +669,21 @@ export class ScormClient {
     }
   }
 
+  /**
+   * Get a launch link, which is a relatively short lived url, used to launch the course for a given registration.
+   * Launch links are meant as a way to provide access to your content. When a learner visits the link, the course
+   * will be launched and registration progress will start to be tracked.
+   *
+   * [API Method - BuildRegistrationLaunchLink](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/BuildRegistrationLaunchLink)
+   *
+   * @param registrationId The registration ID for which to create and return a launch link
+   * @param redirectOnExitUrl Where to take the learner after the course is complete
+   * @param options The options with which a launch link can be requested
+   */
   async createLaunchLink(
     registrationId: string,
     redirectOnExitUrl: string,
-    options: CreateLaunchLinkOptions = {}
+    options: LaunchLinkOptions = {}
   ): Promise<LaunchLink> {
     await this.authorise(options)
 

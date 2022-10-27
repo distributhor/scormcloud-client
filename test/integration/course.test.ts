@@ -113,7 +113,7 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(r2).toBeFalsy()
 
     // create registration
-    const r3 = await client.createRegistration({ id: LEARNER_ID }, COURSE_ID, REGISTRATION_ID)
+    const r3 = await client.createRegistration(REGISTRATION_ID, COURSE_ID, { id: LEARNER_ID })
     expect(r3.success).toBeTruthy()
 
     // confirm registration exists
@@ -132,7 +132,7 @@ describe('Scorm Cloud Integration Tests', () => {
 
     // should fail to create duplicate registration
     try {
-      await client.createRegistration({ id: LEARNER_ID }, COURSE_ID, REGISTRATION_ID)
+      await client.createRegistration(REGISTRATION_ID, COURSE_ID, { id: LEARNER_ID })
     } catch (e) {
       expect(e.httpStatus).toEqual(400)
       expect(e.message.startsWith(`Registration with id [${REGISTRATION_ID}] already exists`)).toBeTruthy()
