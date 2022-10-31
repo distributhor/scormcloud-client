@@ -316,6 +316,7 @@ export class ScormClient {
    * @param scope An auth scope or space separated list of scopes
    * @param expiry The amount of time, in seconds, after which the auth token should expire. If unspecified,
    * it will use the default value provided in the constructor.
+   * @throws {@link ScormClientError} with an `httpStatus` of 401 on authentication failure
    */
   async authenticate(scope: string, expiry?: number): Promise<AuthToken> {
     if (!this.appId) {
@@ -358,6 +359,7 @@ export class ScormClient {
    * [API Method - PingAppId](https://cloud.scorm.com/docs/v2/reference/swagger/#/ping/PingAppId)
    *
    * @param options Options
+   * @throws {@link ScormClientError} if invalid ping response received, or an error was encountered
    */
   async ping(options: Options = {}): Promise<PingResponse> {
     await this.authorise(options)
@@ -376,6 +378,8 @@ export class ScormClient {
    *
    * @param courseId The course ID
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns The requested {@link types.Course}, or `undefined` if the course was not found
    */
   async getCourse(courseId: string, options: Options = {}): Promise<Course | undefined> {
     await this.authorise(options)
@@ -412,6 +416,8 @@ export class ScormClient {
    * [API Method - GetCourses](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourses)
    *
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns An array of {@link types.Course}, or an empty array if no courses were found
    */
   async getCourses(options: Options = {}): Promise<Course[]> {
     await this.authorise(options)
@@ -433,6 +439,8 @@ export class ScormClient {
    * [API Method - CreateUploadAndImportCourseJob](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/CreateUploadAndImportCourseJob)
    *
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns A {@link types.CourseImportResponse} if successfull
    */
   async importCourse(
     courseId: string,
@@ -491,8 +499,10 @@ export class ScormClient {
    *
    * @param jobId The import job ID
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns A {@link types.ImportJobResult}, or `undefined` if no job result was not found
    */
-  async getCourseImportStatus(jobId: string, options: Options = {}): Promise<ImportJobResult> {
+  async getCourseImportStatus(jobId: string, options: Options = {}): Promise<ImportJobResult | undefined> {
     await this.authorise(options)
 
     try {
@@ -502,6 +512,10 @@ export class ScormClient {
           .set('Authorization', this.getBearerString(options))
       ).body
     } catch (e) {
+      if (HttpStatus.notFound(e)) {
+        return undefined
+      }
+
       throw new ScormClientError(e)
     }
   }
@@ -514,6 +528,9 @@ export class ScormClient {
    * @param courseId The course ID
    * @param courseId Title
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * or if the referenced course does not exist
+   * @returns A {@link types.SuccessIndicator}
    */
   async setCourseTitle(courseId: string, title: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
@@ -546,6 +563,9 @@ export class ScormClient {
    *
    * @param courseId The course ID
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * or if the referenced course does not exist
+   * @returns A {@link types.SuccessIndicator}
    */
   async deleteCourse(courseId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
@@ -567,6 +587,9 @@ export class ScormClient {
   }
 
   /**
+   * TODO: Test this function to see what happens with non-existent courses and/or course versions and confirm what
+   * is return and what is thrown. Update the function to handle scenarios appropriately ...
+   *
    * Returns information about all versions of the course. This can be useful to see information such as registration
    * counts and modification times across the versions of a course.
    *
@@ -574,6 +597,8 @@ export class ScormClient {
    *
    * @param jobId The import job ID
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * @returns An array of {@link types.Course}, or an empty array if no courses were found
    */
   async getCourseVersions(courseId: string, options: Options = {}): Promise<Course[] | undefined> {
     await this.authorise(options)
@@ -609,6 +634,9 @@ export class ScormClient {
    * @param courseId The course ID
    * @param versionId The version number
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * or if the referenced course does not exist
+   * @returns A {@link types.SuccessIndicator}
    */
   async deleteCourseVersion(courseId: string, versionId: number, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
@@ -641,6 +669,9 @@ export class ScormClient {
    *
    * @param courseId The course ID for which to return registrations
    * @param options The options with which a registration can be requested
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found,
+   * or if the referenced course does not exist
    */
   async getRegistrationsForCourse(courseId: string, options: Options = {}): Promise<Registration[]> {
     return await this.getRegistrations(Object.assign({ courseId }, options))
@@ -658,6 +689,9 @@ export class ScormClient {
    *
    * @param learnerId The learner ID for which to return registrations
    * @param options The options with which a registration can be requested
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found,
+   * or if the referenced learner does not exist
    */
   async getRegistrationsForLearner(learnerId: string, options: Options = {}): Promise<Registration[]> {
     return await this.getRegistrations(Object.assign({ learnerId }, options))
@@ -674,6 +708,8 @@ export class ScormClient {
    * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
    *
    * @param options The options with which a registration can be requested
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found
    */
   async getRegistrations(options: Options = {}): Promise<Registration[]> {
     await this.authorise(options)
@@ -712,6 +748,9 @@ export class ScormClient {
    * @param courseId The course ID for which the learner should be registered
    * @param learner The details of the learner, at minimum a learner ID should be specified
    * @param options The options with which a registration can be requested
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * or if the referenced course or learner does not exist, or if creating a duplicate registration
+   * @returns A {@link types.SuccessIndicator}
    */
   async createRegistration(
     registrationId: string,
@@ -757,6 +796,8 @@ export class ScormClient {
    *
    * @param registrationId An ID for which registration to check
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made
+   * @returns A boolean true or false
    */
   async registrationExists(registrationId: string, options: Options = {}): Promise<Boolean> {
     await this.authorise(options)
@@ -795,6 +836,9 @@ export class ScormClient {
    *
    * @param registrationId The registration ID
    * @param options Options
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
+   * or if the referenced registration does not exist
+   * @returns A {@link types.SuccessIndicator}
    */
   async deleteRegistration(registrationId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)

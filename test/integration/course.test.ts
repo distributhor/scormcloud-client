@@ -57,7 +57,7 @@ describe('Scorm Cloud Integration Tests', () => {
   })
 
   test('Upload & Fetch Course', async () => {
-    expect.assertions(14)
+    expect.assertions(17)
 
     // check that course does not already exist
     const course1 = await client.getCourse(COURSE_ID)
@@ -99,10 +99,19 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(r2.courseId).toBeDefined()
     expect(r2.importJobId).toBeDefined()
     expect(r2.importJobResult).toBeDefined()
+
+    // fetch the course import status
+    const r3 = await client.getCourseImportStatus(r1.importJobId ?? '')
+    expect(r3).toBeDefined()
+    expect(r3?.jobId).toEqual(r1.importJobId)
+
+    // fetch a non-existent course import status
+    const r4 = await client.getCourseImportStatus('abc')
+    expect(r4).toBeUndefined()
   })
 
   test('Create & Fetch Registration', async () => {
-    expect.assertions(10)
+    expect.assertions(14)
 
     // confirm course has no registrations
     const r1 = await client.getRegistrationsForCourse(COURSE_ID)
@@ -136,6 +145,22 @@ describe('Scorm Cloud Integration Tests', () => {
     } catch (e) {
       expect(e.httpStatus).toEqual(400)
       expect(e.message.startsWith(`Registration with id [${REGISTRATION_ID}] already exists`)).toBeTruthy()
+    }
+
+    // fetch registration for non-existent course
+    const r7 = await client.getRegistrationsForCourse('abc')
+    expect(r7).toEqual([])
+
+    // fetch registration for non-existent learner
+    const r8 = await client.getRegistrationsForLearner('abc')
+    expect(r8).toEqual([])
+
+    // create registration for course that does not exist
+    try {
+      await client.createRegistration('xyz', 'abc', { id: LEARNER_ID })
+    } catch (e) {
+      expect(e.httpStatus).toEqual(404)
+      expect(e.message.startsWith('Could not find course [abc]')).toBeTruthy()
     }
   })
 

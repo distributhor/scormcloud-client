@@ -36,7 +36,7 @@ case the token will be associated with all the specified scopes.</p>
 <ul class="tsd-hierarchy">
 <li><span class="target">ScormClient</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L222">src/client.ts:222</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L222">src/client.ts:222</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -98,7 +98,7 @@ it will default to 3600 (1 hour)</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="client.ScormClient.html" class="tsd-signature-type" data-tsd-kind="Class">ScormClient</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L240">src/client.ts:240</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L240">src/client.ts:240</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="authenticate" class="tsd-anchor"></a>
@@ -107,6 +107,8 @@ it will default to 3600 (1 hour)</p>
 <li class="tsd-signature tsd-anchor-link" id="authenticate.authenticate-1">authenticate<span class="tsd-signature-symbol">(</span>scope<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, expiry<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.AuthToken.html" class="tsd-signature-type" data-tsd-kind="Interface">AuthToken</a><span class="tsd-signature-symbol">&gt;</span><a href="#authenticate.authenticate-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Attempt to authenticate and store an auth token, associated with a given scope</p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> with an <code>httpStatus</code> of 401 on authentication failure</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -122,7 +124,7 @@ it will use the default value provided in the constructor.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.AuthToken.html" class="tsd-signature-type" data-tsd-kind="Interface">AuthToken</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L320">src/client.ts:320</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L321">src/client.ts:321</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="createLaunchLink" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>create<wbr/>Launch<wbr/>Link</span><a href="#createLaunchLink" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -150,7 +152,7 @@ will be launched and registration progress will start to be tracked.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.LaunchLink.html" class="tsd-signature-type" data-tsd-kind="Interface">LaunchLink</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L829">src/client.ts:829</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L873">src/client.ts:873</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="createRegistration" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>create<wbr/>Registration</span><a href="#createRegistration" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -162,6 +164,11 @@ the id of the course being registered for, and several other optional fields.</p
 <p>A registration must be tied to a specific course at creation time. When the registration is &quot;launched&quot;
 (see <a href="client.ScormClient.html#createLaunchLink">createLaunchLink</a>), the course specified at creation time will be launched.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/CreateRegistration">API Method - CreateRegistration</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,
+or if the referenced course or learner does not exist, or if creating a duplicate registration</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.SuccessIndicator.html">SuccessIndicator</a></p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -184,7 +191,7 @@ the id of the course being registered for, and several other optional fields.</p
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.SuccessIndicator.html" class="tsd-signature-type" data-tsd-kind="Interface">SuccessIndicator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L716">src/client.ts:716</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L755">src/client.ts:755</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="deleteCourse" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>delete<wbr/>Course</span><a href="#deleteCourse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -198,6 +205,11 @@ the id of the course being registered for, and several other optional fields.</p
 <li>Debug Logs</li>
 </ul>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/DeleteCourse">API Method - DeleteCourse</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,
+or if the referenced course does not exist</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.SuccessIndicator.html">SuccessIndicator</a></p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -212,7 +224,7 @@ the id of the course being registered for, and several other optional fields.</p
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.SuccessIndicator.html" class="tsd-signature-type" data-tsd-kind="Interface">SuccessIndicator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L550">src/client.ts:550</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L570">src/client.ts:570</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="deleteCourseVersion" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>delete<wbr/>Course<wbr/>Version</span><a href="#deleteCourseVersion" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -228,6 +240,11 @@ connected to the course. This includes:</p>
 <li>Debug Logs</li>
 </ul>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/DeleteCourseVersion">API Method - DeleteCourseVersion</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,
+or if the referenced course does not exist</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.SuccessIndicator.html">SuccessIndicator</a></p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,7 +263,7 @@ connected to the course. This includes:</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.SuccessIndicator.html" class="tsd-signature-type" data-tsd-kind="Interface">SuccessIndicator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L613">src/client.ts:613</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L641">src/client.ts:641</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="deleteRegistration" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>delete<wbr/>Registration</span><a href="#deleteRegistration" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -254,6 +271,11 @@ connected to the course. This includes:</p>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Deletes the specified registration. This will also delete all instances of the registration.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/DeleteRegistration">API Method - DeleteRegistration</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,
+or if the referenced registration does not exist</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.SuccessIndicator.html">SuccessIndicator</a></p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -268,7 +290,7 @@ connected to the course. This includes:</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.SuccessIndicator.html" class="tsd-signature-type" data-tsd-kind="Interface">SuccessIndicator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L799">src/client.ts:799</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L843">src/client.ts:843</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getCourse" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Course</span><a href="#getCourse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -276,6 +298,10 @@ connected to the course. This includes:</p>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Returns detailed information about the course.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourse">API Method - GetCourse</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>The requested <a href="../interfaces/types.Course.html">Course</a>, or <code>undefined</code> if the course was not found</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -290,15 +316,19 @@ connected to the course. This includes:</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/types.Course.html" class="tsd-signature-type" data-tsd-kind="Interface">Course</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L380">src/client.ts:380</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L384">src/client.ts:384</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getCourseImportStatus" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Course<wbr/>Import<wbr/>Status</span><a href="#getCourseImportStatus" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="getCourseImportStatus.getCourseImportStatus-1">get<wbr/>Course<wbr/>Import<wbr/>Status<span class="tsd-signature-symbol">(</span>jobId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/types.Options.html" class="tsd-signature-type" data-tsd-kind="Interface">Options</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.ImportJobResult.html" class="tsd-signature-type" data-tsd-kind="Interface">ImportJobResult</a><span class="tsd-signature-symbol">&gt;</span><a href="#getCourseImportStatus.getCourseImportStatus-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="getCourseImportStatus.getCourseImportStatus-1">get<wbr/>Course<wbr/>Import<wbr/>Status<span class="tsd-signature-symbol">(</span>jobId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/types.Options.html" class="tsd-signature-type" data-tsd-kind="Interface">Options</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/types.ImportJobResult.html" class="tsd-signature-type" data-tsd-kind="Interface">ImportJobResult</a><span class="tsd-signature-symbol">&gt;</span><a href="#getCourseImportStatus.getCourseImportStatus-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Check the status of a course import. This can be called incrementally to check the progress of a call to any
 of the import options. Note: The import job ID is only valid for one week after the course import finishes.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetImportJobStatus">API Method - GetImportJobStatus</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.ImportJobResult.html">ImportJobResult</a>, or <code>undefined</code> if no job result was not found</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -311,17 +341,23 @@ of the import options. Note: The import job ID is only valid for one week after 
 <h5>options: <a href="../interfaces/types.Options.html" class="tsd-signature-type" data-tsd-kind="Interface">Options</a><span class="tsd-signature-symbol"> = {}</span></h5>
 <div class="tsd-comment tsd-typography"><p>Options</p>
 </div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.ImportJobResult.html" class="tsd-signature-type" data-tsd-kind="Interface">ImportJobResult</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/types.ImportJobResult.html" class="tsd-signature-type" data-tsd-kind="Interface">ImportJobResult</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L495">src/client.ts:495</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L505">src/client.ts:505</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getCourseVersions" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Course<wbr/>Versions</span><a href="#getCourseVersions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 <li class="tsd-signature tsd-anchor-link" id="getCourseVersions.getCourseVersions-1">get<wbr/>Course<wbr/>Versions<span class="tsd-signature-symbol">(</span>courseId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/types.Options.html" class="tsd-signature-type" data-tsd-kind="Interface">Options</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/types.Course.html" class="tsd-signature-type" data-tsd-kind="Interface">Course</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#getCourseVersions.getCourseVersions-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Returns information about all versions of the course. This can be useful to see information such as registration
+<div class="tsd-comment tsd-typography"><p>TODO: Test this function to see what happens with non-existent courses and/or course versions and confirm what
+is return and what is thrown. Update the function to handle scenarios appropriately ...</p>
+<p>Returns information about all versions of the course. This can be useful to see information such as registration
 counts and modification times across the versions of a course.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourseVersions">API Method - GetCourseVersions</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,</p>
+
+<h3>Returns</h3><p>An array of <a href="../interfaces/types.Course.html">Course</a>, or an empty array if no courses were found</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -334,7 +370,7 @@ counts and modification times across the versions of a course.</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/types.Course.html" class="tsd-signature-type" data-tsd-kind="Interface">Course</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L578">src/client.ts:578</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L603">src/client.ts:603</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getCourses" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Courses</span><a href="#getCourses" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -346,6 +382,10 @@ results to be collected, a more token provided with the response which can be pa
 of results. When passing this token, no other filter parameters can be sent as part of the request. The
 resources will continue to respect the filters passed in by the original request.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourses">API Method - GetCourses</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>An array of <a href="../interfaces/types.Course.html">Course</a>, or an empty array if no courses were found</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -356,7 +396,7 @@ resources will continue to respect the filters passed in by the original request
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.Course.html" class="tsd-signature-type" data-tsd-kind="Interface">Course</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L416">src/client.ts:416</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L422">src/client.ts:422</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getRegistrationProgress" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Registration<wbr/>Progress</span><a href="#getRegistrationProgress" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -377,7 +417,7 @@ and pass/fail status.</p>
 <h5>options: <a href="../interfaces/types.RegistrationProgressOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RegistrationProgressOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.RegistrationProgress.html" class="tsd-signature-type" data-tsd-kind="Interface">RegistrationProgress</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L860">src/client.ts:860</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L904">src/client.ts:904</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getRegistrations" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Registrations</span><a href="#getRegistrations" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -389,6 +429,10 @@ results to be collected, a more token provided with the response which can be pa
 of results. When passing this token, no other filter parameters can be sent as part of the request. The
 resources will continue to respect the filters passed in by the original request.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations">API Method - GetRegistrations</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>An array of <a href="../interfaces/types.Registration.html">Registration</a>, or an empty array if no registrations were found</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -399,7 +443,7 @@ resources will continue to respect the filters passed in by the original request
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.Registration.html" class="tsd-signature-type" data-tsd-kind="Interface">Registration</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L678">src/client.ts:678</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L714">src/client.ts:714</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getRegistrationsForCourse" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Registrations<wbr/>For<wbr/>Course</span><a href="#getRegistrationsForCourse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -411,6 +455,11 @@ results to be collected, a more token provided with the response which can be pa
 of results. When passing this token, no other filter parameters can be sent as part of the request. The
 resources will continue to respect the filters passed in by the original request.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations">API Method - GetRegistrations</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>An array of <a href="../interfaces/types.Registration.html">Registration</a>, or an empty array if no registrations were found,
+or if the referenced course does not exist</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -425,7 +474,7 @@ resources will continue to respect the filters passed in by the original request
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.Registration.html" class="tsd-signature-type" data-tsd-kind="Interface">Registration</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L645">src/client.ts:645</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L676">src/client.ts:676</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getRegistrationsForLearner" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Registrations<wbr/>For<wbr/>Learner</span><a href="#getRegistrationsForLearner" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -437,6 +486,11 @@ results to be collected, a more token provided with the response which can be pa
 of results. When passing this token, no other filter parameters can be sent as part of the request. The
 resources will continue to respect the filters passed in by the original request.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations">API Method - GetRegistrations</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>An array of <a href="../interfaces/types.Registration.html">Registration</a>, or an empty array if no registrations were found,
+or if the referenced learner does not exist</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -451,7 +505,7 @@ resources will continue to respect the filters passed in by the original request
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.Registration.html" class="tsd-signature-type" data-tsd-kind="Interface">Registration</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L662">src/client.ts:662</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L696">src/client.ts:696</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="importCourse" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>import<wbr/>Course</span><a href="#importCourse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -462,6 +516,10 @@ and will be stored in SCORM Cloud. An import job ID will be returned, which can 
 to view the status of the import. Courses represent the learning material a learner will progress through.
 Note: The import job ID is only valid for one week after the course import finishes.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/CreateUploadAndImportCourseJob">API Method - CreateUploadAndImportCourseJob</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.CourseImportResponse.html">CourseImportResponse</a> if successfull</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -476,7 +534,7 @@ Note: The import job ID is only valid for one week after the course import finis
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.CourseImportResponse.html" class="tsd-signature-type" data-tsd-kind="Interface">CourseImportResponse</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L437">src/client.ts:437</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L445">src/client.ts:445</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="ping" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ping</span><a href="#ping" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -484,6 +542,8 @@ Note: The import job ID is only valid for one week after the course import finis
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Get back a message indicating that the API is working</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/ping/PingAppId">API Method - PingAppId</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if invalid ping response received, or an error was encountered</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -494,7 +554,7 @@ Note: The import job ID is only valid for one week after the course import finis
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.PingResponse.html" class="tsd-signature-type" data-tsd-kind="Interface">PingResponse</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L362">src/client.ts:362</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L364">src/client.ts:364</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="registrationExists" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>registration<wbr/>Exists</span><a href="#registrationExists" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -503,6 +563,10 @@ Note: The import job ID is only valid for one week after the course import finis
 <div class="tsd-comment tsd-typography"><p>Checks that the registration exists within SCORM Cloud. No registration data will be returned for this call.
 If you are looking for information about the registration, try using <a href="client.ScormClient.html#getRegistrationProgress">getRegistrationProgress</a> instead.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistration">API Method - GetRegistration</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made</p>
+
+<h3>Returns</h3><p>A boolean true or false</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -517,7 +581,7 @@ If you are looking for information about the registration, try using <a href="cl
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L761">src/client.ts:761</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L802">src/client.ts:802</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setCourseTitle" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Course<wbr/>Title</span><a href="#setCourseTitle" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -525,6 +589,11 @@ If you are looking for information about the registration, try using <a href="cl
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Updates the title of the course.</p>
 <p><a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/SetCourseTitle">API Method - SetCourseTitle</a></p>
+
+<h3>Throws</h3><p><a href="client.ScormClientError.html">ScormClientError</a> if an invalid request was made, or an error encountered,
+or if the referenced course does not exist</p>
+
+<h3>Returns</h3><p>A <a href="../interfaces/types.SuccessIndicator.html">SuccessIndicator</a></p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -541,7 +610,7 @@ If you are looking for information about the registration, try using <a href="cl
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.SuccessIndicator.html" class="tsd-signature-type" data-tsd-kind="Interface">SuccessIndicator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/e58628a/src/client.ts#L518">src/client.ts:518</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/a01f4be/src/client.ts#L535">src/client.ts:535</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
