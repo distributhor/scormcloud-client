@@ -85,6 +85,12 @@ export interface Course {
   rootActivity?: CourseActivity
 }
 
+export interface CourseReference {
+  id: string
+  title?: string
+  version: number
+}
+
 export interface Registration {
   id: string
   totalSecondsTracked?: number
@@ -96,11 +102,94 @@ export interface Registration {
   learner?: Learner
 }
 
+export const enum CompletionStatus {
+  UNKNOWN = 'UNKNOWN',
+  COMPLETED = 'COMPLETED',
+  INCOMPLETE = 'INCOMPLETE',
+}
+
+export const enum SuccessStatus {
+  UNKNOWN = 'UNKNOWN',
+  PASSED = 'PASSED',
+  FAILED = 'FAILED',
+}
+
+export interface Score {
+  scaled: number
+}
+
+export interface CompletionAmount {
+  scaled: number
+}
+
 export interface RegistrationProgress {
   id: string
-  course: Course
+  instance?: number
+  xapiRegistrationId?: string
+  dispatchId?: string
+  updated?: string // DATE
+  registrationCompletion?: CompletionStatus
+  registrationCompletionAmount?: number
+  registrationSuccess?: SuccessStatus
+  score?: Score
+  totalSecondsTracked?: number
+  firstAccessDate?: string // DATE
+  lastAccessDate?: string // DATE
+  completedDate?: string // DATE
+  createdDate?: string // DATE
+  course: CourseReference
   learner: Learner
-  totalSecondsTracked: number
+  tags?: string[]
+  globalObjectives?: Objective[]
+  sharedData?: KeyValueEntry[]
+  suspendedActivityId?: string
+  activityDetails?: ActivityResult
+}
+
+export interface Objective {
+  id: string
+  primary?: boolean
+  score?: Score
+  scoreMax?: number
+  scoreMin?: number
+  scoreRaw?: number
+  previousScoreScaled?: number
+  firstScoreScaled?: number
+  progressMeasure?: number
+  firstSuccessTimeStamp?: string
+  objectiveCompletion?: CompletionStatus
+  objectiveSuccess?: SuccessStatus
+  previousObjectiveSuccess?: SuccessStatus
+}
+
+export interface ActivityResult {
+  id: string
+  title?: string
+  attempts?: number
+  activityCompletion?: CompletionStatus
+  activitySuccess?: SuccessStatus
+  score?: Score
+  timeTracked?: string
+  completionAmount?: CompletionAmount
+  suspended?: boolean
+  children?: ActivityResult[]
+  objectives?: Objective[]
+  staticProperties?: StaticProperties
+  runtime?: any // TODO
+}
+
+export interface StaticProperties {
+  completionThreshold?: string
+  launchData?: string
+  maxTimeAllowed?: string
+  scaledPassingScore?: number
+  scaledPassingScoreUsed?: boolean
+  timeLimitAction?: string
+}
+
+export interface KeyValueEntry {
+  id: string
+  value: string
 }
 
 export interface ImportResult {
@@ -129,9 +218,9 @@ export interface CourseImportResponse {
 
 export interface Learner {
   id: string
+  email?: string
   firstName?: string
   lastName?: string
-  email?: string
 }
 
 export interface Options {
