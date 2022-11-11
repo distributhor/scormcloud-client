@@ -184,7 +184,7 @@ describe('Scorm Cloud Integration Tests', () => {
   test('Fetch Registration Progress', async () => {
     expect.assertions(5)
 
-    const progress = await client.getRegistrationProgress(REGISTRATION_ID)
+    const progress = await client.getRegistration(REGISTRATION_ID)
 
     expect(progress).toBeDefined()
     expect(progress.id).toEqual(REGISTRATION_ID)

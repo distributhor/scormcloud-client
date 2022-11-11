@@ -91,17 +91,6 @@ export interface CourseReference {
   version: number
 }
 
-export interface Registration {
-  id: string
-  totalSecondsTracked?: number
-  firstAccessDate?: string
-  lastAccessDate?: string
-  completedDate?: string
-  createdDate?: string
-  course?: Course
-  learner?: Learner
-}
-
 export const enum CompletionStatus {
   UNKNOWN = 'UNKNOWN',
   COMPLETED = 'COMPLETED',
@@ -122,7 +111,7 @@ export interface CompletionAmount {
   scaled: number
 }
 
-export interface RegistrationProgress {
+export interface Registration {
   id: string
   instance?: number
   xapiRegistrationId?: string
@@ -223,6 +212,26 @@ export interface Learner {
   lastName?: string
 }
 
+export const enum ResultsFormat {
+  ACTIVITY = 'ACTIVITY',
+  COURSE = 'COURSE',
+  FULL = 'FULL',
+}
+
+export const enum PostBackAuthType {
+  HTTPBASIC = 'HTTPBASIC',
+  FORM = 'FORM',
+}
+
+export interface PostBackOptions {
+  url: string
+  authType?: PostBackAuthType
+  userName?: string
+  password?: string
+  resultsFormat?: ResultsFormat
+  legacy?: boolean
+}
+
 export interface Options {
   [key: string]: any
   /** The auth scope to use for the given method invocation */
@@ -248,10 +257,17 @@ export interface CourseImportOptions extends Options {
 
 export interface RegistrationOptions extends Options {
   /**
-   * To create a registration against a specific version of a course. Unless you have a reason for using this,
+   * To create a registration against a specific version of a course. Unless you have a reason for using this,hcxhur
    * you probably do not need to.
    */
   courseVersion?: number
+  xapiRegistrationId?: string
+  learnerTags?: string[]
+  courseTags?: string[]
+  registrationTags?: string[]
+  postBack?: PostBackOptions
+  initialRegistrationState?: Registration
+  initialSettings?: any // TODO
 }
 
 export interface LaunchLinkOptions extends Options {

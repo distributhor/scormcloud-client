@@ -17,7 +17,6 @@ import {
   SuccessIndicator,
   CourseImportOptions,
   CourseImportResponse,
-  RegistrationProgress,
   LaunchLinkOptions,
   RegistrationOptions,
   RegistrationProgressOptions
@@ -767,8 +766,15 @@ export class ScormClient {
 
       const registration = {
         courseId,
+        learner,
         registrationId,
-        learner
+        xapiRegistrationId: options.xapiRegistrationId ?? undefined,
+        learnerTags: options.learnerTags ?? undefined,
+        courseTags: options.courseTags ?? undefined,
+        registrationTags: options.registrationTags ?? undefined,
+        postBack: options.postBack ?? undefined,
+        initialRegistrationState: options.initialRegistrationState ?? undefined,
+        initialSettings: options.initialSettings ?? undefined
       }
 
       const response = await request
@@ -790,7 +796,7 @@ export class ScormClient {
 
   /**
    * Checks that the registration exists within SCORM Cloud. No registration data will be returned for this call.
-   * If you are looking for information about the registration, try using {@link getRegistrationProgress} instead.
+   * If you are looking for information about the registration, try using {@link getRegistration} instead.
    *
    * [API Method - GetRegistration](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistration)
    *
@@ -860,6 +866,47 @@ export class ScormClient {
   }
 
   /**
+   * Returns detailed information about the registration. This includes completion status, time taken, score,
+   * and pass/fail status.
+   *
+   * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
+   *
+   * @param registrationId The registration ID for which to return progress
+   */
+  async getRegistration(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
+    await this.authorise(options)
+
+    try {
+      const query: any = {
+        includeChildResults: options.includeChildResults ?? false,
+        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? false,
+        includeRuntime: options.includeRuntime ?? false
+      }
+
+      return (
+        await request
+          .get(`${BASE_PATH}/registrations/${registrationId}`)
+          .set('Authorization', this.getBearerString(options))
+          .query(query)
+      ).body
+    } catch (e) {
+      throw new ScormClientError(e)
+    }
+  }
+
+  /**
+   * This is an overloaded method for {@link getRegistration}, and is exactly the same thing. It exists purely to provide a
+   * method named in similar fashion to the official API.
+   *
+   * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
+   *
+   * @param registrationId The registration ID for which to return progress
+   */
+  async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
+    return await this.getRegistration(registrationId, options)
+  }
+
+  /**
    * Get a launch link, which is a relatively short lived url, used to launch the course for a given registration.
    * Launch links are meant as a way to provide access to your content. When a learner visits the link, the course
    * will be launched and registration progress will start to be tracked.
@@ -887,35 +934,6 @@ export class ScormClient {
           .post(`${BASE_PATH}/registrations/${registrationId}/launchLink`)
           .set('Authorization', this.getBearerString(options))
           .send(query)
-      ).body
-    } catch (e) {
-      throw new ScormClientError(e)
-    }
-  }
-
-  /**
-   * Returns detailed information about the registration. This includes completion status, time taken, score,
-   * and pass/fail status.
-   *
-   * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
-   *
-   * @param registrationId The registration ID for which to return progress
-   */
-  async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<RegistrationProgress> {
-    await this.authorise(options)
-
-    try {
-      const query: any = {
-        includeChildResults: options.includeChildResults ?? false,
-        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? false,
-        includeRuntime: options.includeRuntime ?? false
-      }
-
-      return (
-        await request
-          .get(`${BASE_PATH}/registrations/${registrationId}`)
-          .set('Authorization', this.getBearerString(options))
-          .query(query)
       ).body
     } catch (e) {
       throw new ScormClientError(e)
