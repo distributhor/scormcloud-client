@@ -19,14 +19,14 @@
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
-<li><a href="types.BaseQueryOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">BaseQueryOptions</a>
+<li><a href="types.DateFilter.html" class="tsd-signature-type" data-tsd-kind="Interface">DateFilter</a>
 <ul class="tsd-hierarchy">
 <li><span class="target">QueryOptions</span>
 <ul class="tsd-hierarchy">
 <li><a href="types.CourseQueryOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CourseQueryOptions</a></li>
 <li><a href="types.RegistrationQueryOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RegistrationQueryOptions</a></li></ul></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L273">src/types.ts:273</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L306">src/types.ts:306</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -39,7 +39,7 @@
 <a href="types.QueryOptions.html#filterBy" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>filter<wbr/>By?</span></a>
 <a href="types.QueryOptions.html#more" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>more?</span></a>
 <a href="types.QueryOptions.html#orderBy" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>order<wbr/>By?</span></a>
-<a href="types.QueryOptions.html#scope" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>scope?</span></a>
+<a href="types.QueryOptions.html#scope" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>scope?</span></a>
 <a href="types.QueryOptions.html#since" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>since?</span></a>
 <a href="types.QueryOptions.html#tags" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>tags?</span></a>
 <a href="types.QueryOptions.html#until" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>until?</span></a>
@@ -48,54 +48,77 @@
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="datetimeFilter" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>datetime<wbr/>Filter</span><a href="#datetimeFilter" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
-<div class="tsd-signature">datetime<wbr/>Filter<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.DateFilterField.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DateFilterField</a></div><aside class="tsd-sources">
+<div class="tsd-signature">datetime<wbr/>Filter<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.DateFilterField.html" class="tsd-signature-type" data-tsd-kind="Enumeration">DateFilterField</a></div>
+<div class="tsd-comment tsd-typography"><p>Specifies field that <code>since</code> and <code>until</code> parameters (see <a href="types.DateFilter.html">DateFilter</a>) are applied to</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L274">src/types.ts:274</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L311">src/types.ts:311</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="filter" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>filter</span><a href="#filter" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">filter<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">filter<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Optional string which filters results by a specified field, described by <code>filterBy</code></p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L276">src/types.ts:276</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L317">src/types.ts:317</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="filterBy" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>filter<wbr/>By</span><a href="#filterBy" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">filter<wbr/>By<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">filter<wbr/>By<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Optional parameter for specifying the field on which to run the filter. To know which fields are
+valid fields for the particular query, consult the official API reference docs for the targeted
+method (eg, <a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourses">GetCourses</a>),
+or see the client documentation for the method that overrides this interface (eg,
+<a href="types.CourseQueryOptions.html">CourseQueryOptions</a>)</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L277">src/types.ts:277</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L324">src/types.ts:324</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="more" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>more</span><a href="#more" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">more<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">more<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Pagination token returned as more property of multi page list requests</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L279">src/types.ts:279</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L334">src/types.ts:334</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="orderBy" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>order<wbr/>By</span><a href="#orderBy" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">order<wbr/>By<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">order<wbr/>By<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Optional parameter for specifying the field and order by which to sort the results. To know which fields
+are valid fields for the particular query, consult the official API reference docs for the targeted method.
+(eg, <a href="https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations">GetRegistrations</a>),
+or see the client documentation for the method that overrides this interface (eg,
+<a href="types.RegistrationQueryOptions.html">RegistrationQueryOptions</a>)</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L278">src/types.ts:278</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="scope" class="tsd-anchor"></a>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L331">src/types.ts:331</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="scope" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>scope</span><a href="#scope" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">scope<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The auth scope to use for the given method invocation</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="types.BaseQueryOptions.html">BaseQueryOptions</a>.<a href="types.BaseQueryOptions.html#scope">scope</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L248">src/types.ts:248</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L308">src/types.ts:308</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="since" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>since</span><a href="#since" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">since<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<p>Inherited from <a href="types.BaseQueryOptions.html">BaseQueryOptions</a>.<a href="types.BaseQueryOptions.html#since">since</a></p>
+<div class="tsd-signature">since<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Filter by ISO 8601 TimeStamp inclusive (defaults to UTC)</p>
+</div><aside class="tsd-sources">
+<p>Inherited from <a href="types.DateFilter.html">DateFilter</a>.<a href="types.DateFilter.html#since">since</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L269">src/types.ts:269</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L300">src/types.ts:300</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="tags" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>tags</span><a href="#tags" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">tags<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
+<div class="tsd-signature">tags<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+<div class="tsd-comment tsd-typography"><p>Filter items matching ANY tag provided (not ALL)</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L275">src/types.ts:275</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L314">src/types.ts:314</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a id="until" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>until</span><a href="#until" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">until<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<p>Inherited from <a href="types.BaseQueryOptions.html">BaseQueryOptions</a>.<a href="types.BaseQueryOptions.html#until">until</a></p>
+<div class="tsd-signature">until<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>Filter by ISO 8601 TimeStamp inclusive (defaults to UTC)</p>
+</div><aside class="tsd-sources">
+<p>Inherited from <a href="types.DateFilter.html">DateFilter</a>.<a href="types.DateFilter.html#until">until</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L270">src/types.ts:270</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L303">src/types.ts:303</a></li></ul></aside></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -126,7 +149,7 @@
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.QueryOptions.html#filterBy" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>filter<wbr/>By?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.QueryOptions.html#more" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>more?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.QueryOptions.html#orderBy" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>order<wbr/>By?</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="types.QueryOptions.html#scope" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>scope?</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.QueryOptions.html#scope" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>scope?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="types.QueryOptions.html#since" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>since?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a href="types.QueryOptions.html#tags" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>tags?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="types.QueryOptions.html#until" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>until?</a></li></ul></li></ul></nav></div></div>

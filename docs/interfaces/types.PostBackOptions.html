@@ -21,7 +21,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">PostBackOptions</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L236">src/types.ts:236</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L243">src/types.ts:243</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -40,34 +40,57 @@
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="authType" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>auth<wbr/>Type</span><a href="#authType" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
-<div class="tsd-signature">auth<wbr/>Type<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.PostBackAuthType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">PostBackAuthType</a></div><aside class="tsd-sources">
+<div class="tsd-signature">auth<wbr/>Type<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.PostBackAuthType.html" class="tsd-signature-type" data-tsd-kind="Enumeration">PostBackAuthType</a></div>
+<div class="tsd-comment tsd-typography"><p>Optional parameter to specify how to authorize against the given postbackurl, can be &#39;form&#39; or &#39;httpbasic&#39;.
+If form authentication, the username and password for authentication are submitted as form fields &#39;username&#39;
+and &#39;password&#39;, and the registration data as the form field &#39;data&#39;. If httpbasic authentication is used,
+the username and password are placed in the standard Authorization HTTP header, and the registration data
+is the body of the message (sent as text/xml content type). This field is set to &#39;form&#39; by default.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L238">src/types.ts:238</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L252">src/types.ts:252</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="legacy" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>legacy</span><a href="#legacy" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">legacy<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
+<div class="tsd-signature">legacy<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>This paramenter is ONLY used for backwards compatibility with XML postback implementations. You probably
+shouldn&#39;t need to use this unless you&#39;re currently transitioning from the V1 api to the V2 api and already
+have existing XML postback logic in your application, but have not yet built out JSON postback logic. If a
+registration is created with the V2 api we will assume that you&#39;re expecting JSON results unless otherwise
+specified.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L242">src/types.ts:242</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L271">src/types.ts:271</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="password" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>password</span><a href="#password" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">password<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">password<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>The password to be used in authorizing the postback of data to the URL specified by postback url.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L240">src/types.ts:240</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L258">src/types.ts:258</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="resultsFormat" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>results<wbr/>Format</span><a href="#resultsFormat" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">results<wbr/>Format<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.ResultsFormat.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ResultsFormat</a></div><aside class="tsd-sources">
+<div class="tsd-signature">results<wbr/>Format<span class="tsd-signature-symbol">?:</span> <a href="../enums/types.ResultsFormat.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ResultsFormat</a></div>
+<div class="tsd-comment tsd-typography"><p>This parameter allows you to specify a level of detail in the information that is posted back while
+the course is being taken. It may be one of three values: &#39;course&#39; (course summary), &#39;activity&#39; (activity
+summary), or &#39;full&#39; (full detail), and is set to &#39;course&#39; by default. The information will be posted as
+xml, and the format of that xml is specified below under the method &#39;getRegistrationResult&#39;</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L241">src/types.ts:241</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L264">src/types.ts:264</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="url" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>url</span><a href="#url" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>The url to post back to</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L237">src/types.ts:237</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L245">src/types.ts:245</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="userName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>user<wbr/>Name</span><a href="#userName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">user<wbr/>Name<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
+<div class="tsd-signature">user<wbr/>Name<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
+<div class="tsd-comment tsd-typography"><p>The user name to be used in authorizing the postback of data to the URL specified by postback url.</p>
+</div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/ca0a8d9/src/types.ts#L239">src/types.ts:239</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/distributhor/scormcloud-client/blob/bca633c/src/types.ts#L255">src/types.ts:255</a></li></ul></aside></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">

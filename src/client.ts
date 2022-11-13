@@ -22,10 +22,10 @@ import {
   CourseImportResponse,
   LaunchLinkOptions,
   RegistrationOptions,
-  RegistrationProgressOptions,
+  RegistrationFetchOptions,
   RegistrationQueryOptions,
   RegistrationQueryResponse,
-  CourseVersionQueryOptions
+  CourseVersionFetchOptions
 } from './types'
 
 /** @internal */
@@ -477,7 +477,9 @@ export class ScormClient {
   ): Promise<CourseImportResponse> {
     await this.authorise(options)
 
+    // TODO : handle "409 conflict, courseId exists and mayCreateNewVersion is false"
     try {
+      // TODO : implement all remaining options
       const query = {
         courseId,
         mayCreateNewVersion: options.mayCreateNewVersion ?? undefined
@@ -624,12 +626,12 @@ export class ScormClient {
    * [API Method - GetCourseVersions](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourseVersions)
    *
    * @param jobId The import job ID
-   * @param options CourseVersionQueryOptions
+   * @param options CourseVersionFetchOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
    * @returns An array of {@link types.Course}, or an empty array if no courses were found. This method does not
    * support pagination, all versions will be returned
    */
-  async getCourseVersions(courseId: string, options: CourseVersionQueryOptions = {}): Promise<Course[] | undefined> {
+  async getCourseVersions(courseId: string, options: CourseVersionFetchOptions = {}): Promise<Course[] | undefined> {
     await this.authorise(options)
 
     try {
@@ -831,9 +833,9 @@ export class ScormClient {
    * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
    *
    * @param registrationId The registration ID for which to return progress
-   * @param options RegistrationProgressOptions
+   * @param options RegistrationFetchOptions
    */
-  async getRegistration(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
+  async getRegistration(registrationId: string, options: RegistrationFetchOptions = {}): Promise<Registration> {
     await this.authorise(options)
 
     try {
@@ -861,9 +863,9 @@ export class ScormClient {
    * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
    *
    * @param registrationId The registration ID for which to return progress
-   * @param options RegistrationProgressOptions
+   * @param options RegistrationFetchOptions
    */
-  async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
+  async getRegistrationProgress(registrationId: string, options: RegistrationFetchOptions = {}): Promise<Registration> {
     return await this.getRegistration(registrationId, options)
   }
 
