@@ -56,6 +56,42 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(r3.currentTime).toBeDefined()
   })
 
+  // eslint-disable-next-line jest/no-commented-out-tests
+  // test('Queries and Pagination', async () => {
+  //   expect.assertions(11)
+
+  //   const r1 = await client.getCourses()
+
+  //   expect(r1.more).toBeDefined()
+  //   expect(r1.courses).toBeDefined()
+  //   expect(r1.courses.length).toEqual(10)
+
+  //   const r1Pt2 = await client.getCourses({
+  //     more: r1.more
+  //   })
+
+  //   expect(r1Pt2.more).toBeUndefined()
+  //   expect(r1Pt2.courses).toBeDefined()
+  //   expect(r1Pt2.courses.length).toEqual(3)
+
+  //   const r2 = await client.getCourses({
+  //     until: '2022-11-11T12:24:30.526Z'
+  //   })
+
+  //   expect(r2.more).toBeUndefined()
+  //   expect(r2.courses).toBeDefined()
+  //   expect(r2.courses.length).toEqual(2)
+
+  //   try {
+  //     await client.getCourses({
+  //       until: 'BLAH'
+  //     })
+  //   } catch (e) {
+  //     expect(e.httpStatus).toEqual(400)
+  //     expect(e.message.startsWith('Bad request, likely due to invalid query')).toBeTruthy()
+  //   }
+  // })
+
   test('Upload & Fetch Course', async () => {
     expect.assertions(17)
 
@@ -111,11 +147,12 @@ describe('Scorm Cloud Integration Tests', () => {
   })
 
   test('Create & Fetch Registration', async () => {
-    expect.assertions(14)
+    expect.assertions(19)
 
     // confirm course has no registrations
     const r1 = await client.getRegistrationsForCourse(COURSE_ID)
-    expect(r1).toEqual([])
+    expect(r1.registrations).toBeDefined()
+    expect(r1.registrations).toEqual([])
 
     // confirm registration does not exist
     const r2 = await client.registrationExists(REGISTRATION_ID)
@@ -131,13 +168,15 @@ describe('Scorm Cloud Integration Tests', () => {
 
     // fetch registration
     const r5 = await client.getRegistrationsForCourse(COURSE_ID)
-    expect(r5.length).toEqual(1)
-    expect(r5[0].id).toEqual(REGISTRATION_ID)
+    expect(r5.registrations).toBeDefined()
+    expect(r5.registrations.length).toEqual(1)
+    expect(r5.registrations[0].id).toEqual(REGISTRATION_ID)
 
     // fetch registration
     const r6 = await client.getRegistrationsForLearner(LEARNER_ID)
-    expect(r6.length).toEqual(1)
-    expect(r6[0].id).toEqual(REGISTRATION_ID)
+    expect(r6.registrations).toBeDefined()
+    expect(r6.registrations.length).toEqual(1)
+    expect(r6.registrations[0].id).toEqual(REGISTRATION_ID)
 
     // should fail to create duplicate registration
     try {
@@ -149,11 +188,13 @@ describe('Scorm Cloud Integration Tests', () => {
 
     // fetch registration for non-existent course
     const r7 = await client.getRegistrationsForCourse('abc')
-    expect(r7).toEqual([])
+    expect(r7.registrations).toBeDefined()
+    expect(r7.registrations).toEqual([])
 
     // fetch registration for non-existent learner
     const r8 = await client.getRegistrationsForLearner('abc')
-    expect(r8).toEqual([])
+    expect(r8.registrations).toBeDefined()
+    expect(r8.registrations).toEqual([])
 
     // create registration for course that does not exist
     try {

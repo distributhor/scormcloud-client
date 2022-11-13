@@ -15,11 +15,17 @@ import {
   PingResponse,
   ImportJobResult,
   SuccessIndicator,
+  CourseFetchOptions,
+  CourseQueryOptions,
+  CourseQueryResponse,
   CourseImportOptions,
   CourseImportResponse,
   LaunchLinkOptions,
   RegistrationOptions,
-  RegistrationProgressOptions
+  RegistrationProgressOptions,
+  RegistrationQueryOptions,
+  RegistrationQueryResponse,
+  CourseVersionQueryOptions
 } from './types'
 
 /** @internal */
@@ -376,17 +382,17 @@ export class ScormClient {
    * [API Method - GetCourse](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourse)
    *
    * @param courseId The course ID
-   * @param options Options
+   * @param options CourseFetchOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
    * @returns The requested {@link types.Course}, or `undefined` if the course was not found
    */
-  async getCourse(courseId: string, options: Options = {}): Promise<Course | undefined> {
+  async getCourse(courseId: string, options: CourseFetchOptions = {}): Promise<Course | undefined> {
     await this.authorise(options)
 
     try {
       const query: any = {
-        includeRegistrationCount: options.includeRegistrationCount ?? true,
-        includeCourseMetadata: options.includeCourseMetadata ?? false
+        includeRegistrationCount: options.includeRegistrationCount ?? undefined,
+        includeCourseMetadata: options.includeCourseMetadata ?? undefined
       }
 
       return (
@@ -414,17 +420,40 @@ export class ScormClient {
 
    * [API Method - GetCourses](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourses)
    *
-   * @param options Options
+   * @param options CourseQueryOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
-   * @returns An array of {@link types.Course}, or an empty array if no courses were found
+   * @returns A {@link types.CourseQueryResponse} that has a property named `courses`, which is an array
+   * of type {@link types.Course}, or an empty array if no courses were found. It also includes a
+   * '`more`' property which, if present, can be used to retrieve the next paginated set of results
    */
-  async getCourses(options: Options = {}): Promise<Course[]> {
+  async getCourses(options: CourseQueryOptions = {}): Promise<CourseQueryResponse> {
     await this.authorise(options)
 
     try {
-      const response = await request.get(`${BASE_PATH}/courses`).set('Authorization', this.getBearerString(options))
-      return response.body.courses || []
+      const query: any = {
+        since: options.since ?? undefined,
+        until: options.until ?? undefined,
+        datetimeFilter: options.datetimeFilter ?? undefined,
+        tags: options.tags ?? undefined,
+        filter: options.filter ?? undefined,
+        filterBy: options.filterBy ?? undefined,
+        orderBy: options.orderBy ?? undefined,
+        more: options.more ?? undefined,
+        includeCourseMetadata: options.includeCourseMetadata ?? undefined,
+        includeRegistrationCount: options.includeRegistrationCount ?? undefined
+      }
+
+      return (
+        await request
+          .get(`${BASE_PATH}/courses`)
+          .set('Authorization', this.getBearerString(options))
+          .query(query)
+      ).body
     } catch (e) {
+      if (HttpStatus.notFound(e)) {
+        throw new ScormClientError(e, 'Bad request, likely due to invalid query options', 400)
+      }
+
       throw new ScormClientError(e)
     }
   }
@@ -437,7 +466,7 @@ export class ScormClient {
    *
    * [API Method - CreateUploadAndImportCourseJob](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/CreateUploadAndImportCourseJob)
    *
-   * @param options Options
+   * @param options CourseImportOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
    * @returns A {@link types.CourseImportResponse} if successfull
    */
@@ -451,7 +480,7 @@ export class ScormClient {
     try {
       const query = {
         courseId,
-        mayCreateNewVersion: options.mayCreateNewVersion ?? false
+        mayCreateNewVersion: options.mayCreateNewVersion ?? undefined
       }
 
       const response = await request
@@ -595,24 +624,31 @@ export class ScormClient {
    * [API Method - GetCourseVersions](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourseVersions)
    *
    * @param jobId The import job ID
-   * @param options Options
+   * @param options CourseVersionQueryOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
-   * @returns An array of {@link types.Course}, or an empty array if no courses were found
+   * @returns An array of {@link types.Course}, or an empty array if no courses were found. This method does not
+   * support pagination, all versions will be returned
    */
-  async getCourseVersions(courseId: string, options: Options = {}): Promise<Course[] | undefined> {
+  async getCourseVersions(courseId: string, options: CourseVersionQueryOptions = {}): Promise<Course[] | undefined> {
     await this.authorise(options)
 
     try {
+      const query: any = {
+        since: options.since ?? undefined,
+        until: options.until ?? undefined,
+        includeCourseMetadata: options.includeCourseMetadata ?? undefined,
+        includeRegistrationCount: options.includeRegistrationCount ?? undefined
+      }
+
       const response = await request
         .get(`${BASE_PATH}/courses/${courseId}/versions`)
         .set('Authorization', this.getBearerString(options))
-        .query('includeRegistrationCount=true')
-        .query('includeCourseMetadata=false')
+        .query(query)
 
       return response.body.courses || []
     } catch (e) {
       if (HttpStatus.notFound(e)) {
-        return undefined
+        throw new ScormClientError(e, 'Bad request, likely due to invalid query options', 400)
       }
 
       throw new ScormClientError(e)
@@ -657,83 +693,6 @@ export class ScormClient {
   }
 
   /**
-   * Returns a list of registrations for the given course. Can be filtered to provide a subset of results.
-   *
-   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
-   * results to be collected, a more token provided with the response which can be passed to get the next page
-   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
-   * resources will continue to respect the filters passed in by the original request.
-   *
-   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
-   *
-   * @param courseId The course ID for which to return registrations
-   * @param options The options with which a registration can be requested
-   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
-   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found,
-   * or if the referenced course does not exist
-   */
-  async getRegistrationsForCourse(courseId: string, options: Options = {}): Promise<Registration[]> {
-    return await this.getRegistrations(Object.assign({ courseId }, options))
-  }
-
-  /**
-   * Returns a list of registrations for the given learner. Can be filtered to provide a subset of results.
-   *
-   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
-   * results to be collected, a more token provided with the response which can be passed to get the next page
-   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
-   * resources will continue to respect the filters passed in by the original request.
-   *
-   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
-   *
-   * @param learnerId The learner ID for which to return registrations
-   * @param options The options with which a registration can be requested
-   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
-   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found,
-   * or if the referenced learner does not exist
-   */
-  async getRegistrationsForLearner(learnerId: string, options: Options = {}): Promise<Registration[]> {
-    return await this.getRegistrations(Object.assign({ learnerId }, options))
-  }
-
-  /**
-   * Returns a list of registrations. Can be filtered to provide a subset of results.
-   *
-   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
-   * results to be collected, a more token provided with the response which can be passed to get the next page
-   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
-   * resources will continue to respect the filters passed in by the original request.
-   *
-   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
-   *
-   * @param options The options with which a registration can be requested
-   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
-   * @returns An array of {@link types.Registration}, or an empty array if no registrations were found
-   */
-  async getRegistrations(options: Options = {}): Promise<Registration[]> {
-    await this.authorise(options)
-
-    try {
-      const query: any = {
-        courseId: options.courseId ?? undefined,
-        learnerId: options.learnerId ?? undefined,
-        since: options.since ?? undefined,
-        until: options.until ?? undefined,
-        datetimeFilter: options.datetimeFilter ?? undefined
-      }
-
-      const response = await request
-        .get(`${BASE_PATH}/registrations`)
-        .set('Authorization', this.getBearerString(options))
-        .query(query)
-
-      return response.body.registrations || []
-    } catch (e) {
-      throw new ScormClientError(e)
-    }
-  }
-
-  /**
    * Creates a new registration. Registrations are the billable unit in SCORM Cloud, and represents the link between
    * a learner and a course. A registration will contain a few pieces of information such as learner identifiers,
    * the id of the course being registered for, and several other optional fields.
@@ -746,7 +705,7 @@ export class ScormClient {
    * @param registrationId An ID for this registration
    * @param courseId The course ID for which the learner should be registered
    * @param learner The details of the learner, at minimum a learner ID should be specified
-   * @param options The options with which a registration can be requested
+   * @param options RegistrationOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
    * or if the referenced course or learner does not exist, or if creating a duplicate registration
    * @returns A {@link types.SuccessIndicator}
@@ -872,15 +831,16 @@ export class ScormClient {
    * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
    *
    * @param registrationId The registration ID for which to return progress
+   * @param options RegistrationProgressOptions
    */
   async getRegistration(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
     await this.authorise(options)
 
     try {
       const query: any = {
-        includeChildResults: options.includeChildResults ?? false,
-        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? false,
-        includeRuntime: options.includeRuntime ?? false
+        includeChildResults: options.includeChildResults ?? undefined,
+        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? undefined,
+        includeRuntime: options.includeRuntime ?? undefined
       }
 
       return (
@@ -901,9 +861,103 @@ export class ScormClient {
    * [API Method - GetRegistrationProgress](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrationProgress)
    *
    * @param registrationId The registration ID for which to return progress
+   * @param options RegistrationProgressOptions
    */
   async getRegistrationProgress(registrationId: string, options: RegistrationProgressOptions = {}): Promise<Registration> {
     return await this.getRegistration(registrationId, options)
+  }
+
+  /**
+   * Returns a list of registrations for the given course. Can be filtered to provide a subset of results.
+   *
+   * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+   * results to be collected, a more token provided with the response which can be passed to get the next page
+   * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+   * resources will continue to respect the filters passed in by the original request.
+   *
+   * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+   *
+   * @param courseId The course ID for which to return registrations
+   * @param options RegistrationQueryOptions
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns A {@link types.RegistrationQueryResponse} that has a property named `registrations`, which is an array
+   * of type {@link types.Registration}, or an empty array if no registrations were found. It also includes a
+   * '`more`' property which, if present, can be used to retrieve the next paginated set of results
+   */
+  async getRegistrationsForCourse(courseId: string, options: RegistrationQueryOptions = {}): Promise<RegistrationQueryResponse> {
+    return await this.getRegistrations(Object.assign({ courseId }, options))
+  }
+
+  /**
+     * Returns a list of registrations for the given learner. Can be filtered to provide a subset of results.
+     *
+     * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+     * results to be collected, a more token provided with the response which can be passed to get the next page
+     * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+     * resources will continue to respect the filters passed in by the original request.
+     *
+     * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+     *
+     * @param learnerId The learner ID for which to return registrations
+     * @param options RegistrationQueryOptions
+     * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+     * @returns A {@link types.RegistrationQueryResponse} that has a property named `registrations`, which is an array
+     * of type {@link types.Registration}, or an empty array if no registrations were found. It also includes a
+     * '`more`' property which, if present, can be used to retrieve the next paginated set of results
+     */
+  async getRegistrationsForLearner(learnerId: string, options: RegistrationQueryOptions = {}): Promise<RegistrationQueryResponse> {
+    return await this.getRegistrations(Object.assign({ learnerId }, options))
+  }
+
+  /**
+     * Returns a list of registrations. Can be filtered to provide a subset of results.
+     *
+     * This request is paginated and will only provide a limited amount of resources at a time. If there are more
+     * results to be collected, a more token provided with the response which can be passed to get the next page
+     * of results. When passing this token, no other filter parameters can be sent as part of the request. The
+     * resources will continue to respect the filters passed in by the original request.
+     *
+     * [API Method - GetRegistrations](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/GetRegistrations)
+     *
+     * @param options RegistrationQueryOptions
+     * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+     * @returns A {@link types.RegistrationQueryResponse} that has a property named `registrations`, which is an array
+     * of type {@link types.Registration}, or an empty array if no registrations were found. It also includes a
+     * '`more`' property which, if present, can be used to retrieve the next paginated set of results
+     */
+  async getRegistrations(options: RegistrationQueryOptions = {}): Promise<RegistrationQueryResponse> {
+    await this.authorise(options)
+
+    try {
+      const query: any = {
+        courseId: options.courseId ?? undefined,
+        learnerId: options.learnerId ?? undefined,
+        since: options.since ?? undefined,
+        until: options.until ?? undefined,
+        datetimeFilter: options.datetimeFilter ?? undefined,
+        tags: options.tags ?? undefined,
+        filter: options.filter ?? undefined,
+        filterBy: options.filterBy ?? undefined,
+        orderBy: options.orderBy ?? undefined,
+        more: options.more ?? undefined,
+        includeChildResults: options.includeChildResults ?? undefined,
+        includeInteractionsAndObjectives: options.includeInteractionsAndObjectives ?? undefined,
+        includeRuntime: options.includeRuntime ?? undefined
+      }
+
+      return (
+        await request
+          .get(`${BASE_PATH}/registrations`)
+          .set('Authorization', this.getBearerString(options))
+          .query(query)
+      ).body
+    } catch (e) {
+      if (HttpStatus.notFound(e)) {
+        throw new ScormClientError(e, 'Bad request, likely due to invalid query options', 400)
+      }
+
+      throw new ScormClientError(e)
+    }
   }
 
   /**
@@ -915,7 +969,7 @@ export class ScormClient {
    *
    * @param registrationId The registration ID for which to create and return a launch link
    * @param redirectOnExitUrl Where to take the learner after the course is complete
-   * @param options The options with which a launch link can be requested
+   * @param options LaunchLinkOptions
    */
   async createLaunchLink(
     registrationId: string,

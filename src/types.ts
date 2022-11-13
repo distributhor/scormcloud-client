@@ -205,6 +205,16 @@ export interface CourseImportResponse {
   importJobResult?: ImportJobResult
 }
 
+export interface CourseQueryResponse {
+  courses: Course[]
+  more?: string
+}
+
+export interface RegistrationQueryResponse {
+  registrations: Registration[]
+  more?: string
+}
+
 export interface Learner {
   id: string
   email?: string
@@ -233,7 +243,7 @@ export interface PostBackOptions {
 }
 
 export interface Options {
-  [key: string]: any
+  // [key: string]: any
   /** The auth scope to use for the given method invocation */
   scope?: string
 }
@@ -250,16 +260,54 @@ export interface Options {
 //   }
 // }
 
+export const enum DateFilterField {
+  CREATED = 'created',
+  UPDATED = 'updated',
+}
+
+export interface BaseQueryOptions extends Options {
+  since?: string
+  until?: string
+}
+
+export interface QueryOptions extends BaseQueryOptions {
+  datetimeFilter?: DateFilterField
+  tags?: string[]
+  filter?: string
+  filterBy?: string
+  orderBy?: string
+  more?: string
+}
+
 export interface CourseImportOptions extends Options {
   waitForResult?: number
   mayCreateNewVersion?: boolean
 }
 
+export interface CourseFetchOptions extends Options {
+  includeCourseMetadata?: boolean
+  includeRegistrationCount?: boolean
+}
+
+export interface CourseQueryOptions extends QueryOptions {
+  includeCourseMetadata?: boolean
+  includeRegistrationCount?: boolean
+}
+
+export interface CourseVersionQueryOptions extends BaseQueryOptions {
+  includeCourseMetadata?: boolean
+  includeRegistrationCount?: boolean
+}
+
+export interface RegistrationQueryOptions extends QueryOptions {
+  courseId?: string
+  learnerId?: string
+  includeChildResults?: boolean
+  includeInteractionsAndObjectives?: boolean
+  includeRuntime?: boolean
+}
+
 export interface RegistrationOptions extends Options {
-  /**
-   * To create a registration against a specific version of a course. Unless you have a reason for using this,hcxhur
-   * you probably do not need to.
-   */
   courseVersion?: number
   xapiRegistrationId?: string
   learnerTags?: string[]
@@ -270,12 +318,12 @@ export interface RegistrationOptions extends Options {
   initialSettings?: any // TODO
 }
 
-export interface LaunchLinkOptions extends Options {
-  expiry?: number
-}
-
 export interface RegistrationProgressOptions extends Options {
   includeChildResults?: boolean
   includeInteractionsAndObjectives?: boolean
   includeRuntime?: boolean
+}
+
+export interface LaunchLinkOptions extends Options {
+  expiry?: number
 }
