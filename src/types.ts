@@ -103,6 +103,12 @@ export const enum SuccessStatus {
   FAILED = 'FAILED',
 }
 
+export const enum JobStatus {
+  RUNNING = 'RUNNING',
+  COMPLETE = 'COMPLETE',
+  ERROR = 'ERROR',
+}
+
 export interface Score {
   /** Scaled score between 0 and 100 */
   scaled: number
@@ -181,6 +187,11 @@ export interface StaticProperties {
   timeLimitAction?: string
 }
 
+export interface ItemValueEntry {
+  item: string
+  value: string
+}
+
 export interface KeyValueEntry {
   id: string
   value: string
@@ -195,7 +206,7 @@ export interface ImportResult {
 
 export interface ImportJobResult {
   jobId?: string
-  status?: string
+  status?: JobStatus
   message?: string
   importResult?: ImportResult
 }
@@ -210,14 +221,19 @@ export interface CourseImportResponse {
   importJobResult?: ImportJobResult
 }
 
-export interface CourseQueryResponse {
-  courses: Course[]
+export interface PaginatedResponse {
+  /** A pagination token with which the next set of results can be retrieved. When passing this token to a
+   * request that accepts them, no other filter parameters should be sent as part of that request. The resources
+   * will continue to respect the filters passed in by the original request. */
   more?: string
 }
 
-export interface RegistrationQueryResponse {
+export interface CourseQueryResponse extends PaginatedResponse {
+  courses: Course[]
+}
+
+export interface RegistrationQueryResponse extends PaginatedResponse {
   registrations: Registration[]
-  more?: string
 }
 
 export interface Learner {
@@ -330,7 +346,10 @@ export interface QueryOptions extends DateFilter {
    * {@link RegistrationQueryOptions}) */
   orderBy?: string
 
-  /** Pagination token returned as more property of multi page list requests */
+  /** A pagination token that was returned on the `more` property of paginated requests. If there are more results
+   * to be collected, the token can be provided here to get the next page of results. When passing this token,
+   * no other filter parameters can be sent as part of the request. The resources will continue to respect the
+   * filters passed in by the original request. */
   more?: string
 }
 
@@ -348,8 +367,16 @@ export interface CourseImportOptions extends Options {
   /** An optional parameter that specifies a URL to send a postback to when the course has finished uploading. */
   postbackUrl?: string
 
-  /** The MIME type identifier for the content to be uploaded. This is required if uploading a
-   * media file (.pdf, .mp3, or .mp4). Default value : application/zip */
+  // /** The MIME type identifier for the content to be uploaded. This is required if uploading a
+  //  * media file (.pdf, .mp3, or .mp4). Default value : application/zip */
+  // uploadedContentType?: string
+
+  /** While this option is available in the official API, it's currently unsupported on this client and setting it
+   * will have no effect. The client automatically determines the content type of the file by inspecting the file
+   * name suffix (zip, pdf, mp3 or mp4) and then setting the option internally. It will throw an error if the file
+   * is not one of these types. In future, if required, this automatic 'check and set' might be removed, allowing
+   * users of the client to handle it manually instead, and thus enabling this property for use.
+   */
   uploadedContentType?: string
 
   /** Serialized 'mediaFileMetadata' schema */
@@ -470,6 +497,44 @@ export interface RegistrationOptions extends Options {
   initialSettings?: any // TODO
 }
 
-export interface LaunchLinkOptions extends Options {
+export const enum LaunchAuthType {
+  COOKIES = 'cookies',
+  VAULT = 'vault',
+}
+
+export interface LaunchAuthOptions {
+  ipAddress?: boolean
+  fingerprint?: boolean
   expiry?: number
+  slidingExpiry?: number
+}
+
+export interface LaunchAuth {
+  type?: LaunchAuthType
+  options?: LaunchAuthOptions
+}
+
+export interface LaunchLinkOptions extends Options {
+  /** Number of seconds from now this link will expire in. Defaults to 120s. Range 10s:300s */
+  expiry?: number
+
+  /** Should this launch be tracked? If false, SCORM Cloud will avoid tracking to the extent possible for the
+   * standard being used. */
+  tracking?: boolean
+
+  /** For SCORM, SCO identifier to override launch, overriding the normal sequencing */
+  startSco?: string
+
+  /** This parameter should specify a culture code. If specified, and supported, the navigation and alerts in
+   * the player will be displayed in the associated language. If not specified, the locale of the user’s browser
+   * will be used. */
+  culture?: string
+
+  /** A Url pointing to custom css for the player to use */
+  cssUrl?: string
+  learnerTags?: string[]
+  courseTags?: string[]
+  registrationTags?: string[]
+  additionalvalues?: ItemValueEntry[]
+  launchAuth?: LaunchAuth
 }

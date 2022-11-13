@@ -101,23 +101,27 @@ export const Util = {
   },
 
   scormUploadType: (f: string): string => {
-    if (!f || f.endsWith('zip')) {
+    if (!f) {
+      throw new ScormClientError('No scorm file path/name received')
+    }
+
+    if (f.toLowerCase().endsWith('zip')) {
       return 'application/zip'
     }
 
-    if (f.endsWith('pdf')) {
+    if (f.toLowerCase().endsWith('pdf')) {
       return 'application/pdf'
     }
 
-    if (f.endsWith('mp3')) {
+    if (f.toLowerCase().endsWith('mp3')) {
       return 'audo/mpeg'
     }
 
-    if (f.endsWith('mp4')) {
+    if (f.toLowerCase().endsWith('mp4')) {
       return 'video/mp4'
     }
 
-    return 'application/zip'
+    throw new ScormClientError('Invalid scorm file type, only zip, pdf, mp3 and mp4 supported')
   }
 }
 
@@ -389,6 +393,10 @@ export class ScormClient {
   async getCourse(courseId: string, options: CourseFetchOptions = {}): Promise<Course | undefined> {
     await this.authorise(options)
 
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
     try {
       const query: any = {
         includeRegistrationCount: options.includeRegistrationCount ?? undefined,
@@ -466,6 +474,8 @@ export class ScormClient {
    *
    * [API Method - CreateUploadAndImportCourseJob](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/CreateUploadAndImportCourseJob)
    *
+   * @param courseId The course ID
+   * @param filePath The path to the file that must be imported to SCORM Cloud
    * @param options CourseImportOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
    * @returns A {@link types.CourseImportResponse} if successfull
@@ -477,20 +487,50 @@ export class ScormClient {
   ): Promise<CourseImportResponse> {
     await this.authorise(options)
 
-    // TODO : handle "409 conflict, courseId exists and mayCreateNewVersion is false"
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
+    if (!filePath) {
+      throw new ScormClientError('No filePath provided')
+    }
+
+    const fileType = Util.scormUploadType(filePath)
+    const authString = this.getBearerString(options)
+
     try {
-      // TODO : implement all remaining options
       const query = {
         courseId,
-        mayCreateNewVersion: options.mayCreateNewVersion ?? undefined
+        mayCreateNewVersion: options.mayCreateNewVersion ?? undefined,
+        postbackUrl: options.postbackUrl ?? undefined
       }
 
-      const response = await request
-        .post(`${BASE_PATH}/courses/importJobs/upload`).type('form')
-        .set('Authorization', this.getBearerString(options))
-        .set('uploadedContentType', Util.scormUploadType(filePath))
-        .query(query)
-        .attach('file', filePath)
+      async function postUploadJob(
+        filePath: string,
+        fileType: string,
+        authString: string,
+        options: CourseImportOptions): Promise<request.Response> {
+        const contentMetadata = options.contentMetadata ?? undefined
+
+        if (contentMetadata) {
+          return await request
+            .post(`${BASE_PATH}/courses/importJobs/upload`).type('form')
+            .set('Authorization', authString)
+            .set('uploadedContentType', fileType)
+            .query(query)
+            .send({ contentMetadata })
+            .attach('file', filePath)
+        }
+
+        return await request
+          .post(`${BASE_PATH}/courses/importJobs/upload`).type('form')
+          .set('Authorization', authString)
+          .set('uploadedContentType', fileType)
+          .query(query)
+          .attach('file', filePath)
+      }
+
+      const response = await postUploadJob(filePath, fileType, authString, options)
 
       if (!response.body.result) {
         return {
@@ -517,6 +557,7 @@ export class ScormClient {
         importJobResult
       }
     } catch (e) {
+      // TODO : handle "409 conflict, courseId exists and mayCreateNewVersion is false" ?
       throw new ScormClientError(e)
     }
   }
@@ -534,6 +575,10 @@ export class ScormClient {
    */
   async getCourseImportStatus(jobId: string, options: Options = {}): Promise<ImportJobResult | undefined> {
     await this.authorise(options)
+
+    if (!jobId) {
+      throw new ScormClientError('No jobId provided')
+    }
 
     try {
       return (
@@ -556,7 +601,7 @@ export class ScormClient {
    * [API Method - SetCourseTitle](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/SetCourseTitle)
    *
    * @param courseId The course ID
-   * @param courseId Title
+   * @param title The new title to be set
    * @param options Options
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
    * or if the referenced course does not exist
@@ -564,6 +609,14 @@ export class ScormClient {
    */
   async setCourseTitle(courseId: string, title: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
+
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
+    if (!title) {
+      throw new ScormClientError('No title provided')
+    }
 
     try {
       const response = await request
@@ -600,6 +653,10 @@ export class ScormClient {
   async deleteCourse(courseId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
     try {
       const response = await request
         .delete(`${BASE_PATH}/courses/${courseId}`)
@@ -625,7 +682,7 @@ export class ScormClient {
    *
    * [API Method - GetCourseVersions](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/GetCourseVersions)
    *
-   * @param jobId The import job ID
+   * @param courseId The course ID
    * @param options CourseVersionFetchOptions
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
    * @returns An array of {@link types.Course}, or an empty array if no courses were found. This method does not
@@ -633,6 +690,10 @@ export class ScormClient {
    */
   async getCourseVersions(courseId: string, options: CourseVersionFetchOptions = {}): Promise<Course[] | undefined> {
     await this.authorise(options)
+
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
 
     try {
       const query: any = {
@@ -669,25 +730,33 @@ export class ScormClient {
    * [API Method - DeleteCourseVersion](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/DeleteCourseVersion)
    *
    * @param courseId The course ID
-   * @param versionId The version number
+   * @param versionNumber The version number
    * @param options Options
    * @throws {@link ScormClientError} if an invalid request was made, or an error encountered,
    * or if the referenced course does not exist
    * @returns A {@link types.SuccessIndicator}
    */
-  async deleteCourseVersion(courseId: string, versionId: number, options: Options = {}): Promise<SuccessIndicator> {
+  async deleteCourseVersion(courseId: string, versionNumber: number, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
+
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
+    if (!versionNumber) {
+      throw new ScormClientError('No versionNumber provided')
+    }
 
     try {
       const response = await request
-        .delete(`${BASE_PATH}/courses/${courseId}/versions/${versionId}`)
+        .delete(`${BASE_PATH}/courses/${courseId}/versions/${versionNumber}`)
         .set('Authorization', this.getBearerString(options))
 
       const success = HttpStatus.isSuccess(response)
 
       return {
         success,
-        message: success ? '' : `Failed to delete course version '${courseId}:${versionId}'`
+        message: success ? '' : `Failed to delete course version '${courseId}:${versionNumber}'`
       }
     } catch (e) {
       throw new ScormClientError(e)
@@ -719,6 +788,18 @@ export class ScormClient {
     options: RegistrationOptions = {}
   ): Promise<SuccessIndicator> {
     await this.authorise(options)
+
+    if (!registrationId) {
+      throw new ScormClientError('No registrationId provided')
+    }
+
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
+    if (!learner) {
+      throw new ScormClientError('No learner details provided')
+    }
 
     try {
       const query = {
@@ -769,6 +850,10 @@ export class ScormClient {
   async registrationExists(registrationId: string, options: Options = {}): Promise<Boolean> {
     await this.authorise(options)
 
+    if (!registrationId) {
+      throw new ScormClientError('No registrationId provided')
+    }
+
     try {
       const response = await request
         .head(`${BASE_PATH}/registrations/${registrationId}`)
@@ -810,6 +895,10 @@ export class ScormClient {
   async deleteRegistration(registrationId: string, options: Options = {}): Promise<SuccessIndicator> {
     await this.authorise(options)
 
+    if (!registrationId) {
+      throw new ScormClientError('No registrationId provided')
+    }
+
     try {
       const response = await request
         .delete(`${BASE_PATH}/registrations/${registrationId}`)
@@ -837,6 +926,10 @@ export class ScormClient {
    */
   async getRegistration(registrationId: string, options: RegistrationFetchOptions = {}): Promise<Registration> {
     await this.authorise(options)
+
+    if (!registrationId) {
+      throw new ScormClientError('No registrationId provided')
+    }
 
     try {
       const query: any = {
@@ -887,6 +980,10 @@ export class ScormClient {
    * '`more`' property which, if present, can be used to retrieve the next paginated set of results
    */
   async getRegistrationsForCourse(courseId: string, options: RegistrationQueryOptions = {}): Promise<RegistrationQueryResponse> {
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
     return await this.getRegistrations(Object.assign({ courseId }, options))
   }
 
@@ -908,6 +1005,10 @@ export class ScormClient {
      * '`more`' property which, if present, can be used to retrieve the next paginated set of results
      */
   async getRegistrationsForLearner(learnerId: string, options: RegistrationQueryOptions = {}): Promise<RegistrationQueryResponse> {
+    if (!learnerId) {
+      throw new ScormClientError('No learnerId provided')
+    }
+
     return await this.getRegistrations(Object.assign({ learnerId }, options))
   }
 
@@ -970,7 +1071,13 @@ export class ScormClient {
    * [API Method - BuildRegistrationLaunchLink](https://cloud.scorm.com/docs/v2/reference/swagger/#/registration/BuildRegistrationLaunchLink)
    *
    * @param registrationId The registration ID for which to create and return a launch link
-   * @param redirectOnExitUrl Where to take the learner after the course is complete
+   * @param redirectOnExitUrl The URL the application should redirect to when the learner exits or completes a course.
+   * Alternatively one of the following keywords can be used:
+   *  - closer : A page that automatically tries to close the browser tab/window
+   *  - blank : A blank page
+   *  - message : A page with a message about the course being complete
+   *
+   * If an invalid url is specified, the Message.html page will be loaded
    * @param options LaunchLinkOptions
    */
   async createLaunchLink(
@@ -980,9 +1087,27 @@ export class ScormClient {
   ): Promise<LaunchLink> {
     await this.authorise(options)
 
+    if (!registrationId) {
+      throw new ScormClientError('No registrationId provided')
+    }
+
+    if (!redirectOnExitUrl) {
+      throw new ScormClientError('No redirectOnExitUrl provided')
+    }
+
     try {
       const query = {
-        redirectOnExitUrl
+        redirectOnExitUrl,
+        expiry: options.expiry ?? undefined,
+        tracking: options.tracking ?? undefined,
+        startSco: options.startSco ?? undefined,
+        culture: options.culture ?? undefined,
+        cssUrl: options.cssUrl ?? undefined,
+        learnerTags: options.learnerTags ?? undefined,
+        courseTags: options.courseTags ?? undefined,
+        registrationTags: options.registrationTags ?? undefined,
+        additionalvalues: options.additionalvalues ?? undefined,
+        launchAuth: options.launchAuth ?? undefined
       }
 
       return (

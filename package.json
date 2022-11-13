@@ -1,6 +1,6 @@
 {
   "name": "scormcloud-client",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "A Typescript and JS client for interfacing with the ScormCloud API",
   "homepage": "https://github.com/distributhor/scormcloud-client",
   "license": "MIT",
