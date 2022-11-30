@@ -25,7 +25,8 @@ import {
   RegistrationFetchOptions,
   RegistrationQueryOptions,
   RegistrationQueryResponse,
-  CourseVersionFetchOptions
+  CourseVersionFetchOptions,
+  CourseVersionAssetUploadOptions
 } from './types'
 
 /** @internal */
@@ -757,6 +758,78 @@ export class ScormClient {
       return {
         success,
         message: success ? '' : `Failed to delete course version '${courseId}:${versionNumber}'`
+      }
+    } catch (e) {
+      throw new ScormClientError(e)
+    }
+  }
+
+  /**
+   * Creates or updates an asset file uploaded from your file system into the course version. The file will be sent
+   * as part of the request and will be stored in SCORM Cloud alongside the course. This is a useful way to modify
+   * the course structure without needing to reimport the whole course after you've made changes.
+   *
+   * If the course structure is being heavily modified, consider creating a new version instead. This can be done by
+   * calling {@link importCourse}, while passing true for mayCreateNewVersion
+   *
+   * [API Method - UploadCourseVersionAssetFile](https://cloud.scorm.com/docs/v2/reference/swagger/#/course/UploadCourseVersionAssetFile)
+   *
+   * @param courseId The course ID
+   * @param versionNumber The version number
+   * @param filePath The local path to the file that must be imported to SCORM Cloud
+   * @param destinationPath The relative path from the course's base directory on SCORM Cloud, to where the asset file will be uploaded
+   * @param options CourseVersionAssetUploadOptions
+   * @throws {@link ScormClientError} if an invalid request was made, or an error encountered
+   * @returns A {@link types.CourseVersionAssetUploadResponse} if successfull
+   */
+  async uploadCourseVersionAssetFile(
+    courseId: string,
+    versionNumber: number,
+    filePath: string,
+    destinationPath: string,
+    options: CourseVersionAssetUploadOptions = {}
+  ): Promise<SuccessIndicator> {
+    await this.authorise(options)
+
+    if (!courseId) {
+      throw new ScormClientError('No courseId provided')
+    }
+
+    if (!versionNumber) {
+      throw new ScormClientError('No versionNumber provided')
+    }
+
+    if (!filePath) {
+      throw new ScormClientError('No filePath provided')
+    }
+
+    if (!destinationPath) {
+      throw new ScormClientError('No destinationPath provided')
+    }
+
+    try {
+      const query = {
+        updateAssetPolicy: options.updateAssetPolicy ?? undefined
+      }
+
+      const response = await request
+        .post(`${BASE_PATH}/courses/${courseId}/versions/${versionNumber}/asset/upload`).type('form')
+        .set('Authorization', this.getBearerString(options))
+        .query(query)
+        .send({ destination: destinationPath })
+        .attach('file', filePath)
+
+      const success = HttpStatus.isSuccess(response)
+
+      const file: string = success && response.body.filename ? response.body.filename : ''
+      const destination: string = success && response.body.destination ? response.body.destination : ''
+      const successMessage = success && file
+        ? `File '${file}' uploaded to '${destination}'`
+        : 'File uploaded'
+
+      return {
+        success,
+        message: success ? successMessage : `Failed to set upload asset for course '${courseId}'`
       }
     } catch (e) {
       throw new ScormClientError(e)

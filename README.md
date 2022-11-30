@@ -91,7 +91,7 @@ The following list indicates which of these endpoints are currently covered by f
 - [ ] GetCourseVersionAsset
 - [ ] ImportCourseVersionAssetFile
 - [ ] DeleteCourseVersionAsset
-- [ ] UploadCourseVersionAssetFile
+- [x] UploadCourseVersionAssetFile
 - [ ] GetCourseVersionFileList
 - [ ] GetCourseVersionConfiguration
 - [ ] SetCourseVersionConfiguration

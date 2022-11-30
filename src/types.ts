@@ -383,6 +383,30 @@ export interface CourseImportOptions extends Options {
   contentMetadata?: string
 }
 
+export const enum AssetUpdatePolicy {
+  REJECT = 'reject',
+  STRICT = 'strict',
+  LAX = 'lax',
+}
+
+export interface CourseVersionAssetUploadOptions extends Options {
+  /** Describes how SCORM Cloud should handle importing asset files with respect to overwriting files.
+   *
+   * Valid values :
+   *  - lax
+   *  - reject
+   *  - strict
+   *
+   * Default value : lax
+   *
+   * A 'reject' policy request will fail if the asset file already exists on the system ('overwriting' not
+   * allowed). A 'strict' policy request will fail if the asset file does not already exist ('overwriting' is
+   * required). A 'lax' policy request will not consider whether the file already exists (i.e., it will attempt
+   * to import in all cases). */
+
+  updateAssetPolicy?: AssetUpdatePolicy
+}
+
 export interface CourseFetchOptions extends Options {
   /** Include the registration count in the results. Default value : false */
   includeRegistrationCount?: boolean
