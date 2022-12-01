@@ -96,7 +96,7 @@ describe('Scorm Cloud Integration Tests', () => {
   // })
 
   test('Upload & Fetch Course', async () => {
-    expect.assertions(17)
+    expect.assertions(18)
 
     // check that course does not already exist
     const course1 = await client.getCourse(COURSE_ID)
@@ -138,6 +138,7 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(r2.courseId).toBeDefined()
     expect(r2.importJobId).toBeDefined()
     expect(r2.importJobResult).toBeDefined()
+    expect(r2.importJobResult?.status).toEqual('COMPLETE')
 
     // fetch the course import status
     const r3 = await client.getCourseImportStatus(r1.importJobId ?? '')
@@ -325,22 +326,14 @@ describe('Scorm Cloud Integration Tests', () => {
     const r4 = await client.getCourseImportStatus('abc')
     expect(r4).toBeUndefined()
   })
-})
 
-test('Delete Zip Course', async () => {
-  // delete the course
-  const r3 = await client.deleteCourse(COURSE_ZIP_ID)
-  expect(r3.success).toBeTruthy()
+  test('Delete Zip Course', async () => {
+    // delete the course
+    const r3 = await client.deleteCourse(COURSE_ZIP_ID)
+    expect(r3.success).toBeTruthy()
 
-  // confirm the course no longer exists
-  const course = await client.getCourse(COURSE_ZIP_ID)
-  expect(course).toBeUndefined()
-
-  // confirm error is thrown when deleting non-existent course
-  try {
-    await client.deleteCourse(COURSE_ZIP_ID)
-  } catch (e) {
-    expect(e.httpStatus).toEqual(404)
-    expect(e.message.startsWith('Could not find course')).toBeTruthy()
-  }
+    // confirm the course no longer exists
+    const course = await client.getCourse(COURSE_ZIP_ID)
+    expect(course).toBeUndefined()
+  })
 })
