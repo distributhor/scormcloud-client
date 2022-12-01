@@ -7,6 +7,9 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 
 const COURSE_FIXTURE = 'shiraz.pdf'
 const COURSE_ID = 'COURSEABC'
+const COURSE_ZIP_FIXTURE = 'GolfExplained3rdEdition.zip'
+const COURSE_ZIP_ID = 'COURSEDEF'
+
 const LEARNER_ID = 'LEARNER123'
 const REGISTRATION_ID = 'REGXYZ'
 
@@ -267,4 +270,77 @@ describe('Scorm Cloud Integration Tests', () => {
       expect(e.message.startsWith('Could not find course')).toBeTruthy()
     }
   })
+
+  test('Upload & Fetch Course Zip', async () => {
+    expect.assertions(18)
+
+    // check that course does not already exist
+    const course1 = await client.getCourse(COURSE_ZIP_ID)
+
+    expect(course1).toBeUndefined()
+
+    // should upload a course
+    const r1 = await client.importCourse(COURSE_ZIP_ID, path.join(__dirname, `../fixtures/${COURSE_ZIP_FIXTURE}`), {
+      waitForResult: 10000
+    })
+
+    expect(r1.courseId).toBeDefined()
+    expect(r1.courseId).toEqual(COURSE_ZIP_ID)
+    expect(r1.importJobId).toBeDefined()
+    expect(r1.importJobResult).toBeDefined()
+    expect(r1.importJobResult?.status).toEqual('COMPLETE')
+
+    // fetch the course and confirm it exists
+    const course2 = await client.getCourse(COURSE_ZIP_ID)
+
+    expect(course2).toBeDefined()
+    expect(course2?.id).toEqual(COURSE_ZIP_ID)
+    expect(course2?.title).toEqual('Golf Explained - Run-time Advanced Calls')
+
+    // should fail to upload a duplicate course
+    try {
+      await client.importCourse(COURSE_ZIP_ID, path.join(__dirname, `../fixtures/${COURSE_ZIP_FIXTURE}`))
+    } catch (e) {
+      expect(e.httpStatus).toEqual(409)
+      expect(e.message.startsWith(`Course [${COURSE_ZIP_ID}] already exists`)).toBeTruthy()
+    }
+
+    // should upload the course again if version increment is allowed
+    const r2 = await client.importCourse(COURSE_ZIP_ID, path.join(__dirname, `../fixtures/${COURSE_ZIP_FIXTURE}`), {
+      mayCreateNewVersion: true,
+      waitForResult: 10000
+    })
+
+    expect(r2.courseId).toBeDefined()
+    expect(r2.importJobId).toBeDefined()
+    expect(r2.importJobResult).toBeDefined()
+    expect(r2.importJobResult?.status).toEqual('COMPLETE')
+
+    // fetch the course import status
+    const r3 = await client.getCourseImportStatus(r1.importJobId ?? '')
+    expect(r3).toBeDefined()
+    expect(r3?.jobId).toEqual(r1.importJobId)
+
+    // fetch a non-existent course import status
+    const r4 = await client.getCourseImportStatus('abc')
+    expect(r4).toBeUndefined()
+  })
+})
+
+test('Delete Zip Course', async () => {
+  // delete the course
+  const r3 = await client.deleteCourse(COURSE_ZIP_ID)
+  expect(r3.success).toBeTruthy()
+
+  // confirm the course no longer exists
+  const course = await client.getCourse(COURSE_ZIP_ID)
+  expect(course).toBeUndefined()
+
+  // confirm error is thrown when deleting non-existent course
+  try {
+    await client.deleteCourse(COURSE_ZIP_ID)
+  } catch (e) {
+    expect(e.httpStatus).toEqual(404)
+    expect(e.message.startsWith('Could not find course')).toBeTruthy()
+  }
 })
