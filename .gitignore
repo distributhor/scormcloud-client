@@ -1,4 +1,5 @@
 .env
+.debug.env
 /dist
 /archive
 node_modules

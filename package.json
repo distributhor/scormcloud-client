@@ -36,6 +36,7 @@
     "lint:fix": "eslint --fix --ignore-path .eslintignore .",
     "lint:staged": "lint-staged",
     "test": "jest -c test/unit/jest.config.js --passWithNoTests",
+    "debug:test": "jest --runInBand -c test/debug/jest.config.js",
     "integration:test": "jest --runInBand -c test/integration/jest.config.js",
     "docs": "typedoc --plugin none --out docs",
     "prepare": "husky install"
