@@ -7,6 +7,8 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 
 const COURSE_FIXTURE = 'shiraz.pdf'
 const COURSE_ID = 'COURSEABC'
+const COURSE_TITLE = 'New Course Title'
+
 const COURSE_ZIP_FIXTURE = 'GolfExplained3rdEdition.zip'
 const COURSE_ZIP_ID = 'COURSEDEF'
 
@@ -236,6 +238,17 @@ describe('Scorm Cloud Integration Tests', () => {
     expect(progress.course.id).toEqual(COURSE_ID)
     expect(progress.learner.id).toEqual(LEARNER_ID)
     expect(progress.totalSecondsTracked).toBeDefined()
+  })
+
+  test('Set a Course Title', async () => {
+    expect.assertions(3)
+
+    const r1 = await client.setCourseTitle(COURSE_ID, COURSE_TITLE)
+    expect(r1.success).toBeTruthy()
+
+    const course = await client.getCourse(COURSE_ID)
+    expect(course).toBeDefined()
+    expect(course?.title).toEqual(COURSE_TITLE)
   })
 
   test('Delete Course & Registration', async () => {
