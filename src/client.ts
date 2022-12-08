@@ -621,7 +621,7 @@ export class ScormClient {
 
     try {
       const response = await request
-        .put(`${BASE_PATH}/courses/${courseId}/title`).type('form')
+        .put(`${BASE_PATH}/courses/${courseId}/title`)
         .set('Authorization', this.getBearerString(options))
         .send({ title })
 
